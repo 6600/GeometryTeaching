@@ -1,0 +1,67 @@
+<template lang="pug">
+  .game-activity
+    .activity-box
+      span.title 點擊適當的方格來塗色，設計正方體的折紙圖樣。
+      .block-box
+        .block(v-for="ind in 25", @click="")
+        .clear
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      blocks: []
+    }
+  },
+  methods: {
+    blockClick () {
+
+    }
+  }
+}
+</script>
+
+<style lang='less' scoped>
+  .game-activity {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #e3f1e2;
+  }
+  .activity-box {
+    margin-bottom: 40px;
+    background-color: #d0e8a1;
+    width: calc(100% - 20px);
+    height: 627px;
+    border-radius: 15px;
+    margin-left: 5px;
+  }
+  .title {
+    height: 150px;
+    line-height: 150px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-left: 70px;
+  }
+  .block-box {
+    height: 370px;
+    width: 370px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-top: 2px solid #b0afaf;
+    border-left: 2px solid #b0afaf;
+    .block {
+      background-color: white;
+      height: 72px;
+      width: 72px;
+      float: left;
+      border-right: 2px solid #b0afaf;
+      border-bottom: 2px solid #b0afaf;
+    }
+  }
+</style>
