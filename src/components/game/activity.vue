@@ -30,10 +30,9 @@ export default {
     background-color: #e3f1e2;
   }
   .activity-box {
-    margin-bottom: 40px;
     background-color: #d0e8a1;
     width: calc(100% - 20px);
-    height: 627px;
+    height: calc(~'100% - 68px');
     border-radius: 15px;
     margin-left: 5px;
   }
