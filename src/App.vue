@@ -3,7 +3,13 @@
     .home-title
     .app-box
       .home-left-bar
-        Button70(@onClick="showPopup = true", text="柱體")
+        Button70.button(@onClick="showPopup = true", text="柱體")
+        Button70.button(@onClick="showPopup = true", text="椎體")
+        Line60
+        Button70.button.pintu(@onClick="showPopup = true", text="")
+        Line60
+        Button60.reduction
+        Button60.explain(@onClick="help")
       router-view
     .popup-box(v-if="showPopup")
       .popup
@@ -16,8 +22,10 @@
 </template>
 
 <script>
+import Button60 from '@/components/button/button_60_60.vue'
 import Button105 from '@/components/button/button_105_55.vue'
 import Button70 from '@/components/button/button_70_50.vue'
+import Line60 from '@/components/line/line_60.vue'
 export default {
   name: 'App',
   data () {
@@ -27,12 +35,19 @@ export default {
   },
   components: {
     Button105,
-    Button70
+    Button70,
+    Button60,
+    Line60
+  },
+  methods: {
+    help () {
+      window.open('https://www.baidu.com/')
+    }
   }
 }
 </script>
 
-<style>
+<style lang='less'>
   #app, html, body {
     margin: 0;
     padding: 0;
@@ -46,7 +61,7 @@ export default {
     background-color: white;
   }
   .app-box {
-    height: calc(100% - 70px);
+    height: calc(~"100% - 70px");
     width: 100%;
     display: flex;
   }
@@ -54,6 +69,21 @@ export default {
     width: 130px;
     box-shadow: 1px 7px 20px #5A9455;
     z-index: 1;
+    .button {
+      margin: 55px 25px;
+    }
+    .pintu {
+      background-repeat: no-repeat;
+      background-image: url('.\assets\pintu.png')
+    }
+    .reduction {
+      margin: 25px;
+      background-image: url('.\assets\reduction.png')
+    }
+    .explain {
+      margin: 25px;
+      background-image: url('.\assets\explain.png')
+    }
   }
   .popup-box {
     width: 100%;

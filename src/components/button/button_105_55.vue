@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang='less' scoped>
   .button_50_50 {
     height: 55px;
     line-height: 55px;
@@ -21,6 +21,7 @@ export default {
     font-size: 1.4rem;
     text-align: center;
     width: 105px;
+    cursor: pointer;
     border: 4px solid white;
     box-shadow: 2px 2px 4px #d8dede;
     background: linear-gradient(#f9d076, #915610);
