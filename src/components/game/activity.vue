@@ -3,7 +3,7 @@
     .activity-box
       span.title 點擊適當的方格來塗色，設計正方體的折紙圖樣。
       .block-box
-        .block(v-for="ind in 25", @click="")
+        .block(v-for="ind in 25", @click="blockClick(ind, $event)", :class="{ active: blocks[ind] }")
         .clear
       .game-menu
         Line110(text="重設")
@@ -21,8 +21,13 @@ export default {
     }
   },
   methods: {
-    blockClick () {
-
+    blockClick (ind, event) {
+      if (this.blocks[ind]) {
+        event.target.classList.remove('active')
+      } else {
+        event.target.classList.add('active')
+      }
+      this.blocks[ind] = !this.blocks[ind]
     }
   },
   components: {
@@ -77,13 +82,17 @@ export default {
     margin: auto;
     border-top: 2px solid #b0afaf;
     border-left: 2px solid #b0afaf;
-    .block {
-      background-color: white;
-      height: 72px;
-      width: 72px;
-      float: left;
-      border-right: 2px solid #b0afaf;
-      border-bottom: 2px solid #b0afaf;
+    .active {
+      background-color: #ff0000;
     }
+  }
+  .block {
+    background-color: white;
+    height: 72px;
+    width: 72px;
+    float: left;
+    cursor: pointer;
+    border-right: 2px solid #b0afaf;
+    border-bottom: 2px solid #b0afaf;
   }
 </style>
