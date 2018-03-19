@@ -10,13 +10,13 @@ export default new Router({
     // 程序主入口
     {
       path: '/',
-      name: 'cube-one',
-      component: cubeOne
-    },
-    {
-      path: '/activityGame',
       name: 'activityGame',
       component: activityGame
+    },
+    {
+      path: '/cubeOne',
+      name: 'cube-one',
+      component: cubeOne
     }
   ]
 })

@@ -3,20 +3,21 @@
     .home-title
     .app-box
       .home-left-bar
-        .ass(@click="showPopup = true") 开启
+        Button70(@onClick="showPopup = true", text="柱體")
       router-view
     .popup-box(v-if="showPopup")
       .popup
         p.popup-title 請選擇折紙圖樣：
         .popup-panel
         centre.popup-panel-menu
-          Button.cancel-button(@onClick="showPopup = false", text="确定")
-          Button.cancel-button(@onClick="showPopup = false", text="取消")
+          Button105.cancel-button(@onClick="showPopup = false", text="确定")
+          Button105.cancel-button(@onClick="showPopup = false", text="取消")
     .logo
 </template>
 
 <script>
-import Button from '@/components/button/button_50_50.vue'
+import Button105 from '@/components/button/button_105_55.vue'
+import Button70 from '@/components/button/button_70_50.vue'
 export default {
   name: 'App',
   data () {
@@ -25,7 +26,8 @@ export default {
     }
   },
   components: {
-    Button
+    Button105,
+    Button70
   }
 }
 </script>
@@ -50,6 +52,8 @@ export default {
   }
   .home-left-bar {
     width: 130px;
+    box-shadow: 1px 7px 20px #5A9455;
+    z-index: 1;
   }
   .popup-box {
     width: 100%;
@@ -92,6 +96,7 @@ export default {
     left: 0px;
     height: 52px;
     width: 260px;
+    z-index: 2;
     background-image: url('./assets/logo.png');
   }
   .popup-panel-menu {

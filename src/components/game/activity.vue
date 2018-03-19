@@ -24,7 +24,7 @@ export default {
 
 <style lang='less' scoped>
   .game-activity {
-    width: 100%;
+    width: calc(~"100% - 130px");
     height: 100%;
     overflow: hidden;
     background-color: #e3f1e2;
@@ -33,6 +33,7 @@ export default {
     background-color: #d0e8a1;
     width: calc(100% - 20px);
     height: calc(~'100% - 68px');
+    box-shadow: 0px -2px 13px #8ba3b2 inset;
     border-radius: 15px;
     margin-left: 5px;
   }
