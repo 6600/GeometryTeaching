@@ -7,6 +7,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    // 程序主入口
     {
       path: '/',
       name: 'cube-one',

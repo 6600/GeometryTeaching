@@ -9,17 +9,21 @@
       .popup
         p.popup-title 請選擇折紙圖樣：
         .popup-panel
-        .cancel(@click="showPopup = false") 取消
+        Button.cancel-button(@onClick="showPopup = false", text="取消")
     .logo
 </template>
 
 <script>
+import Button from '@/components/button/button_50_50.vue'
 export default {
   name: 'App',
   data () {
     return {
       showPopup: false
     }
+  },
+  components: {
+    Button
   }
 }
 </script>
@@ -51,6 +55,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 999;
     background-color: rgba(0, 0, 0, 0.40);
   }
   .popup {
