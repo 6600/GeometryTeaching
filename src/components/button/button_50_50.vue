@@ -25,4 +25,7 @@ export default {
     box-shadow: 2px 2px 4px #d8dede;
     background: linear-gradient(#f9d076, #915610);
   }
+  .button_50_50:hover {
+    transform: scale(1.1);
+  }
 </style>

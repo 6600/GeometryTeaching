@@ -9,7 +9,9 @@
       .popup
         p.popup-title 請選擇折紙圖樣：
         .popup-panel
-        Button.cancel-button(@onClick="showPopup = false", text="取消")
+        centre.popup-panel-menu
+          Button.cancel-button(@onClick="showPopup = false", text="确定")
+          Button.cancel-button(@onClick="showPopup = false", text="取消")
     .logo
 </template>
 
@@ -91,6 +93,15 @@ export default {
     height: 52px;
     width: 260px;
     background-image: url('./assets/logo.png');
+  }
+  .popup-panel-menu {
+    display: flex;
+    width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    height: 65px;
+    padding: 25px 0;
   }
   .clear {
     clear: both;
