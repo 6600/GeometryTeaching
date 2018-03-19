@@ -15,7 +15,7 @@
       .popup
         p.popup-title 請選擇折紙圖樣：
         .popup-panel
-        centre.popup-panel-menu
+        .popup-panel-menu
           Button105.cancel-button(@onClick="showPopup = false", text="确定")
           Button105.cancel-button(@onClick="showPopup = false", text="取消")
     .logo
@@ -59,6 +59,7 @@ export default {
   .home-title {
     height: 70px;
     background-color: white;
+    background-image: url('.\assets\title.png')
   }
   .app-box {
     height: calc(~"100% - 70px");
