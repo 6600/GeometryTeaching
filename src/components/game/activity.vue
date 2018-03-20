@@ -3,10 +3,11 @@
     .activity-box
       span.title 點擊適當的方格來塗色，設計正方體的折紙圖樣。
       .block-box
-        .block(v-for="ind in 25", @click="blockClick(ind, $event)", :class="{ active: blocks[ind] }")
+        .blockrow(v-for="i in 5")
+          .block(v-for="j in 5", @click="blockClick(i-1, j-1, $event)", :class="{ active: blocks[i-1][j-1] }")
         .clear
       .game-menu
-        Line110(text="重設")
+        Line110(@onClick="reset",text="重設")
         Line110(text="確定")
         Line110.disable(text="觀看動畫")
         Line110(text="輸出圖樣")
@@ -14,20 +15,33 @@
 
 <script>
 import Line110 from '@/components/button/button_110_35.vue'
+var arr = new Array(5)
+for (var i = 0; i < 5; i++) {
+  arr[i] = new Array(i)
+  for (var j = 0; j < 5; j++) {
+    arr[i][j] = false
+  }
+}
+var data = { blocks: arr }
 export default {
-  data () {
-    return {
-      blocks: []
-    }
+  data: function () {
+    return data
   },
   methods: {
-    blockClick (ind, event) {
-      if (this.blocks[ind]) {
+    blockClick (i, j, event) {
+      if (this.blocks[i][j]) {
         event.target.classList.remove('active')
       } else {
         event.target.classList.add('active')
       }
-      this.blocks[ind] = !this.blocks[ind]
+      this.blocks[i][j] = !this.blocks[i][j]
+    },
+    reset () {
+      for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 5; j++) {
+          this.$set(this.blocks[i][j] = false)
+        }
+      }
     }
   },
   components: {
