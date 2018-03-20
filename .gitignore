@@ -57,3 +57,19 @@ typings/
 # dotenv environment variables file
 .env
 
+.idea/modules.xml
+.idea/GeometryTeaching.iml
+.idea/codeStyleSettings.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/watcherTasks.xml
+.idea/workspace.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/misc.xml
+.idea/GeometryTeaching.iml
+.idea/codeStyleSettings.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/watcherTasks.xml
+.idea/workspace.xml
+.idea/inspectionProfiles/Project_Default.xml
