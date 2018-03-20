@@ -4,7 +4,7 @@
     .app-box
       .home-left-bar
         Button70.button(@onClick="showPopup = true", text="柱體")
-        Button70.button(@onClick="showPopup = true", text="椎體")
+        Button70.button(@onClick="clickTest", text="椎體")
         Line60
         Button70.button.pintu(@onClick="showPopup = true", text="")
         Line60
@@ -42,6 +42,9 @@ export default {
   methods: {
     help () {
       window.open('https://www.baidu.com/')
+    },
+    clickTest () {
+      window.location.href = '/#/origami'
     }
   }
 }
