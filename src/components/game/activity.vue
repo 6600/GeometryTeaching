@@ -8,7 +8,7 @@
         .clear
       .game-menu
         Line110(@onClick="reset",text="重設")
-        Line110(text="確定")
+        Line110(@onClick="check", text="確定")
         Line110.disable(text="觀看動畫")
         Line110(text="輸出圖樣")
 </template>
@@ -37,6 +37,56 @@ export default {
           this.$set(this.blocks[i], [j], false)
         }
       }
+    },
+    check () {
+      var res = false
+      var firstx = 0
+      var firsty = 0
+      var isfind = false
+      // 寻找第一个定位点
+      for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 5; j++) {
+          if (this.blocks[i][j]) {
+            firstx = i
+            firsty = j
+            isfind = true
+            break
+          }
+        }
+        if (isfind) {
+          break
+        }
+      }
+      // 初始化校验数据
+      var data = new Array(64)
+      this.initData(data)
+      // 开始判断
+      for (var i1 = 0; i1 < 4; i1++) {
+        var flag = true
+        for (var j1 = 0; j1 < 5; j1++) {
+          if (firstx + data[i1][j1 * 2 + 1] < 0 || (firsty + data[i1][j1 * 2]) < 0) {
+            flag = false
+            break
+          } else if (!this.blocks[firstx + data[i1][j1 * 2 + 1]][firsty + data[i1][j1 * 2]]) {
+            flag = false
+            break
+          }
+        }
+        if (flag) {
+          res = true
+          break
+        }
+      }
+      alert(res)
+    },
+    initData (data) {
+      data[0] = [0, 1, 0, 2, 1, 1, 2, 1, 3, 1]
+      data[1] = [1, 0, 1, 1, 1, 2, 1, 3, 2, 0]
+      data[2] = [-3, 1, -2, 1, -1, 1, 0, 1, 0, 2]
+      data[3] = [-1, 3, 0, 1, 0, 2, 0, 3, 1, 3]
+      // data[1] = [-3, 1, -2, 1, -2, 2, -1, 1, 0, 1]
+      // data[2] = [-1, 1, 0, 1, 0, 2, 0, 3, 1, 3]
+      // data[3] = [0, 1, 1, 1, 2, 1, 3, 1, 3, 2]
     }
   },
   components: {
