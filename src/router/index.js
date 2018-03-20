@@ -8,10 +8,11 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    // 程序主入口
     {
       path: '/',
-      name: 'cube-one',
-      component: cubeOne
+      name: 'activityGame',
+      component: activityGame
     },
     {
       path: '/cubeTwo',
@@ -19,9 +20,9 @@ export default new Router({
       component: cubetwo
     },
     {
-      path: '/activityGame',
-      name: 'activityGame',
-      component: activityGame
+      path: '/cubeOne',
+      name: 'cube-one',
+      component: cubeOne
     }
   ]
 })
