@@ -4,7 +4,7 @@
       span.title 點擊適當的方格來塗色，設計正方體的折紙圖樣。
       .block-box
         .blockrow(v-for="i in 5")
-          .block(v-for="j in 5", @click="blockClick(i-1, j-1, $event)")
+          .block(v-for="j in 5", @click="blockClick(i-1, j-1, $event)", :class="{ active: blocks[i-1][j-1] }")
         .clear
       .game-menu
         Line110(@onClick="reset",text="重設")
@@ -29,12 +29,7 @@ export default {
   },
   methods: {
     blockClick (i, j, event) {
-      if (this.blocks[i][j]) {
-        event.target.classList.remove('active')
-      } else {
-        event.target.classList.add('active')
-      }
-      this.blocks[i][j] = !this.blocks[i][j]
+      this.$set(this.blocks[i], [j], !this.blocks[i][j])
     },
     reset () {
       for (var i = 0; i < 5; i++) {
