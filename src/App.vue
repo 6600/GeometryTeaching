@@ -3,28 +3,54 @@
     .home-title
     .app-box
       .home-left-bar
-        .ass(@click="showPopup = true") 开启
+        Button70.button(@onClick="showPopup = true", text="柱體")
+        Button70.button(@onClick="clickTest", text="椎體")
+        Line60
+        Button70.button.pintu(@onClick="showPopup = true", text="")
+        Line60
+        Button60.reduction
+        Button60.explain(@onClick="help")
       router-view
     .popup-box(v-if="showPopup")
       .popup
         p.popup-title 請選擇折紙圖樣：
         .popup-panel
-        .cancel(@click="showPopup = false") 取消
+        .popup-panel-menu
+          Button105.cancel-button(@onClick="showPopup = false", text="确定")
+          Button105.cancel-button(@onClick="showPopup = false", text="取消")
     .logo
 </template>
 
 <script>
+import Button60 from '@/components/button/button_60_60.vue'
+import Button105 from '@/components/button/button_105_55.vue'
+import Button70 from '@/components/button/button_70_50.vue'
+import Line60 from '@/components/line/line_60.vue'
 export default {
   name: 'App',
   data () {
     return {
       showPopup: false
     }
+  },
+  components: {
+    Button105,
+    Button70,
+    Button60,
+    Line60
+  },
+  methods: {
+    help () {
+      window.open('https://www.baidu.com/')
+    },
+    clickTest () {
+      window.location.href = '/#/origami'
+    }
   }
 }
 </script>
 
-<style>
+<style lang='less'>
   #app, html, body {
     margin: 0;
     padding: 0;
@@ -36,14 +62,32 @@ export default {
   .home-title {
     height: 70px;
     background-color: white;
+    background-image: url('.\assets\title.png')
   }
   .app-box {
-    height: calc(100% - 70px);
+    height: calc(~"100% - 70px");
     width: 100%;
     display: flex;
   }
   .home-left-bar {
     width: 130px;
+    box-shadow: 1px 7px 20px #5A9455;
+    z-index: 1;
+    .button {
+      margin: 55px 25px;
+    }
+    .pintu {
+      background-repeat: no-repeat;
+      background-image: url('.\assets\pintu.png')
+    }
+    .reduction {
+      margin: 25px;
+      background-image: url('.\assets\reduction.png')
+    }
+    .explain {
+      margin: 25px;
+      background-image: url('.\assets\explain.png')
+    }
   }
   .popup-box {
     width: 100%;
@@ -51,6 +95,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 999;
     background-color: rgba(0, 0, 0, 0.40);
   }
   .popup {
@@ -85,7 +130,17 @@ export default {
     left: 0px;
     height: 52px;
     width: 260px;
+    z-index: 2;
     background-image: url('./assets/logo.png');
+  }
+  .popup-panel-menu {
+    display: flex;
+    width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    height: 65px;
+    padding: 25px 0;
   }
   .clear {
     clear: both;
