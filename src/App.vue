@@ -44,7 +44,7 @@ export default {
       window.open('https://www.baidu.com/')
     },
     clickTest () {
-      window.location.href = '/#/origami/cubeOne'
+      window.location.href = '/#/origami/cubeTwo'
     }
   }
 }

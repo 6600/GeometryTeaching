@@ -1,5 +1,5 @@
 <template lang="pug">
-  .cube-two
+  .mitsubishi-column-one
 </template>
 
 <script>
@@ -17,63 +17,34 @@ export default {
     }
   },
   mounted () {
+    // 创建3D环境
     Fun.init3D(this.$el).then((Object3D) => {
       this.camera = Object3D.camera
       this.renderer = Object3D.renderer
       this.scene = Object3D.scene
-      this.creatCube(Object3D.scene, Object3D.renderer, Object3D.camera)
+      this.creatMitsubishiColumn(Object3D.scene, Object3D.renderer, Object3D.camera)
     })
   },
   methods: {
     nextStep () {
       setTimeout(() => {
-        // this.step++
-        // this.animation(this.step)
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    animation (step) {
-    //   const spiale = this.spiale
-    //   if (step <= 90) {
-    //     // 盒子左1
-    //     spiale[0].rotation.y = step * (Math.PI / 180)
-    //     spiale[1].rotation.y = step * (Math.PI / 180)
-    //     // 盒子右部
-    //     spiale[3].rotation.y = -step * (Math.PI / 180)
-    //     // 盒子上部
-    //     spiale[4].rotation.x = step * (Math.PI / 180)
-    //     // 盒子下部
-    //     spiale[5].rotation.x = -step * (Math.PI / 180)
-    //     this.nextStep()
-    //   } else if (step === 91) {
-    //     // 重设0面转轴
-    //     this.meshs[0].position.set(-0.5, 0, 0)
-    //     this.spiale[0].position.set(-0.5, 0, 1)
-    //     spiale[0].rotation.y = step * (Math.PI / 180)
-    //     this.nextStep()
-    //   } else if (step < 181) {
-    //     spiale[0].rotation.y = step * (Math.PI / 180)
-    //     this.nextStep()
-    //   } else {
-    //     // console.log('动画已播放完毕!')
-    //   }
-    },
-    creatCube (scene, renderer, camera) {
+    creatMitsubishiColumn (scene, renderer, camera) {
       // 创建正方体的6个平面
       // 定义长宽都是1平面
       const geometry = new THREE.PlaneGeometry(1, 1)
-      // 定义6个颜色
-      //                  左边绿          左边屎黄色     中间蓝     左边黄色      上面橙色      最下紫罗兰
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec']
-      // 定义6个坐标
-      // const positions = [[-1.5, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [0, 0.5, 0], [0, -0.5, 0]]
-      const positions = [[0, -0.5, 0], [0, -1.5, 0], [-0.5, -1, 0], [0, 0, 0], [0.5, 0.5, 0], [1.5, 1.5, 0]]
-      // 定义6个转轴
-      const axiss = [[-1.5, 0.5, 0], [-0.5, 0.5, 0], [0, 1, 0], [0.5, 0, 0], [0, 0.5, 0], [0, -0.5, 0]]
-      // 创造6个平面
+      // 定义3个颜色
+      const colors = ['#ccb8f0', '#f8714e', '#fbc562']
+      // 定义3个坐标
+      const positions = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0]]
+      // 定义3个转轴
+      const axiss = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0]]
+      // 创造3个平面
       for (let index in colors) {
         // 取得颜色
         const color = colors[index]
