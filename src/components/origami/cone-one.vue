@@ -36,30 +36,30 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     animation (step) {
-      const spiale = this.spiale
-      if (step <= 90) {
-        // 盒子左1
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        spiale[1].rotation.y = step * (Math.PI / 180)
-        // 盒子右部
-        spiale[3].rotation.y = -step * (Math.PI / 180)
-        // 盒子上部
-        spiale[4].rotation.x = step * (Math.PI / 180)
-        // 盒子下部
-        spiale[5].rotation.x = -step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step === 91) {
-        // 重设0面转轴
-        this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 1)
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step < 181) {
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
-      } else {
-        // console.log('动画已播放完毕!')
-      }
+    //   const spiale = this.spiale
+    //   if (step <= 90) {
+    //     // 盒子左1
+    //     spiale[0].rotation.y = step * (Math.PI / 180)
+    //     spiale[1].rotation.y = step * (Math.PI / 180)
+    //     // 盒子右部
+    //     spiale[3].rotation.y = -step * (Math.PI / 180)
+    //     // 盒子上部
+    //     spiale[4].rotation.x = step * (Math.PI / 180)
+    //     // 盒子下部
+    //     spiale[5].rotation.x = -step * (Math.PI / 180)
+    //     this.nextStep()
+    //   } else if (step === 91) {
+    //     // 重设0面转轴
+    //     this.meshs[0].position.set(-0.5, 0, 0)
+    //     this.spiale[0].position.set(-0.5, 0, 1)
+    //     spiale[0].rotation.y = step * (Math.PI / 180)
+    //     this.nextStep()
+    //   } else if (step < 181) {
+    //     spiale[0].rotation.y = step * (Math.PI / 180)
+    //     this.nextStep()
+    //   } else {
+    //     // console.log('动画已播放完毕!')
+    //   }
     },
     creatCube (scene, renderer, camera) {
       // 创建正方体的6个平面
