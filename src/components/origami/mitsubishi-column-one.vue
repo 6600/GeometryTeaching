@@ -37,7 +37,7 @@ export default {
     creatMitsubishiColumn (scene, renderer, camera) {
       // 创建正方体的6个平面
       // 定义长宽都是1平面
-      const geometry = new THREE.PlaneGeometry(1, 1)
+      const PlaneGeometry = new THREE.PlaneGeometry(1, 1)
       // 定义3个颜色
       const colors = ['#ccb8f0', '#f8714e', '#fbc562']
       // 定义3个坐标
@@ -56,7 +56,7 @@ export default {
         this.spiale[index] = new THREE.Object3D()
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
-        this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
+        this.meshs[index] = new THREE.Mesh(PlaneGeometry, new THREE.MeshLambertMaterial({
           color: color,
           transparent: true,
           // 双面双面贴图
@@ -68,6 +68,7 @@ export default {
         this.meshs[index].rotation.set(0, 0, 0)
         // 设置平面缩放
         this.meshs[index].scale.set(1, 1, 1)
+        console.log(this.meshs[index])
         // 取消面剔除
         this.meshs[index].doubleSided = true
         this.meshs[index].castShadow = true
@@ -75,8 +76,21 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      // 调试转轴
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      // 绘制三角形
+      const triangle = [
+        {
+          spot: [[-0.5, 0.5, 0], [0, 1.5, 0], [0.5, 0.5, 0]],
+          color: 0x0000ff
+        },
+        {
+          spot: [[-0.5, -0.5, 0], [0, -1.5, 0], [0.5, -0.5, 0]],
+          color: 0x0000ff
+        }
+      ]
+      Fun.drawTriangle(triangle).then((mesh) => {
+        // 将平面添加到场景中
+        scene.add(...mesh)
+      })
       setTimeout(() => {
         this.nextStep()
       }, 1000)

@@ -50,6 +50,31 @@ const Fun = {
       scene.add(object3d)
       resolve({scene, renderer, camera})
     })
+  },
+  // 绘制三角形平面函数
+  drawTriangle (option) {
+    return new Promise((resolve, reject) => {
+      let meshList = []
+      option.forEach(element => {
+        // 创建正方体的6个平面
+        // 创建三角形
+        let geometry = new THREE.Geometry() // 声明一个空几何体对象
+        element.spot.forEach(item => {
+          // 将所有点合成成面
+          geometry.vertices.push(new THREE.Vector3(...item))
+        })
+        let normal = new THREE.Vector3(0, 0, 1) // 三角面法向量
+        let face = new THREE.Face3(0, 1, 2, normal) // 创建三角面
+        geometry.faces.push(face) // 三角面添加到几何体
+        let material = new THREE.MeshLambertMaterial({
+          color: element.color, // 三角面颜色
+          side: THREE.DoubleSide // 两面可见
+        }) // 材质对象
+        let mesh = new THREE.Mesh(geometry, material) // 网格模型对象
+        meshList.push(mesh)
+      })
+      resolve(meshList)
+    })
   }
 }
 
