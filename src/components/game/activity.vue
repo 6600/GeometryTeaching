@@ -61,23 +61,35 @@ export default {
       var data = new Array(64)
       this.initData(data)
       // 开始判断
-      for (var i1 = 0; i1 < 64; i1++) {
-        var flag = true
-        for (var j1 = 0; j1 < 5; j1++) {
-          if (firstx + data[i1][j1 * 2 + 1] < 0 || (firsty + data[i1][j1 * 2]) < 0) {
-            flag = false
-            break
-          } else if (!this.blocks[firstx + data[i1][j1 * 2 + 1]][firsty + data[i1][j1 * 2]]) {
-            flag = false
+      var num = 0
+      for (var i2 = 0; i2 < 5; i2++) {
+        for (var j2 = 0; j2 < 5; j2++) {
+          if (this.blocks[i2][j2]) {
+            num++
+          }
+        }
+      }
+      if (num !== 6) {
+        alert('你咋和蒲鸽一样傻，不知道立方体有六个面吗？')
+      } else {
+        for (var i1 = 0; i1 < 64; i1++) {
+          var flag = true
+          for (var j1 = 0; j1 < 5; j1++) {
+            if (firstx + data[i1][j1 * 2 + 1] < 0 || (firsty + data[i1][j1 * 2]) < 0) {
+              flag = false
+              break
+            } else if (!this.blocks[firstx + data[i1][j1 * 2 + 1]][firsty + data[i1][j1 * 2]]) {
+              flag = false
+              break
+            }
+          }
+          if (flag) {
+            res = true
             break
           }
         }
-        if (flag) {
-          res = true
-          break
-        }
+        alert(res)
       }
-      alert(res)
     },
     initData (data) {
       // 1
