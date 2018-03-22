@@ -5,6 +5,7 @@ import cubeOne from '@/components/origami/cube-one'
 import cubetwo from '@/components/origami/cube-two'
 import mitsubishiColumnOne from '@/components/origami/mitsubishi-column-one'
 import mitsubishiColumnTwo from '@/components/origami/mitsubishi-column-two'
+import cuboidOne from '@/components/origami/cuboid-one'
 import activityGame from '@/components/game/activity'
 
 Vue.use(Router)
@@ -41,6 +42,11 @@ export default new Router({
           path: '/origami/mitsubishiColumnTwo',
           name: 'mitsubishi-column-two',
           component: mitsubishiColumnTwo
+        },
+        {
+          path: '/origami/cuboidOne',
+          name: 'cuboid-one',
+          component: cuboidOne
         }
       ]
     }
