@@ -45,7 +45,6 @@ export default {
       }
     },
     check () {
-      var res = false
       var firstx = 0
       var firsty = 0
       var isfind = false
@@ -77,7 +76,6 @@ export default {
       }
       if (num !== 6) {
         this.popupType = 2
-        return
       } else {
         for (var i1 = 0; i1 < 64; i1++) {
           var flag = true
