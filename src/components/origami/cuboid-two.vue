@@ -73,6 +73,9 @@ export default {
         this.spiale[5].position.set(0.25, -1, 0)
         spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
         this.nextStep()
+      } else if (step < 271) {
+        spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
+        this.nextStep()
       } else {
         console.log('动画已播放完毕!')
       }
