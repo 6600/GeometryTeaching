@@ -70,10 +70,7 @@ export default {
         this.nextStep()
       } else if (step === 181) {
         this.meshs[5].position.set(0.25, 0.5, 0)
-        this.spiale[5].position.set(2.25, 1, 0)
-        spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
-        this.nextStep()
-      } else if (step < 271) {
+        this.spiale[5].position.set(0.25, -1, 0)
         spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
         this.nextStep()
       } else {
@@ -148,7 +145,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      this.spiale[5].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
       }, 0)
