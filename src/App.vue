@@ -6,7 +6,7 @@
         Button70.button(@onClick="showPopup = true", text="柱體")
         Button70.button(@onClick="clickTest", text="椎體")
         Line60
-        Button70.button.pintu(@onClick="showPopup = true", text="")
+        Button70.button.pintu(@onClick="playGame", text="")
         Line60
         Button60.reduction
         Button60.explain(@onClick="help")
@@ -45,6 +45,9 @@ export default {
     },
     clickTest () {
       window.location.href = '/#/origami/cubeTwo'
+    },
+    playGame () {
+      window.location.href = '/#/activityGame'
     }
   }
 }

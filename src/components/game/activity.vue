@@ -11,10 +11,16 @@
         Line110(@onClick="check", text="確定")
         Line110.disable(text="觀看動畫")
         Line110(text="輸出圖樣")
+    .activity-popup-box(v-if="popupType !== 0")
+      .popup-box
+        .text-box.text-box-one-line(v-if="popupType === 1") 這折紙圖樣可折成正方體。
+        .text-box.text-box-two-line(v-if="popupType === 2") 這折紙圖洋不可以折成正方體，再來壹次。
+        Button105.button(text="确定", @onClick="popupType = 0")
 </template>
 
 <script>
 import Line110 from '@/components/button/button_110_35.vue'
+import Button105 from '@/components/button/button_105_55.vue'
 var arr = new Array(5)
 for (var i = 0; i < 5; i++) {
   arr[i] = new Array(i)
@@ -22,7 +28,7 @@ for (var i = 0; i < 5; i++) {
     arr[i][j] = false
   }
 }
-var data = { blocks: arr }
+var data = { blocks: arr, popupType: 0 }
 export default {
   data: function () {
     return data
@@ -70,7 +76,8 @@ export default {
         }
       }
       if (num !== 6) {
-        alert('你咋和蒲鸽一样傻，不知道立方体有六个面吗？')
+        this.popupType = 2
+        return
       } else {
         for (var i1 = 0; i1 < 64; i1++) {
           var flag = true
@@ -84,11 +91,11 @@ export default {
             }
           }
           if (flag) {
-            res = true
-            break
+            this.popupType = 1
+            return
           }
         }
-        alert(res)
+        this.popupType = 2
       }
     },
     initData (data) {
@@ -179,7 +186,8 @@ export default {
     }
   },
   components: {
-    Line110
+    Line110,
+    Button105
   }
 }
 </script>
@@ -242,5 +250,50 @@ export default {
     cursor: pointer;
     border-right: 2px solid #b0afaf;
     border-bottom: 2px solid #b0afaf;
+  }
+  .activity-popup-box {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 14;
+    background-color: rgba(0, 0, 0, 0.6);
+    .popup-box {
+      height: 240px;
+      width: 520px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      border-radius: 15px;
+      background-color: white;
+      box-shadow: 0px -2px 13px #8ba3b2 inset;
+      .text-box-one-line {
+        line-height: 110px;
+        text-align: center;
+      }
+      .text-box-two-line {
+        line-height: 55px;
+        text-align: left;
+        padding: 10px;
+        width: calc(100% - 20px);
+      }
+      .button {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    .text-box {
+      font-size: 2rem;
+      font-weight: bold;
+      height: 110px;
+      width: 100%;
+      background-color: #e9f6fd;
+      margin: 20px 0;
+      box-shadow: 0px -2px 13px #8ba3b2 inset;
+    }
   }
 </style>

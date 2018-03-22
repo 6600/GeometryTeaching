@@ -19,8 +19,8 @@ export default new Router({
     // 程序主入口
     {
       path: '/',
-      name: 'activityGame',
-      component: activityGame
+      name: 'root',
+      redirect: '/origami/cubeOne'
     },
     {
       path: '/origami',
@@ -68,6 +68,11 @@ export default new Router({
           component: trigonometricConeTwo
         }
       ]
+    },
+    {
+      path: '/activityGame',
+      name: 'activityGame',
+      component: activityGame
     }
   ]
 })
