@@ -8,6 +8,8 @@
     .bottom.flip-button(@click="flipTo(3)")
     .left.flip-button(@click="flipTo(2)")
     .right.flip-button(@click="flipTo(4)")
+    .play(@click="play") 播放
+    .back(@click="back") 返回
 </template>
 
 <script>
@@ -19,7 +21,7 @@ export default {
   methods: {
     // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
     flipTo (type) {
-      console.log(this.$refs.draw.camera)
+      // console.log(this.$refs.draw.camera)
       let i = 0
       const flip = (type) => {
         setTimeout(() => {
@@ -52,6 +54,13 @@ export default {
         }, 20)
       }
       flip(type)
+    },
+    // 播放拆盒子效果
+    play () {
+      this.$refs.draw.closeBox()
+    },
+    back () {
+      this.$refs.draw.openBox()
     }
   }
 }
