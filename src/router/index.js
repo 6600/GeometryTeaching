@@ -8,8 +8,15 @@ import mitsubishiColumnTwo from '@/components/origami/mitsubishi-column-two'
 // 三角锥
 import trigonometricConeOne from '@/components/origami/trigonometric-cone-one'
 import trigonometricConeTwo from '@/components/origami/trigonometric-cone-two'
+// 长方体1
 import cuboidOne from '@/components/origami/cuboid-one'
 import cuboidTwo from '@/components/origami/cuboid-two'
+// 长方体2
+import cuboidThree from '@/components/origami/cuboid-three'
+import cuboidFour from '@/components/origami/cuboid-four'
+// 五棱柱
+import pentagonalPrismOne from '@/components/origami/pentagonal-prism-one'
+// import pentagonalPrismTwo from '@/components/origami/pentagonal-prism-two'
 import activityGame from '@/components/game/activity'
 
 Vue.use(Router)
@@ -56,6 +63,26 @@ export default new Router({
           path: '/origami/cuboidTwo',
           name: 'cuboid-two',
           component: cuboidTwo
+        },
+        {
+          path: '/origami/cuboidThree',
+          name: 'cuboid-three',
+          component: cuboidThree
+        },
+        {
+          path: '/origami/cuboidFour',
+          name: 'cuboid-four',
+          component: cuboidFour
+        },
+        {
+          path: '/origami/pentagonalPrismOne',
+          name: 'pentagonal-orism-one',
+          component: pentagonalPrismOne
+        },
+        {
+          path: '/origami/cuboidFour',
+          name: 'cuboid-four',
+          component: cuboidFour
         },
         {
           path: '/origami/trigonometricConeOne',
