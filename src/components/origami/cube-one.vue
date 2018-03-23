@@ -1,5 +1,10 @@
 <template lang="pug">
   .cube-one
+    .draw
+    .top.flip-button(@click="flipTop")
+    .bottom.flip-button(@click="flipBottom")
+    .left.flip-button(@click="flipLeft")
+    .right.flip-button(@click="flipRight")
 </template>
 
 <script>
@@ -17,7 +22,8 @@ export default {
     }
   },
   mounted () {
-    Fun.init3D(this.$el).then((Object3D) => {
+    console.log(this)
+    Fun.init3D(this.$el.children[0]).then((Object3D) => {
       this.camera = Object3D.camera
       this.renderer = Object3D.renderer
       this.scene = Object3D.scene
@@ -107,7 +113,102 @@ export default {
       setTimeout(() => {
         this.nextStep()
       }, 0)
+    },
+    flipTop () {
+      let i = 0
+      const flip = () => {
+        setTimeout(() => {
+          this.camera.position.y = this.camera.position.y - 0.1
+          this.camera.position.z = this.camera.position.z + Math.sqrt(3) / 10
+          this.camera.lookAt(this.scene.position)
+          this.renderScene()
+          if (i < 10) {
+            i++
+            flip()
+          }
+        }, 20)
+      }
+      flip()
+    },
+    flipBottom () {
+      let i = 0
+      const flip = () => {
+        setTimeout(() => {
+          this.camera.position.y = this.camera.position.y + 0.1
+          this.camera.position.z = this.camera.position.z - Math.sqrt(3) / 10
+          this.camera.lookAt(this.scene.position)
+          this.renderScene()
+          if (i < 10) {
+            i++
+            flip()
+          }
+        }, 20)
+      }
+      flip()
+    },
+    flipLeft () {
+      let i = 0
+      const flip = () => {
+        setTimeout(() => {
+          this.camera.position.x = this.camera.position.x - 0.1
+          this.camera.position.z = this.camera.position.z - Math.sqrt(3) / 10
+          this.camera.lookAt(this.scene.position)
+          this.renderScene()
+          if (i < 10) {
+            i++
+            flip()
+          }
+        }, 20)
+      }
+      flip()
+    },
+    flipRight () {
+      let i = 0
+      const flip = () => {
+        setTimeout(() => {
+          this.camera.position.x = this.camera.position.x + 0.1
+          this.camera.position.z = this.camera.position.z - Math.sqrt(3) / 10
+          this.camera.lookAt(this.scene.position)
+          this.renderScene()
+          if (i < 10) {
+            i++
+            flip()
+          }
+        }, 20)
+      }
+      flip()
     }
   }
 }
 </script>
+
+<style lang='less' scoped>
+  .cube-one {
+    position: relative;
+  }
+  .flip-button {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+  }
+  .top {
+    top: 20px;
+    left: 160px;
+    background-image: url('..\..\assets\bofang04@1x.png')
+  }
+  .bottom {
+    bottom: 20px;
+    left: 160px;
+    background-image: url('..\..\assets\bofang04@1x.png')
+  }
+  .left {
+    bottom: 120px;
+    left: 60px;
+    background-image: url('..\..\assets\bofang04@1x.png')
+  }
+  .right {
+    bottom: 120px;
+    right: 60px;
+    background-image: url('..\..\assets\bofang04@1x.png')
+  }
+</style>
