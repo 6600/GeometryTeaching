@@ -1,6 +1,6 @@
 <template lang="pug">
   .origami-box
-    router-view.origami-show(ref="draw")
+    router-view.origami-show(ref="draw", @onStyleChange="")
     .origami-menu
       Button150.button(text="輸出圖形")
       Button150.button(text="輸出折紙圖樣")
@@ -8,9 +8,10 @@
     .bottom.flip-button(@click="flipTo(3)")
     .left.flip-button(@click="flipTo(2)")
     .right.flip-button(@click="flipTo(4)")
-    .play(@click="play") 播放
-    .back(@click="back") 返回
-    Slider(v-model="sliderNum")
+    .control
+      Slider(v-model="sliderNum")
+      .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
+      .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
 </template>
 
 <script>
@@ -23,7 +24,9 @@ export default {
   },
   data () {
     return {
-      sliderNum: 1
+      sliderNum: 1,
+      // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
+      origamiStyle: 0
     }
   },
   methods: {
@@ -63,11 +66,20 @@ export default {
       }
       flip(type)
     },
+    styleChange (Num) {
+      this.origamiStyle = Num
+    },
     // 播放拆盒子效果
     play () {
+      // 如果盒子不处于拆开状态那么直接返回
+      if (this.origamiStyle !== 0) return
+      this.origamiStyle = 2
       this.$refs.draw.closeBox()
     },
     back () {
+      // 如果盒子不处于闭合状态那么直接返回
+      if (this.origamiStyle !== 1) return
+      this.origamiStyle = 4
       this.$refs.draw.openBox()
     }
   }
@@ -128,5 +140,53 @@ export default {
     width: 40px;
     height: 60px;
     background-image: url('..\..\assets\origami\bofang07@1x.png')
+  }
+</style>
+
+<style lang='less'>
+  .origami-box {
+    .control {
+      height: 92px;
+      width: 776px;
+      margin: 0 20px;
+      position: relative;
+      background-image: url('..\..\assets\origami\bofang00@1x.png');
+      .slider {
+        height: 35px;
+        width: 776px;
+        margin: 0 18px;
+      }
+      .rod {
+        opacity: 0;
+        width: calc(100% - 36px);
+      }
+      .spot {
+        border: 2px solid white;
+      }
+      .button {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: -11px -128px;
+        bottom: 5px;
+        position: absolute;
+        background-image: url('..\..\assets\origami\bofang02@1x.png');
+      }
+      .play {
+        left: 325px;
+      }
+      .back {
+        transform:rotate(180deg);
+        right: 325px;
+      }
+      .enable {
+        background-position: -11px -4px;
+      }
+      .active {
+        background-position: -10px -5px;
+        background-image: url('..\..\assets\origami\bofang03@1x.png');
+      }
+    }
   }
 </style>
