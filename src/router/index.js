@@ -17,6 +17,10 @@ import cuboidFour from '@/components/origami/cuboid-four'
 // 五棱柱
 import pentagonalPrismOne from '@/components/origami/pentagonal-prism-one'
 import pentagonalPrismTwo from '@/components/origami/pentagonal-prism-two'
+// 六棱柱
+import hexagonalPrismOne from '@/components/origami/hexagonal-prism-one'
+// import hexagonalPrismTwo from '@/components/origami/hexagonal-prism-two'
+// 活动页面
 import activityGame from '@/components/game/activity'
 
 Vue.use(Router)
@@ -34,6 +38,7 @@ export default new Router({
       name: 'origami',
       component: origami,
       children: [
+        // 立方体
         {
           path: '/origami/cubeTwo',
           name: 'cube-two',
@@ -54,6 +59,7 @@ export default new Router({
           name: 'mitsubishi-column-two',
           component: mitsubishiColumnTwo
         },
+        // 长方体
         {
           path: '/origami/cuboidOne',
           name: 'cuboid-one',
@@ -74,6 +80,7 @@ export default new Router({
           name: 'cuboid-four',
           component: cuboidFour
         },
+        // 五棱柱
         {
           path: '/origami/pentagonalPrismOne',
           name: 'pentagonal-orism-one',
@@ -84,11 +91,17 @@ export default new Router({
           name: 'pentagonal-orism-two',
           component: pentagonalPrismTwo
         },
+        // 六棱柱
         {
-          path: '/origami/cuboidFour',
-          name: 'cuboid-four',
-          component: cuboidFour
+          path: '/origami/hexagonalPrismOne',
+          name: 'hexagonal-orism-one',
+          component: hexagonalPrismOne
         },
+        // {
+        //   path: '/origami/hexagonalPrismTwo',
+        //   name: 'hexagonal-orism-two',
+        //   component: hexagonalPrismTwo
+        // },
         {
           path: '/origami/trigonometricConeOne',
           name: 'trigonometric-cone-one',
