@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import origami from '@/components/origami/index'
+// 立方体
 import cubeOne from '@/components/origami/cube-one'
 import cubetwo from '@/components/origami/cube-two'
+//
 import mitsubishiColumnOne from '@/components/origami/mitsubishi-column-one'
 import mitsubishiColumnTwo from '@/components/origami/mitsubishi-column-two'
 // 三角锥
@@ -22,7 +24,7 @@ import hexagonalPrismOne from '@/components/origami/hexagonal-prism-one'
 import hexagonalPrismTwo from '@/components/origami/hexagonal-prism-two'
 // 圆柱
 import cylinderOne from '@/components/origami/cylinder-one'
-// import hexagonalPrismTwo from '@/components/origami/hexagonal-prism-two'
+import cylinderTwo from '@/components/origami/cylinder-two'
 // 活动页面
 import activityGame from '@/components/game/activity'
 
@@ -52,6 +54,7 @@ export default new Router({
           name: 'cube-one',
           component: cubeOne
         },
+        // 三棱柱
         {
           path: '/origami/mitsubishiColumnOne',
           name: 'mitsubishi-column-one',
@@ -111,6 +114,12 @@ export default new Router({
           name: 'cylinder-one',
           component: cylinderOne
         },
+        {
+          path: '/origami/cylinderTwo',
+          name: 'cylinder-two',
+          component: cylinderTwo
+        },
+        // 三棱锥
         {
           path: '/origami/trigonometricConeOne',
           name: 'trigonometric-cone-one',
