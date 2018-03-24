@@ -16,7 +16,7 @@ import cuboidThree from '@/components/origami/cuboid-three'
 import cuboidFour from '@/components/origami/cuboid-four'
 // 五棱柱
 import pentagonalPrismOne from '@/components/origami/pentagonal-prism-one'
-// import pentagonalPrismTwo from '@/components/origami/pentagonal-prism-two'
+import pentagonalPrismTwo from '@/components/origami/pentagonal-prism-two'
 import activityGame from '@/components/game/activity'
 
 Vue.use(Router)
@@ -78,6 +78,11 @@ export default new Router({
           path: '/origami/pentagonalPrismOne',
           name: 'pentagonal-orism-one',
           component: pentagonalPrismOne
+        },
+        {
+          path: '/origami/pentagonalPrismTwo',
+          name: 'pentagonal-orism-two',
+          component: pentagonalPrismTwo
         },
         {
           path: '/origami/cuboidFour',
