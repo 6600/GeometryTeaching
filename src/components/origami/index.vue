@@ -10,13 +10,21 @@
     .right.flip-button(@click="flipTo(4)")
     .play(@click="play") 播放
     .back(@click="back") 返回
+    Slider(v-model="sliderNum")
 </template>
 
 <script>
 import Button150 from '@/components/button/button_150_50.vue'
+import Slider from '@/components/slider.vue'
 export default {
   components: {
+    Slider,
     Button150
+  },
+  data () {
+    return {
+      sliderNum: 1
+    }
   },
   methods: {
     // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
