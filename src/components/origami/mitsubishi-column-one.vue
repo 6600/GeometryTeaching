@@ -37,13 +37,25 @@ export default {
     creatMitsubishiColumn (scene, renderer, camera) {
       // 创建正方体的6个平面
       // 定义长宽都是1平面
-      const PlaneGeometry = new THREE.PlaneGeometry(1, 1)
+      const PlaneGeometry = new THREE.PlaneGeometry(1, 2)
+      let shape1 = new THREE.Shape()
+      shape1.moveTo(0, 0)
+      shape1.lineTo(1, 0)
+      shape1.lineTo(0.5, Math.sqrt(3) / 2)
+      shape1.lineTo(0, 0)
+      let triangleGeometry1 = new THREE.ShapeGeometry(shape1)
+      let shape2 = new THREE.Shape()
+      shape2.moveTo(0, 0)
+      shape2.lineTo(1, 0)
+      shape2.lineTo(0.5, -Math.sqrt(3) / 2)
+      shape2.lineTo(0, 0)
+      let triangleGeometry2 = new THREE.ShapeGeometry(shape2)
       // 定义3个颜色
-      const colors = ['#ccb8f0', '#f8714e', '#fbc562']
+      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c']
       // 定义3个坐标
-      const positions = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0]]
+      const positions = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [-0.5, 1, 0], [-0.5, -1, 0]]
       // 定义3个转轴
-      const axiss = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0]]
+      const axiss = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [0, 0, 0], [0, 0, 0]]
       // 创造3个平面
       for (let index in colors) {
         // 取得颜色
@@ -56,12 +68,28 @@ export default {
         this.spiale[index] = new THREE.Object3D()
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
-        this.meshs[index] = new THREE.Mesh(PlaneGeometry, new THREE.MeshLambertMaterial({
-          color: color,
-          transparent: true,
-          // 双面双面贴图
-          side: THREE.DoubleSide
-        }))
+        if (index === '3') {
+          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshLambertMaterial({
+            color: color,
+            transparent: true,
+            // 双面双面贴图
+            side: THREE.DoubleSide
+          }))
+        } else if (index === '4') {
+          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshLambertMaterial({
+            color: color,
+            transparent: true,
+            // 双面双面贴图
+            side: THREE.DoubleSide
+          }))
+        } else {
+          this.meshs[index] = new THREE.Mesh(PlaneGeometry, new THREE.MeshLambertMaterial({
+            color: color,
+            transparent: true,
+            // 双面双面贴图
+            side: THREE.DoubleSide
+          }))
+        }
         // 设置平面位置
         this.meshs[index].position.set(position[0], position[1], position[2])
         // 设置平面角度
@@ -76,24 +104,10 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      // 绘制三角形
-      const triangle = [
-        {
-          spot: [[-0.5, 0.5, 0], [0, 1.5, 0], [0.5, 0.5, 0]],
-          color: 0x0000ff
-        },
-        {
-          spot: [[-0.5, -0.5, 0], [0, -1.5, 0], [0.5, -0.5, 0]],
-          color: 0x0000ff
-        }
-      ]
-      Fun.drawTriangle(triangle).then((mesh) => {
-        // 将平面添加到场景中
-        scene.add(...mesh)
-      })
+      // this.spiale[1].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
-      }, 1000)
+      }, 0)
     }
   }
 }
