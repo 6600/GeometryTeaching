@@ -26,7 +26,7 @@ const Fun = {
       // Far – 相机视锥体的远平面
       let camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 1000)
       // 设置相机位置
-      camera.position.set(-2, 2, 6)
+      camera.position.set(0, 0, 8)
       // 指定它看着原点方向
       camera.lookAt(scene.position)
       // 给场景追加相机

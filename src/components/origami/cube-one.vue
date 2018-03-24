@@ -25,17 +25,24 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    closeBox () {
       setTimeout(() => {
         this.step++
-        this.animation(this.step)
+        this.close(this.step)
+        this.renderScene()
+      }, 20)
+    },
+    openBox () {
+      setTimeout(() => {
+        this.step = this.step - 2
+        this.open(this.step)
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    animation (step) {
+    close (step) {
       const spiale = this.spiale
       if (step <= 90) {
         // 盒子左1
@@ -47,16 +54,43 @@ export default {
         spiale[4].rotation.x = step * (Math.PI / 180)
         // 盒子下部
         spiale[5].rotation.x = -step * (Math.PI / 180)
-        this.nextStep()
+        this.closeBox()
       } else if (step === 91) {
         // 重设0面转轴
         this.meshs[0].position.set(-0.5, 0, 0)
         this.spiale[0].position.set(-0.5, 0, 1)
         spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
+        this.closeBox()
       } else if (step < 181) {
         spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
+        this.closeBox()
+      } else {
+        console.log('动画已播放完毕!')
+      }
+    },
+    open (step) {
+      const spiale = this.spiale
+      if (step < 0) return
+      if (step <= 90) {
+        // 盒子左1
+        spiale[0].rotation.y = step * (Math.PI / 180)
+        spiale[1].rotation.y = step * (Math.PI / 180)
+        // 盒子右部
+        spiale[3].rotation.y = -step * (Math.PI / 180)
+        // 盒子上部
+        spiale[4].rotation.x = step * (Math.PI / 180)
+        // 盒子下部
+        spiale[5].rotation.x = -step * (Math.PI / 180)
+        this.openBox()
+      } else if (step === 91) {
+        // 重设0面转轴
+        this.meshs[0].position.set(-1.5, 0, 0)
+        this.spiale[0].position.set(-0.5, 0, 0)
+        spiale[0].rotation.y = step * (Math.PI / 180)
+        this.openBox()
+      } else if (step < 181) {
+        spiale[0].rotation.y = step * (Math.PI / 180)
+        this.openBox()
       } else {
         console.log('动画已播放完毕!')
       }
@@ -103,11 +137,18 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      // this.spiale[0].add(new THREE.AxesHelper(50))
       setTimeout(() => {
-        this.nextStep()
+        this.renderScene()
       }, 0)
     }
   }
 }
 </script>
+
+<style lang='less' scoped>
+  .cube-one {
+    position: relative;
+  }
+
+</style>
