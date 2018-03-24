@@ -20,6 +20,9 @@ import pentagonalPrismTwo from '@/components/origami/pentagonal-prism-two'
 // 六棱柱
 import hexagonalPrismOne from '@/components/origami/hexagonal-prism-one'
 import hexagonalPrismTwo from '@/components/origami/hexagonal-prism-two'
+// 圆柱
+import cylinderOne from '@/components/origami/cylinder-one'
+// import hexagonalPrismTwo from '@/components/origami/hexagonal-prism-two'
 // 活动页面
 import activityGame from '@/components/game/activity'
 
@@ -101,6 +104,12 @@ export default new Router({
           path: '/origami/hexagonalPrismTwo',
           name: 'hexagonal-orism-two',
           component: hexagonalPrismTwo
+        },
+        // 圆柱
+        {
+          path: '/origami/cylinderOne',
+          name: 'cylinder-one',
+          component: cylinderOne
         },
         {
           path: '/origami/trigonometricConeOne',
