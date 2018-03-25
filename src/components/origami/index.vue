@@ -42,6 +42,9 @@ export default {
   methods: {
     // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
     flipTo (type) {
+      // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
+      // 为了方便后面的计算 这里使用了平方
+      const ratio = Math.pow(8 + this.distance - 4, 2)
       // console.log(this.$refs.draw.camera)
       let i = 0
       const flip = (type) => {
@@ -50,19 +53,19 @@ export default {
             switch (type) {
               case 1:
                 this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y - 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
+                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
                 break
               case 2:
                 this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x + 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
+                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
                 break
               case 3:
                 this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y + 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
+                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
                 break
               case 4:
                 this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x - 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
+                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
                 break
             }
             this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
