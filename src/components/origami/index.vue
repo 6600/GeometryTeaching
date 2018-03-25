@@ -48,7 +48,7 @@ export default {
       // console.log(this.$refs.draw.camera.position)
       let i = 0
       const flip = (type) => {
-        console.log(type)
+        // console.log(type)
         setTimeout(() => {
           // console.log(this.$refs.draw.camera.position)
           const positionY = this.$refs.draw.camera.position.y
@@ -79,7 +79,6 @@ export default {
               break
             case 4:
               if (calculateX > 0 || positionX < 0) {
-                console.log(calculateX, positionX)
                 this.$refs.draw.camera.position.x = positionX + 0.2
                 this.$refs.draw.camera.position.z = Math.sqrt(calculateX)
               }
