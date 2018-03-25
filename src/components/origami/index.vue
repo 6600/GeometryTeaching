@@ -9,9 +9,14 @@
     .left.flip-button(@click="flipTo(2)")
     .right.flip-button(@click="flipTo(4)")
     .control
-      Slider(v-model="sliderNum")
-      .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
+      Slider(v-model="sliderNum", :width="38", :length="776" :rodLength="743" rodColor="white")
       .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
+      .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
+    //- 拉远视角
+    .distance-control
+      .add-distance.button
+      Slider(v-model="distance", :vertical="true", :width="60", :length="410")
+      .reduce-distance.button
 </template>
 
 <script>
@@ -26,7 +31,9 @@ export default {
     return {
       sliderNum: 1,
       // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
-      origamiStyle: 0
+      origamiStyle: 0,
+      // 视角距离
+      distance: 0
     }
   },
   methods: {
@@ -141,52 +148,62 @@ export default {
     height: 60px;
     background-image: url('..\..\assets\origami\bofang07@1x.png')
   }
-</style>
-
-<style lang='less'>
-  .origami-box {
-    .control {
-      height: 92px;
-      width: 776px;
-      margin: 0 20px;
-      position: relative;
-      background-image: url('..\..\assets\origami\bofang00@1x.png');
-      .slider {
-        height: 35px;
-        width: 776px;
-        margin: 0 18px;
-      }
-      .rod {
-        opacity: 0;
-        width: calc(100% - 36px);
-      }
-      .spot {
-        border: 2px solid white;
-      }
-      .button {
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
-        background-repeat: no-repeat;
-        background-position: -11px -128px;
-        bottom: 5px;
-        position: absolute;
-        background-image: url('..\..\assets\origami\bofang02@1x.png');
-      }
-      .play {
-        left: 325px;
-      }
-      .back {
-        transform:rotate(180deg);
-        right: 325px;
-      }
-      .enable {
-        background-position: -11px -4px;
-      }
-      .active {
-        background-position: -10px -5px;
-        background-image: url('..\..\assets\origami\bofang03@1x.png');
-      }
+  .distance-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 545px;
+    width: 65px;
+    background-color: #ffbfdf;
+    border-radius: 15px;
+    .button {
+      width: 62px;
+      height: 54px;
+      margin: 5px 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .button:hover {
+      height: 64px;
+      background-position: 0px -172px;
+      margin: 0;
+    }
+    .add-distance {
+      background-image: url('..\..\assets\origami\fangda03@1x.png');
+    }
+    .reduce-distance {
+      background-image: url('..\..\assets\origami\fangda04@1x.png');
+    }
+  }
+  .control {
+    height: 92px;
+    width: 776px;
+    margin: 0 20px;
+    position: relative;
+    background-image: url('..\..\assets\origami\bofang00@1x.png');
+    .button {
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position: -11px -128px;
+      bottom: 5px;
+      position: absolute;
+      background-image: url('..\..\assets\origami\bofang02@1x.png');
+    }
+    .back {
+      left: 325px;
+    }
+    .play {
+      transform:rotate(180deg);
+      right: 325px;
+    }
+    .enable {
+      background-position: -11px -4px;
+    }
+    .active {
+      background-position: -10px -5px;
+      background-image: url('..\..\assets\origami\bofang03@1x.png');
     }
   }
 </style>
