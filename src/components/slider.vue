@@ -41,6 +41,11 @@ export default {
     padding: {
       type: Number,
       default: 0
+    },
+    // 片数
+    segment: {
+      type: Number,
+      default: 10
     }
   },
   data () {
@@ -50,9 +55,12 @@ export default {
   },
   methods: {
     click (e) {
+      const rodLength = this.rodLength ? this.rodLength : this.length
       // 将点击位置转换成滑竿数值
-      const num = this.vertical ? e.offsetY / 10 : e.offsetX / 10
-      this.spotStyle = Math.ceil(num)
+      const num = this.vertical ? e.offsetY / rodLength : e.offsetX / rodLength
+      let returnNum = Math.round(num * this.segment)
+      console.log(returnNum)
+      this.spotStyle = Math.ceil(num * this.segment)
       this.$emit('input', this.spotStyle)
       this.$emit('onClick')
     },
@@ -88,13 +96,16 @@ export default {
       return styleList
     },
     getSpotStyle () {
+      const rodLength = this.rodLength ? this.rodLength : this.length
+      const scale = rodLength / this.segment
+      // console.log(scale)
       let styleList = {}
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.top = this.value * 10 - 10 + 'px'
+        styleList.top = this.value * scale - 10 + 'px'
         styleList.left = (this.rodWidth - 20) / 2 + 'px'
       } else {
-        styleList.left = this.value * 10 - 10 + 'px'
+        styleList.left = this.value * scale - 10 + 'px'
         styleList.top = (this.rodWidth - 20) / 2 + 'px'
       }
       return styleList
@@ -119,6 +130,7 @@ export default {
   .spot {
     // 鼠标穿透点击
     pointer-events: none;
+    border: 2px solid white;
     background-color: blueviolet;
     width: 20px;
     height: 20px;

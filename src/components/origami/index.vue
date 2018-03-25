@@ -14,9 +14,12 @@
       .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
     //- 拉远视角
     .distance-control
-      .add-distance.button
-      Slider(v-model="distance", :vertical="true", :width="60", :length="410")
-      .reduce-distance.button
+      //- 增加相机距离按钮
+      .add-distance.button(@click="changeViewing(distance++)")
+      //- 相机滑块
+      Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="8", @onClick="changeViewing")
+      //- 减少相机距离按钮
+      .reduce-distance.button(@click="changeViewing(distance--)")
 </template>
 
 <script>
@@ -33,7 +36,7 @@ export default {
       // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
       origamiStyle: 0,
       // 视角距离
-      distance: 0
+      distance: 4
     }
   },
   methods: {
@@ -88,6 +91,11 @@ export default {
       if (this.origamiStyle !== 1) return
       this.origamiStyle = 4
       this.$refs.draw.openBox()
+    },
+    changeViewing () {
+      this.$refs.draw.camera.position.z = this.distance + 4
+      this.$refs.draw.renderScene()
+      console.log(this.distance)
     }
   }
 }
