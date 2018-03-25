@@ -6,8 +6,8 @@
       Button150.button(text="輸出折紙圖樣")
     .top.flip-button(@click="flipTo(1)")
     .bottom.flip-button(@click="flipTo(3)")
-    .left.flip-button(@click="flipTo(2)")
-    .right.flip-button(@click="flipTo(4)")
+    .left.flip-button(@click="flipTo(4)")
+    .right.flip-button(@click="flipTo(2)")
     .control
       Slider(v-model="sliderNum", :width="38", :length="776" :rodLength="743" rodColor="white")
       .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
@@ -45,35 +45,51 @@ export default {
       // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
       // 为了方便后面的计算 这里使用了平方
       const ratio = Math.pow(8 + this.distance - 4, 2)
-      // console.log(this.$refs.draw.camera)
+      // console.log(this.$refs.draw.camera.position)
       let i = 0
       const flip = (type) => {
+        console.log(type)
         setTimeout(() => {
-          if (Math.abs(this.$refs.draw.camera.position.y) < 8) {
-            switch (type) {
-              case 1:
-                this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y - 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
-                break
-              case 2:
-                this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x + 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
-                break
-              case 3:
-                this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y + 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
-                break
-              case 4:
-                this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x - 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(ratio - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
-                break
-            }
-            this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
-            this.$refs.draw.renderScene()
-            if (i < 10) {
-              i++
-              flip(type)
-            }
+          // console.log(this.$refs.draw.camera.position)
+          const positionY = this.$refs.draw.camera.position.y
+          const positionX = this.$refs.draw.camera.position.x
+          const calculateY = ratio - Math.pow(positionY, 2)
+          const calculateX = ratio - Math.pow(positionX, 2)
+          // console.log(calculateY, calculateX)
+          // console.log(positionY, positionX)
+          // 待优化
+          switch (type) {
+            case 1:
+              if (calculateY > 0 || positionY > 0) {
+                this.$refs.draw.camera.position.y = positionY - 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateY)
+              }
+              break
+            case 2:
+              if (calculateX > 0 || positionX > 0) {
+                this.$refs.draw.camera.position.x = positionX - 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateX)
+              }
+              break
+            case 3:
+              if (calculateY > 0 || positionY < 0) {
+                this.$refs.draw.camera.position.y = positionY + 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateY)
+              }
+              break
+            case 4:
+              if (calculateX > 0 || positionX < 0) {
+                console.log(calculateX, positionX)
+                this.$refs.draw.camera.position.x = positionX + 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateX)
+              }
+              break
+          }
+          this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
+          this.$refs.draw.renderScene()
+          if (i < 10) {
+            i++
+            flip(type)
           }
         }, 20)
       }
