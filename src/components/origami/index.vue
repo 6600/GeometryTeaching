@@ -25,31 +25,45 @@ export default {
       let i = 0
       const flip = (type) => {
         setTimeout(() => {
-          if (Math.abs(this.$refs.draw.camera.position.y) < 8) {
-            switch (type) {
-              case 1:
-                this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y - 0.2
+          switch (type) {
+            case 1:
+              if (this.$refs.draw.camera.position.y !== -8) this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y - 0.2
+              console.log('YYYY:' + this.$refs.draw.camera.position.y + 'xxx' + this.$refs.draw.camera.position.x + 'zzz' + this.$refs.draw.camera.position.z)
+              if (this.$refs.draw.camera.position.y <= -7.8) {
+                this.$refs.draw.camera.position.y = -8
                 this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
-                break
-              case 2:
-                this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x + 0.2
+              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
+              break
+            case 2:
+              if (this.$refs.draw.camera.position.x !== 8) this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x + 0.2
+              console.log('YYYY:' + this.$refs.draw.camera.position.y + 'xxx' + this.$refs.draw.camera.position.x + 'zzz' + this.$refs.draw.camera.position.z)
+              if (this.$refs.draw.camera.position.x >= 7.8) {
+                this.$refs.draw.camera.position.x = 8
                 this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
-                break
-              case 3:
-                this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y + 0.2
+              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
+              break
+            case 3:
+              if (this.$refs.draw.camera.position.y !== 8) this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y + 0.2
+              console.log('Y:' + this.$refs.draw.camera.position.y + '   X：' + this.$refs.draw.camera.position.x + '   Z' + this.$refs.draw.camera.position.z)
+              if (this.$refs.draw.camera.position.y >= 7.8) {
+                this.$refs.draw.camera.position.y = 8
                 this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
-                break
-              case 4:
-                this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x - 0.2
+              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
+              break
+            case 4:
+              if (this.$refs.draw.camera.position.x !== -8) this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x - 0.2
+              console.log('YYYY:' + this.$refs.draw.camera.position.y + 'xxx' + this.$refs.draw.camera.position.x + 'zzz' + this.$refs.draw.camera.position.z)
+              if (this.$refs.draw.camera.position.x <= -7.8) {
+                this.$refs.draw.camera.position.x = -8
                 this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
-                break
-            }
-            this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
-            this.$refs.draw.renderScene()
-            if (i < 10) {
-              i++
-              flip(type)
-            }
+              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
+              break
+          }
+          this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
+          this.$refs.draw.renderScene()
+          if (i < 5) {
+            i++
+            flip(type)
           }
         }, 20)
       }
