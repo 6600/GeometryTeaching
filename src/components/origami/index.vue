@@ -9,8 +9,8 @@
     .left.flip-button(@click="flipTo(4)")
     .right.flip-button(@click="flipTo(2)")
     .control
-      Slider(v-model="sliderNum", :width="38", :length="776", :rodLength="743" rodColor="white")
-      .back.button(@click="back", :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
+      Slider(v-model="sliderNum", :width="38", :length="776" :rodLength="743" rodColor="white")
+      .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
       .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
     //- 拉远视角
     .distance-control
