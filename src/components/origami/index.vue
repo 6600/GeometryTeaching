@@ -1,67 +1,92 @@
 <template lang="pug">
   .origami-box
-    router-view.origami-show(ref="draw")
+    router-view.origami-show(ref="draw", @onStyleChange="")
     .origami-menu
       Button150.button(text="輸出圖形")
       Button150.button(text="輸出折紙圖樣")
     .top.flip-button(@click="flipTo(1)")
     .bottom.flip-button(@click="flipTo(3)")
-    .left.flip-button(@click="flipTo(2)")
-    .right.flip-button(@click="flipTo(4)")
-    .play(@click="play") 播放
-    .back(@click="back") 返回
+    .left.flip-button(@click="flipTo(4)")
+    .right.flip-button(@click="flipTo(2)")
+    .control
+      Slider(v-model="sliderNum", :width="38", :length="776", :rodLength="743" rodColor="white")
+      .back.button(@click="back", :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
+      .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
+    //- 拉远视角
+    .distance-control
+      //- 增加相机距离按钮
+      .add-distance.button(@click="changeViewing(distance++)")
+      //- 相机滑块
+      Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="8", @onClick="changeViewing")
+      //- 减少相机距离按钮
+      .reduce-distance.button(@click="changeViewing(distance--)")
 </template>
 
 <script>
 import Button150 from '@/components/button/button_150_50.vue'
+import Slider from '@/components/slider.vue'
 export default {
   components: {
+    Slider,
     Button150
+  },
+  data () {
+    return {
+      sliderNum: 1,
+      // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
+      origamiStyle: 0,
+      // 视角距离
+      distance: 4
+    }
   },
   methods: {
     // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
     flipTo (type) {
-      // console.log(this.$refs.draw.camera)
+      // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
+      // 为了方便后面的计算 这里使用了平方
+      const ratio = Math.pow(8 + this.distance - 4, 2)
+      // console.log(this.$refs.draw.camera.position)
       let i = 0
       const flip = (type) => {
+        // console.log(type)
         setTimeout(() => {
+          // console.log(this.$refs.draw.camera.position)
+          const positionY = this.$refs.draw.camera.position.y
+          const positionX = this.$refs.draw.camera.position.x
+          const calculateY = ratio - Math.pow(positionY, 2)
+          const calculateX = ratio - Math.pow(positionX, 2)
+          // console.log(calculateY, calculateX)
+          // console.log(positionY, positionX)
+          // 待优化
           switch (type) {
             case 1:
-              if (this.$refs.draw.camera.position.y !== -8) this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y - 0.2
-              console.log('YYYY:' + this.$refs.draw.camera.position.y + 'xxx' + this.$refs.draw.camera.position.x + 'zzz' + this.$refs.draw.camera.position.z)
-              if (this.$refs.draw.camera.position.y <= -7.8) {
-                this.$refs.draw.camera.position.y = -8
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
-              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
+              if (calculateY > 0 || positionY > 0) {
+                this.$refs.draw.camera.position.y = positionY - 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateY)
+              }
               break
             case 2:
-              if (this.$refs.draw.camera.position.x !== 8) this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x + 0.2
-              console.log('YYYY:' + this.$refs.draw.camera.position.y + 'xxx' + this.$refs.draw.camera.position.x + 'zzz' + this.$refs.draw.camera.position.z)
-              if (this.$refs.draw.camera.position.x >= 7.8) {
-                this.$refs.draw.camera.position.x = 8
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
-              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
+              if (calculateX > 0 || positionX > 0) {
+                this.$refs.draw.camera.position.x = positionX - 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateX)
+              }
               break
             case 3:
-              if (this.$refs.draw.camera.position.y !== 8) this.$refs.draw.camera.position.y = this.$refs.draw.camera.position.y + 0.2
-              console.log('Y:' + this.$refs.draw.camera.position.y + '   X：' + this.$refs.draw.camera.position.x + '   Z' + this.$refs.draw.camera.position.z)
-              if (this.$refs.draw.camera.position.y >= 7.8) {
-                this.$refs.draw.camera.position.y = 8
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
-              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.y), 2))
+              if (calculateY > 0 || positionY < 0) {
+                this.$refs.draw.camera.position.y = positionY + 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateY)
+              }
               break
             case 4:
-              if (this.$refs.draw.camera.position.x !== -8) this.$refs.draw.camera.position.x = this.$refs.draw.camera.position.x - 0.2
-              console.log('YYYY:' + this.$refs.draw.camera.position.y + 'xxx' + this.$refs.draw.camera.position.x + 'zzz' + this.$refs.draw.camera.position.z)
-              if (this.$refs.draw.camera.position.x <= -7.8) {
-                this.$refs.draw.camera.position.x = -8
-                this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
-              } else this.$refs.draw.camera.position.z = Math.sqrt(64 - Math.pow(Math.abs(this.$refs.draw.camera.position.x), 2))
+              if (calculateX > 0 || positionX < 0) {
+                this.$refs.draw.camera.position.x = positionX + 0.2
+                this.$refs.draw.camera.position.z = Math.sqrt(calculateX)
+              }
               break
           }
           this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
           this.$refs.draw.renderScene()
-          if (i < 5) {
+          if (i < 10) {
             i++
             flip(type)
           }
@@ -69,12 +94,26 @@ export default {
       }
       flip(type)
     },
+    styleChange (Num) {
+      this.origamiStyle = Num
+    },
     // 播放拆盒子效果
     play () {
+      // 如果盒子不处于拆开状态那么直接返回
+      if (this.origamiStyle !== 0) return
+      this.origamiStyle = 2
       this.$refs.draw.closeBox()
     },
     back () {
+      // 如果盒子不处于闭合状态那么直接返回
+      if (this.origamiStyle !== 1) return
+      this.origamiStyle = 4
       this.$refs.draw.openBox()
+    },
+    changeViewing () {
+      this.$refs.draw.camera.position.z = this.distance + 4
+      this.$refs.draw.renderScene()
+      console.log(this.distance)
     }
   }
 }
@@ -134,5 +173,63 @@ export default {
     width: 40px;
     height: 60px;
     background-image: url('..\..\assets\origami\bofang07@1x.png')
+  }
+  .distance-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 545px;
+    width: 65px;
+    background-color: #ffbfdf;
+    border-radius: 15px;
+    .button {
+      width: 62px;
+      height: 54px;
+      margin: 5px 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .button:hover {
+      height: 64px;
+      background-position: 0px -172px;
+      margin: 0;
+    }
+    .add-distance {
+      background-image: url('..\..\assets\origami\fangda03@1x.png');
+    }
+    .reduce-distance {
+      background-image: url('..\..\assets\origami\fangda04@1x.png');
+    }
+  }
+  .control {
+    height: 92px;
+    width: 776px;
+    margin: 0 20px;
+    position: relative;
+    background-image: url('..\..\assets\origami\bofang00@1x.png');
+    .button {
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position: -11px -128px;
+      bottom: 5px;
+      position: absolute;
+      background-image: url('..\..\assets\origami\bofang02@1x.png');
+    }
+    .back {
+      left: 325px;
+    }
+    .play {
+      transform:rotate(180deg);
+      right: 325px;
+    }
+    .enable {
+      background-position: -11px -4px;
+    }
+    .active {
+      background-position: -10px -5px;
+      background-image: url('..\..\assets\origami\bofang03@1x.png');
+    }
   }
 </style>
