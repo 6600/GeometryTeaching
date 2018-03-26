@@ -17,7 +17,7 @@ export default {
     }
   },
   mounted () {
-    Fun.init3D(this.$el).then((Object3D) => {
+    Fun.init3D(this.$el, (Object3D) => {
       this.camera = Object3D.camera
       this.renderer = Object3D.renderer
       this.scene = Object3D.scene
