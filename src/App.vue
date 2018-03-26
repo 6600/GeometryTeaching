@@ -63,7 +63,7 @@ export default {
       window.location.href = '/#/activityGame'
     },
     confirm () {
-      this.$router.push(this.popupCheck)
+      window.location.href = '/#/origami/' + this.popupCheck
       this.showPopup = false
     }
   }
