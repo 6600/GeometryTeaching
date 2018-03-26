@@ -15,11 +15,11 @@
     //- 拉远视角
     .distance-control
       //- 增加相机距离按钮
-      .add-distance.button(@click="changeViewing(distance++)")
+      .add-distance.button(@click="addViewing()")
       //- 相机滑块
       Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="8", @onClick="changeViewing")
       //- 减少相机距离按钮
-      .reduce-distance.button(@click="changeViewing(distance--)")
+      .reduce-distance.button(@click="reduceViewing()")
 </template>
 
 <script>
@@ -116,6 +116,18 @@ export default {
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
       this.$refs.draw.renderScene()
       // console.log(this.distance)
+    },
+    addViewing () {
+      // 防止可以无限缩放大
+      if (this.distance >= 8) return
+      this.distance++
+      this.changeViewing()
+    },
+    reduceViewing () {
+      // 防止可以无限缩小
+      if (this.distance <= 0) return
+      this.distance--
+      this.changeViewing()
     }
   }
 }

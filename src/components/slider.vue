@@ -58,8 +58,8 @@ export default {
       const rodLength = this.rodLength ? this.rodLength : this.length
       // 将点击位置转换成滑竿数值
       const num = this.vertical ? e.offsetY / rodLength : e.offsetX / rodLength
-      let returnNum = Math.round(num * this.segment)
-      console.log(returnNum)
+      // let returnNum = Math.round(num * this.segment)
+      // console.log(returnNum)
       this.spotStyle = Math.ceil(num * this.segment)
       this.$emit('input', this.spotStyle)
       this.$emit('onClick')
