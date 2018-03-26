@@ -28,8 +28,8 @@ export default {
   methods: {
     nextStep () {
       setTimeout(() => {
-        // this.step++
-        // this.animation(this.step)
+        this.step++
+        this.animation(this.step)
         this.renderScene()
       }, 20)
     },
@@ -40,23 +40,37 @@ export default {
       const spiale = this.spiale
       if (step <= 90) {
         // 盒子左1
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        spiale[1].rotation.y = step * (Math.PI / 180)
+        spiale[0].rotation.x = step * (Math.PI / 180)
+        // spiale[1].rotation.y = step * (Math.PI / 180)
         // 盒子右部
-        spiale[3].rotation.y = -step * (Math.PI / 180)
+        spiale[3].rotation.x = -step * (Math.PI / 180)
         // 盒子上部
-        spiale[4].rotation.x = step * (Math.PI / 180)
+        spiale[4].rotation.x = -step * (Math.PI / 180)
         // 盒子下部
         spiale[5].rotation.x = -step * (Math.PI / 180)
         this.nextStep()
       } else if (step === 91) {
         // 重设0面转轴
-        this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 0.5)
-        spiale[0].rotation.y = step * (Math.PI / 180)
+        this.meshs[5].position.set(1, -0.25, 0)
+        this.spiale[5].position.set(0.25, -1, 0.5)
+        this.spiale[0].rotation.z = -(step - 90) * (Math.PI / 180)
+        this.spiale[1].rotation.y = (step - 90) * (Math.PI / 180)
         this.nextStep()
       } else if (step < 181) {
-        spiale[0].rotation.y = step * (Math.PI / 180)
+        this.spiale[0].rotation.z = -(step - 90) * (Math.PI / 180)
+        this.spiale[1].rotation.y = (step - 90) * (Math.PI / 180)
+        this.spiale[5].rotation.x = -step * (Math.PI / 180)
+        // this.spiale[4].rotation.y = -(step - 90) * (Math.PI / 180)
+        // this.spiale[5].rotation.y = -(step - 90) * (Math.PI / 180)
+        this.nextStep()
+      } else if (step === 181) {
+        // this.meshs[5].position.set(0.25, 0.5, 0)
+        // this.spiale[5].position.set(0.25, -1, 0)
+        // spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
+        this.nextStep()
+      } else if (step < 271) {
+        spiale[4].rotation.y = -(step - 180) * (Math.PI / 180)
+        spiale[5].rotation.z = -(step - 180) * (Math.PI / 180)
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -71,9 +85,9 @@ export default {
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec']
       // 定义6个坐标
-      const positions = [[-0.5, 1.25, 0], [-0.5, 0, 0], [0, 0, 0], [0, -1.25, 0], [1.25, -1.25, 0], [1.25, -1.75, 0]]
+      const positions = [[-0.25, 0.25, 0], [-0.25, 0, 0], [0, 0, 0], [0, -0.25, 0], [1, -0.25, 0], [1, -0.75, 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const axiss = [[-0.25, 1, 0], [-0.25, 0, 0], [0, 0, 0], [0, -1, 0], [0.25, -1, 0], [0.25, -1, 0]]
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色
@@ -122,7 +136,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      this.spiale[4].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
       }, 0)
