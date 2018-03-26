@@ -112,8 +112,10 @@ export default {
     },
     changeViewing () {
       this.$refs.draw.camera.position.z = this.distance + 4
+      // 使物体在相机中央
+      this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
       this.$refs.draw.renderScene()
-      console.log(this.distance)
+      // console.log(this.distance)
     }
   }
 }
