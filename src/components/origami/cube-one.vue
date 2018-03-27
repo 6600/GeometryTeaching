@@ -65,12 +65,19 @@ export default {
         spiale[0].rotation.y = step * (Math.PI / 180)
         this.closeBox()
       } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
     },
     open (step) {
       const spiale = this.spiale
-      if (step < 0) return
+      if (step < 0) {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.y = step * (Math.PI / 180)
@@ -92,6 +99,8 @@ export default {
         spiale[0].rotation.y = step * (Math.PI / 180)
         this.openBox()
       } else {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
       }
     },

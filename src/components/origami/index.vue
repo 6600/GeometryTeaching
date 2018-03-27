@@ -1,6 +1,6 @@
 <template lang="pug">
   .origami-box
-    router-view.origami-show(ref="draw", @onStyleChange="")
+    router-view.origami-show(ref="draw", @onStyleChange="", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
     .origami-menu
       Button150.button(text="輸出圖形")
       Button150.button(text="輸出折紙圖樣")
@@ -153,7 +153,7 @@ export default {
       width: 780px;
       border-radius: 15px;
       overflow: hidden;
-      margin: 20px;
+      margin: 10px;
     }
   }
   .flip-button {
