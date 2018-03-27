@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { Fun } from '@/components/Order.js'
+import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
   name: 'HelloWorld',
@@ -13,7 +13,8 @@ export default {
       renderer: null,
       spiale: [],
       meshs: [],
-      step: 0
+      step: 0,
+      pause: false
     }
   },
   mounted () {
@@ -23,19 +24,36 @@ export default {
       this.scene = Object3D.scene
       this.creatCube(Object3D.scene, Object3D.renderer, Object3D.camera)
     })
+    // 监听暂停事件
+    Order.$on(`pause`, () => {
+      this.pause = true
+    })
+  },
+  beforeDestroy () { // 移除监听
+    Order.$off('pause')
   },
   methods: {
     closeBox () {
       setTimeout(() => {
         this.step++
-        this.close(this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          this.close(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     openBox () {
       setTimeout(() => {
         this.step = this.step - 2
-        this.open(this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          this.open(this.step)
+        }
         this.renderScene()
       }, 20)
     },

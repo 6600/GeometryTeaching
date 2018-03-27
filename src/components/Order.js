@@ -1,4 +1,8 @@
+'use strict'
+import Vue from 'vue'
 const THREE = require('three')
+
+const Order = new Vue()
 const Fun = {
   init3D (DOM, callBack) {
     const WIDTH = 780
@@ -47,9 +51,8 @@ const Fun = {
     object3d.position.set(-2, 6, 0)
     object3d.name = 'Key light'
     scene.add(object3d)
-    console.log('sdsd')
     callBack({scene, renderer, camera})
   }
 }
 
-export { Fun }
+export { Order, Fun }
