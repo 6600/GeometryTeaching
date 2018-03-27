@@ -17,7 +17,7 @@
       //- 增加相机距离按钮
       .add-distance.button(@click="addViewing()")
       //- 相机滑块
-      Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="8", @onClick="changeViewing")
+      Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="80", @onClick="changeViewing")
       //- 减少相机距离按钮
       .reduce-distance.button(@click="reduceViewing()")
 </template>
@@ -36,7 +36,7 @@ export default {
       // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
       origamiStyle: 0,
       // 视角距离
-      distance: 4
+      distance: 40
     }
   },
   methods: {
@@ -111,7 +111,7 @@ export default {
       this.$refs.draw.openBox()
     },
     changeViewing () {
-      this.$refs.draw.camera.position.z = this.distance + 4
+      this.$refs.draw.camera.position.z = this.distance / 10 + 4
       // 使物体在相机中央
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
       this.$refs.draw.renderScene()
@@ -200,6 +200,7 @@ export default {
       width: 62px;
       height: 54px;
       margin: 5px 0;
+      cursor: pointer;
       margin-left: auto;
       margin-right: auto;
     }

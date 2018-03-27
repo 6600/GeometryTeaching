@@ -1,7 +1,7 @@
 <template>
-  <div class="slider" :style="getSliderStyle()">
-    <div class="rod" @mousedown.stop.left="click" :style="getRodStyle()">
-      <div class="spot" :style="getSpotStyle()">{{value}}</div>
+  <div class="slider" :style="getSliderStyle()" @mouseup="clear">
+    <div class="rod" @mousedown.stop.left="click" @mouseup="clear" :style="getRodStyle()">
+      <div class="spot" :style="getSpotStyle()" @mouseup="clear">{{value}}</div>
     </div>
   </div>
 </template>
@@ -55,14 +55,8 @@ export default {
   },
   methods: {
     click (e) {
-      const rodLength = this.rodLength ? this.rodLength : this.length
-      // 将点击位置转换成滑竿数值
-      const num = this.vertical ? e.offsetY / rodLength : e.offsetX / rodLength
-      // let returnNum = Math.round(num * this.segment)
-      // console.log(returnNum)
-      this.spotStyle = Math.ceil(num * this.segment)
-      this.$emit('input', this.spotStyle)
-      this.$emit('onClick')
+      const DOM = this.$el.children[0]
+      DOM.addEventListener('mousemove', this.handleMove, true)
     },
     getSliderStyle () {
       let styleList = {}
@@ -109,6 +103,20 @@ export default {
         styleList.top = (this.rodWidth - 20) / 2 + 'px'
       }
       return styleList
+    },
+    handleMove (e) {
+      const rodLength = this.rodLength ? this.rodLength : this.length
+      // 将点击位置转换成滑竿数值
+      const num = this.vertical ? e.offsetY / rodLength : e.offsetX / rodLength
+      // let returnNum = Math.round(num * this.segment)
+      // console.log(returnNum)
+      this.spotStyle = Math.ceil(num * this.segment)
+      this.$emit('input', this.spotStyle)
+      this.$emit('onClick')
+    },
+    clear () {
+      // 清除监听
+      this.$el.children[0].removeEventListener('mousemove', this.handleMove, true)
     }
   }
 }
