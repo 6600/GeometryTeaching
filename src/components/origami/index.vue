@@ -1,6 +1,6 @@
 <template lang="pug">
   .origami-box
-    router-view.origami-show(ref="draw", @onStyleChange="")
+    router-view.origami-show(ref="draw", @onStyleChange="", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
     .origami-menu
       Button150.button(text="輸出圖形")
       Button150.button(text="輸出折紙圖樣")
@@ -15,14 +15,15 @@
     //- 拉远视角
     .distance-control
       //- 增加相机距离按钮
-      .add-distance.button(@click="changeViewing(distance++)")
+      .add-distance.button(@click="addViewing()")
       //- 相机滑块
-      Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="8", @onClick="changeViewing")
+      Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="80", @onClick="changeViewing")
       //- 减少相机距离按钮
-      .reduce-distance.button(@click="changeViewing(distance--)")
+      .reduce-distance.button(@click="reduceViewing()")
 </template>
 
 <script>
+import { Order } from '@/components/Order.js'
 import Button150 from '@/components/button/button_150_50.vue'
 import Slider from '@/components/slider.vue'
 export default {
@@ -36,7 +37,7 @@ export default {
       // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
       origamiStyle: 0,
       // 视角距离
-      distance: 4
+      distance: 40
     }
   },
   methods: {
@@ -44,7 +45,7 @@ export default {
     flipTo (type) {
       // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
       // 为了方便后面的计算 这里使用了平方
-      const ratio = Math.pow(8 + this.distance - 4, 2)
+      const ratio = Math.pow(8 + this.distance / 10 - 4, 2)
       // console.log(this.$refs.draw.camera.position)
       let i = 0
       const flip = (type) => {
@@ -97,25 +98,59 @@ export default {
     styleChange (Num) {
       this.origamiStyle = Num
     },
-    // 播放拆盒子效果
+    // 播放合上盒子效果
     play () {
-      // 如果盒子不处于拆开状态那么直接返回
-      if (this.origamiStyle !== 0) return
-      this.origamiStyle = 2
-      this.$refs.draw.closeBox()
+      const origamiStyle = this.origamiStyle
+      switch (origamiStyle) {
+        // 判断当前是否为打开状态
+        case 0: {
+          this.origamiStyle = 2
+          this.$refs.draw.closeBox()
+          break
+        }
+        // 判断当前是否为正在打开状态
+        case 2: {
+          this.origamiStyle = 0
+          Order.$emit('pause')
+          break
+        }
+      }
     },
     back () {
-      // 如果盒子不处于闭合状态那么直接返回
-      if (this.origamiStyle !== 1) return
-      this.origamiStyle = 4
-      this.$refs.draw.openBox()
+      const origamiStyle = this.origamiStyle
+      switch (origamiStyle) {
+        // 判断当前是否为打开状态
+        case 1: {
+          this.origamiStyle = 3
+          this.$refs.draw.openBox()
+          break
+        }
+        // 判断当前是否为正在打开状态
+        case 3: {
+          this.origamiStyle = 1
+          Order.$emit('pause')
+          break
+        }
+      }
     },
     changeViewing () {
-      this.$refs.draw.camera.position.z = this.distance + 4
+      this.$refs.draw.camera.position.z = this.distance / 10 + 4
       // 使物体在相机中央
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
       this.$refs.draw.renderScene()
       // console.log(this.distance)
+    },
+    addViewing () {
+      // 防止可以无限缩放大
+      if (this.distance >= 8) return
+      this.distance++
+      this.changeViewing()
+    },
+    reduceViewing () {
+      // 防止可以无限缩小
+      if (this.distance <= 0) return
+      this.distance--
+      this.changeViewing()
     }
   }
 }
@@ -132,6 +167,7 @@ export default {
       right: 0;
       bottom: 20px;
       display: flex;
+      z-index: 2;
     }
     .button {
       margin: 0 10px;
@@ -141,7 +177,7 @@ export default {
       width: 780px;
       border-radius: 15px;
       overflow: hidden;
-      margin: 20px;
+      margin: 10px;
     }
   }
   .flip-button {
@@ -188,6 +224,7 @@ export default {
       width: 62px;
       height: 54px;
       margin: 5px 0;
+      cursor: pointer;
       margin-left: auto;
       margin-right: auto;
     }
