@@ -17,7 +17,7 @@
       //- 增加相机距离按钮
       .add-distance.button(@click="addViewing()")
       //- 相机滑块
-      Slider(v-model="distance", :vertical="true", :width="60", :length="410", :segment="80", @onClick="changeViewing")
+      Slider(:value="distance", v-on:input="changeViewing", :vertical="true", :width="60", :length="410", :segment="80")
       //- 减少相机距离按钮
       .reduce-distance.button(@click="reduceViewing()")
 </template>
@@ -133,8 +133,8 @@ export default {
         }
       }
     },
-    changeViewing () {
-      this.$refs.draw.camera.position.z = this.distance / 10 + 4
+    changeViewing (distance) {
+      this.$refs.draw.camera.position.z = distance / 10 + 4
       // 使物体在相机中央
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
       this.$refs.draw.renderScene()
