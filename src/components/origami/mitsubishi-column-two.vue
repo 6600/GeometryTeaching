@@ -28,11 +28,38 @@ export default {
   methods: {
     nextStep () {
       setTimeout(() => {
+        this.step++
+        this.animation(this.step)
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
+    },
+    animation (step) {
+      const spiale = this.spiale
+      if (step === 1) {
+        this.meshs[0].position.set(-1, Math.sqrt(3) / 2, 0)
+        this.spiale[0].position.set(-0.25, 3 * Math.sqrt(3) / 4, 0)
+        this.spiale[0].add(this.meshs[0])
+        this.nextStep()
+      } else if (step <= 90) {
+        // 盒子左1
+        spiale[0].rotation.x = step * (Math.PI / 180)
+        // 盒子右部
+        // spiale[1].rotation.x = step * (Math.PI / 180)
+        // spiale[2].rotation.x = step * (Math.PI / 180)
+        // spiale[4].rotation.z = -step * (Math.PI / 180)
+        // 盒子上部
+        this.nextStep()
+      } else if (step === 91) {
+      } else if (step < 121) {
+        // this.spiale[0].rotation.y = (step) * (Math.PI / 180)
+        // this.spiale[2].rotation.y = -(step) * (Math.PI / 180)
+        this.nextStep()
+      } else {
+        console.log('动画已播放完毕!')
+      }
     },
     creatMitsubishiColumn (scene, renderer, camera) {
       // 定义长宽都是1平面
@@ -43,18 +70,12 @@ export default {
       shape1.lineTo(0.5, Math.sqrt(3) / 2)
       shape1.lineTo(0, 0)
       let triangleGeometry1 = new THREE.ShapeGeometry(shape1)
-      let shape2 = new THREE.Shape()
-      shape2.moveTo(0, 0)
-      shape2.lineTo(1, 0)
-      shape2.lineTo(0.5, -Math.sqrt(3) / 2)
-      shape2.lineTo(0, 0)
-      let triangleGeometry2 = new THREE.ShapeGeometry(shape2)
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c']
       // 定义6个坐标
-      const positions = [[0.25, 3 * Math.sqrt(3) / 4, 0], [-0.25, 3 * Math.sqrt(3) / 4, 0], [0.75, 3 * Math.sqrt(3) / 4, 0], [-0.5, 0, 0], [1.5, Math.sqrt(3), 0]]
+      const positions = [[0, 0, 0], [-0.25, 3 * Math.sqrt(3) / 4, 0], [0.75, 3 * Math.sqrt(3) / 4, 0], [-0.5, 0, 0], [0, 0, 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const axiss = [[0.25, 3 * Math.sqrt(3) / 4, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [1.5, Math.sqrt(3), 0]]
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色
@@ -75,7 +96,7 @@ export default {
             side: THREE.DoubleSide
           }))
         } else if (index === '4') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshLambertMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshLambertMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
@@ -102,11 +123,12 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[4].add(new THREE.AxesHelper(50))
+      this.spiale[0].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.spiale[0].rotation.z = 60 * (Math.PI / 180)
         this.spiale[1].rotation.z = -60 * (Math.PI / 180)
         this.spiale[2].rotation.z = -60 * (Math.PI / 180)
+        this.spiale[4].rotation.z = -60 * (Math.PI / 180)
         this.nextStep()
       }, 1)
     }
