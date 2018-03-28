@@ -1,6 +1,6 @@
 <template lang="pug">
   .origami-box
-    router-view.origami-show(ref="draw", @onStyleChange="", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
+    router-view.origami-show(ref="draw", @stepChange="changeStep", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
     .origami-menu
       Button150.button(text="輸出圖形")
       Button150.button(text="輸出折紙圖樣")
@@ -9,7 +9,8 @@
     .left.flip-button(@click="flipTo(4)")
     .right.flip-button(@click="flipTo(2)")
     .control
-      Slider(v-model="sliderNum", :width="38", :length="776" :rodLength="743" rodColor="white")
+      template(v-if="stepCount")
+        Slider(v-model="sliderNum", :width="38", :length="776" :rodLength="743" rodColor="white", :segment="stepCount")
       .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
       .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
     //- 拉远视角
@@ -37,8 +38,12 @@ export default {
       // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
       origamiStyle: 0,
       // 视角距离
-      distance: 40
+      distance: 40,
+      stepCount: null
     }
+  },
+  mounted () {
+    this.stepCount = this.$refs.draw.stepCount
   },
   methods: {
     // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
@@ -151,6 +156,9 @@ export default {
       if (this.distance <= 0) return
       this.distance--
       this.changeViewing()
+    },
+    changeStep (step) {
+      this.sliderNum = step
     }
   }
 }

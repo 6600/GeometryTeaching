@@ -1,7 +1,7 @@
 <template>
   <div class="slider" :style="getSliderStyle()" @mouseup="clear">
     <div class="rod" @mousedown.stop.left="click" @mouseup="clear" :style="getRodStyle()">
-      <div class="spot" :style="getSpotStyle()" @mouseup="clear">{{spotStyle}}</div>
+      <div class="spot" :style="getSpotStyle()" @mouseup="clear">{{value}}</div>
     </div>
   </div>
 </template>
@@ -48,11 +48,6 @@ export default {
       default: 10
     }
   },
-  data () {
-    return {
-      spotStyle: this.value
-    }
-  },
   methods: {
     click (e) {
       const DOM = this.$el.children[0]
@@ -96,10 +91,10 @@ export default {
       let styleList = {}
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.top = this.spotStyle * scale - 10 + 'px'
+        styleList.top = this.value * scale - 10 + 'px'
         styleList.left = (this.rodWidth - 20) / 2 + 'px'
       } else {
-        styleList.left = this.spotStyle * scale - 10 + 'px'
+        styleList.left = this.value * scale - 10 + 'px'
         styleList.top = (this.rodWidth - 20) / 2 + 'px'
       }
       return styleList
@@ -110,8 +105,8 @@ export default {
       const num = this.vertical ? e.offsetY / rodLength : e.offsetX / rodLength
       // let returnNum = Math.round(num * this.segment)
       // console.log(returnNum)
-      this.spotStyle = Math.ceil(num * this.segment)
-      this.$emit('input', this.spotStyle)
+      const spotStyle = Math.ceil(num * this.segment)
+      this.$emit('input', spotStyle)
     },
     clear () {
       // 清除监听
@@ -148,7 +143,6 @@ export default {
     text-align: center;
     color: white;
     font-size: 0.8rem;
-    transition: All 0.5s;
   }
   .vertical .rod {
     width: 6px;
