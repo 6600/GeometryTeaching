@@ -51,6 +51,11 @@ const Fun = {
     object3d.position.set(-2, 6, 0)
     object3d.name = 'Key light'
     scene.add(object3d)
+    // 方向光源
+    object3d = new THREE.DirectionalLight('white', 1)
+    object3d.position.set(0, -10, 0)
+    object3d.name = 'Key light'
+    scene.add(object3d)
     callBack({scene, renderer, camera})
   }
 }

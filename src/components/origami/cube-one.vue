@@ -6,7 +6,6 @@
 import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
-  name: 'HelloWorld',
   data () {
     return {
       camera: null,
