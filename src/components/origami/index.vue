@@ -167,6 +167,7 @@ export default {
       right: 0;
       bottom: 20px;
       display: flex;
+      z-index: 2;
     }
     .button {
       margin: 0 10px;
