@@ -28,8 +28,8 @@ export default {
   methods: {
     nextStep () {
       setTimeout(() => {
-        // this.step++
-        // this.animation(this.step)
+        this.step++
+        this.animation(this.step)
         this.renderScene()
       }, 20)
     },
@@ -37,26 +37,58 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     animation (step) {
-      const spiale = this.spiale
-      if (step <= 90) {
-        // 盒子左1
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        spiale[1].rotation.y = step * (Math.PI / 180)
-        // 盒子右部
-        spiale[3].rotation.y = -step * (Math.PI / 180)
-        // 盒子上部
-        spiale[4].rotation.x = step * (Math.PI / 180)
-        // 盒子下部
-        spiale[5].rotation.x = -step * (Math.PI / 180)
+      if (step === 1) {
+        this.meshs[0].position.set(0, 0, 0)
+        this.spiale[0].position.set(-1.5, 1, 0)
+        this.meshs[1].position.set(-0.5, 0, 0)
+        this.spiale[1].position.set(-1.5, 0, 0)
+        this.meshs[3].position.set(0.5, 0, 0)
+        this.spiale[3].position.set(-0.5, 0, 0)
+        this.meshs[4].position.set(1.5, 0, 0)
+        this.spiale[4].position.set(-0.5, 0, 0)
+        this.meshs[5].position.set(2.5, 0, 0)
+        this.spiale[5].position.set(-0.5, 0, 0)
+        this.meshs[6].position.set(0, 0, 0)
+        this.spiale[6].position.set(-1.5, -1, 0)
+        // 旋转
+        this.spiale[0].rotateX(1 * (Math.PI / 180))
+        this.spiale[1].rotateY(1 * (Math.PI / 180))
+        this.spiale[3].rotateY(-1 * (Math.PI / 180))
+        this.spiale[4].rotateY(-1 * (Math.PI / 180))
+        this.spiale[5].rotateY(-1 * (Math.PI / 180))
+        this.spiale[6].rotateX(-1 * (Math.PI / 180))
+        this.nextStep()
+      } else if (step <= 72) {
+        this.spiale[0].rotateX(1 * (Math.PI / 180))
+        this.spiale[1].rotateY(1 * (Math.PI / 180))
+        this.spiale[4].rotateY(-1 * (Math.PI / 180))
+        this.spiale[5].rotateY(-1 * (Math.PI / 180))
+        this.spiale[3].rotateY(-1 * (Math.PI / 180))
+        this.spiale[6].rotateX(-1 * (Math.PI / 180))
+        this.nextStep()
+      } else if (step <= 90) {
+        this.spiale[0].rotateX(1 * (Math.PI / 180))
+        this.spiale[6].rotateX(-1 * (Math.PI / 180))
         this.nextStep()
       } else if (step === 91) {
-        // 重设0面转轴
-        this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 0.5)
-        spiale[0].rotation.y = step * (Math.PI / 180)
+        this.meshs[4].position.set(0.5, 0, 0)
+        this.spiale[4].position.set(-0.5 + Math.sin(18 * Math.PI / 180), 0, Math.cos(18 * Math.PI / 180))
+        this.meshs[5].position.set(1.5, 0, 0)
+        this.spiale[5].position.set(-0.5 + Math.sin(18 * Math.PI / 180), 0, Math.cos(18 * Math.PI / 180))
+        this.spiale[4].rotateY(-1 * (Math.PI / 180))
+        this.spiale[5].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
-      } else if (step < 181) {
-        spiale[0].rotation.y = step * (Math.PI / 180)
+      } else if (step < 90 + 72) {
+        this.spiale[4].rotateY(-1 * (Math.PI / 180))
+        this.spiale[5].rotateY(-1 * (Math.PI / 180))
+        this.nextStep()
+      } else if (step === 90 + 72) {
+        this.meshs[5].position.set(0.5, 0, 0)
+        this.spiale[5].position.set(-1, 0, Math.cos(18 * Math.PI / 180) + Math.sin(36 * Math.PI / 180))
+        this.spiale[5].rotateY(-1 * (Math.PI / 180))
+        this.nextStep()
+      } else if (step <= 90 + 72 + 72) {
+        this.spiale[5].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -134,14 +166,8 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      //      this.camera.position.x = 0
-      //      this.camera.position.y = 0
-      //      this.camera.position.z = 6
-      //      this.camera.lookAt(new THREE.Vector3(0, 0, 0))
-      //      this.scene.add(this.meshs[0])
-      // this.spiale[0].add(this.meshs[0])
       // 调试转轴
-      this.spiale[6].add(new THREE.AxesHelper(50))
+      this.spiale[5].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
       }, 0)
