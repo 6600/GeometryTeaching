@@ -37,25 +37,43 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     animation (step) {
-      const spiale = this.spiale
+      // const spiale = this.spiale
       if (step === 1) {
         this.meshs[0].position.set(-1, Math.sqrt(3) / 2, 0)
-        this.spiale[0].position.set(-0.25, 3 * Math.sqrt(3) / 4, 0)
-        this.spiale[0].add(this.meshs[0])
+        this.spiale[0].position.set(0.25, 3 * Math.sqrt(3) / 4, 0)
+        this.meshs[1].position.set(0.5, 2 * Math.sqrt(3) / 4, 0)
+        this.spiale[1].position.set(0, 2 * Math.sqrt(3) / 4, 0)
+        this.meshs[2].position.set(1.5, 2 * Math.sqrt(3) / 4, 0)
+        this.spiale[2].position.set(0, 2 * Math.sqrt(3) / 4, 0)
+        this.meshs[4].position.set(0, Math.sqrt(3), 0)
+        this.spiale[4].position.set(0, 2 * Math.sqrt(3) / 4, 0)
+        // 旋转
+        this.spiale[0].rotateX(1 * (Math.PI / 180))
+        this.spiale[1].rotateX(1 * (Math.PI / 180))
+        this.spiale[2].rotateX(1 * (Math.PI / 180))
+        this.spiale[4].rotateX(1 * (Math.PI / 180))
         this.nextStep()
       } else if (step <= 90) {
-        // 盒子左1
-        spiale[0].rotation.x = step * (Math.PI / 180)
+        this.spiale[0].rotateX(1 * (Math.PI / 180))
         // 盒子右部
-        // spiale[1].rotation.x = step * (Math.PI / 180)
-        // spiale[2].rotation.x = step * (Math.PI / 180)
-        // spiale[4].rotation.z = -step * (Math.PI / 180)
-        // 盒子上部
+        this.spiale[1].rotateX(1 * (Math.PI / 180))
+        this.spiale[2].rotateX(1 * (Math.PI / 180))
+        this.spiale[4].rotateX(1 * (Math.PI / 180))
         this.nextStep()
       } else if (step === 91) {
-      } else if (step < 121) {
-        // this.spiale[0].rotation.y = (step) * (Math.PI / 180)
-        // this.spiale[2].rotation.y = -(step) * (Math.PI / 180)
+        this.meshs[2].position.set(0.5, 2 * Math.sqrt(3) / 4, 0)
+        this.spiale[2].position.set(0.5, 0, 0)
+        this.meshs[4].position.set(0, 0, 0)
+        this.spiale[4].position.set(0, 2 * Math.sqrt(3) / 4, 4 * Math.sqrt(3) / 4)
+        this.spiale[2].rotateY(-1 * (Math.PI / 180))
+        this.spiale[4].rotateX(1 * (Math.PI / 180))
+        this.nextStep()
+      } else if (step <= 180) {
+        this.spiale[2].rotateY(-1 * (Math.PI / 180))
+        this.spiale[4].rotateX(1 * (Math.PI / 180))
+        this.nextStep()
+      } else if (step <= 210) {
+        this.spiale[2].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -123,7 +141,7 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      this.spiale[4].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.spiale[0].rotation.z = 60 * (Math.PI / 180)
         this.spiale[1].rotation.z = -60 * (Math.PI / 180)
