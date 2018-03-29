@@ -28,8 +28,8 @@ export default {
   methods: {
     nextStep () {
       setTimeout(() => {
-        // this.step++
-        // this.animation(this.step)
+        this.step++
+        this.animation(this.step)
         this.renderScene()
       }, 20)
     },
@@ -40,23 +40,32 @@ export default {
       const spiale = this.spiale
       if (step <= 90) {
         // 盒子左1
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        spiale[1].rotation.y = step * (Math.PI / 180)
-        // 盒子右部
-        spiale[3].rotation.y = -step * (Math.PI / 180)
-        // 盒子上部
-        spiale[4].rotation.x = step * (Math.PI / 180)
-        // 盒子下部
-        spiale[5].rotation.x = -step * (Math.PI / 180)
+        spiale[1].rotateY(1 * (Math.PI / 180))
+        spiale[2].rotateY(1 * (Math.PI / 180))
+        spiale[3].rotateY(-1 * (Math.PI / 180))
+        spiale[4].rotateY(-1 * (Math.PI / 180))
+        spiale[5].rotateY(-1 * (Math.PI / 180))
+        spiale[6].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
       } else if (step === 91) {
+        spiale[3].position.set(0, 0.5, 0)
+        this.meshs[3].position.set(1, 0.5, 0)
+        spiale[3].rotateX(1 * (Math.PI / 180))
+        spiale[5].position.set(0, -0.5, 0)
+        this.meshs[5].position.set(1, -0.5, 0)
+        spiale[5].rotateX(-1 * (Math.PI / 180))
+        spiale[6].position.set(0, -0.5, 2)
+        this.meshs[6].position.set(0, 0, 0)
+        spiale[6].rotateY(-1 * (Math.PI / 180))
         // 重设0面转轴
-        this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 0.5)
-        spiale[0].rotation.y = step * (Math.PI / 180)
         this.nextStep()
-      } else if (step < 181) {
-        spiale[0].rotation.y = step * (Math.PI / 180)
+      } else if (step <= 90 + 72) {
+        spiale[3].rotateX(1 * (Math.PI / 180))
+        spiale[5].rotateX(-1 * (Math.PI / 180))
+        spiale[6].rotateY(-1 * (Math.PI / 180))
+        this.nextStep()
+      } else if (step <= 90 + 90) {
+        spiale[6].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -135,16 +144,9 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      //      this.camera.position.x = 0
-      //      this.camera.position.y = 0
-      //      this.camera.position.z = 6
-      //      this.camera.lookAt(new THREE.Vector3(0, 0, 0))
-      // this.scene.add(this.meshs[0])
-      // this.spiale[0].add(this.meshs[0])
-      // 调试转轴
       this.spiale[1].rotation.z = -36 * (Math.PI / 180)
       this.spiale[2].rotation.z = 36 * (Math.PI / 180)
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      this.spiale[6].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
       }, 0)
