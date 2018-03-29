@@ -6,7 +6,6 @@
 import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
-  name: 'HelloWorld',
   data () {
     return {
       camera: null,
@@ -14,7 +13,9 @@ export default {
       spiale: [],
       meshs: [],
       step: 0,
-      pause: false
+      pause: false,
+      // 告诉父级元素总共有多少步
+      stepCount: 451
     }
   },
   mounted () {
@@ -36,6 +37,7 @@ export default {
     closeBox () {
       setTimeout(() => {
         this.step++
+        this.$emit('stepChange', this.step)
         // 判断是否暂停
         if (this.pause) {
           this.pause = false
@@ -48,6 +50,7 @@ export default {
     openBox () {
       setTimeout(() => {
         this.step = this.step - 2
+        this.$emit('stepChange', this.step)
         // 判断是否暂停
         if (this.pause) {
           this.pause = false

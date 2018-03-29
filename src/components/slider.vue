@@ -48,11 +48,6 @@ export default {
       default: 10
     }
   },
-  data () {
-    return {
-      spotStyle: this.value
-    }
-  },
   methods: {
     click (e) {
       const DOM = this.$el.children[0]
@@ -110,9 +105,8 @@ export default {
       const num = this.vertical ? e.offsetY / rodLength : e.offsetX / rodLength
       // let returnNum = Math.round(num * this.segment)
       // console.log(returnNum)
-      this.spotStyle = Math.ceil(num * this.segment)
-      this.$emit('input', this.spotStyle)
-      this.$emit('onClick')
+      const spotStyle = Math.ceil(num * this.segment)
+      this.$emit('input', spotStyle)
     },
     clear () {
       // 清除监听
@@ -149,7 +143,6 @@ export default {
     text-align: center;
     color: white;
     font-size: 0.8rem;
-    transition: All 0.5s;
   }
   .vertical .rod {
     width: 6px;
