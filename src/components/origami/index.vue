@@ -10,7 +10,7 @@
     .right.flip-button(@click="flipTo(2)")
     .control
       template(v-if="stepCount")
-        Slider(v-model="sliderNum", :width="38", :length="776" :rodLength="743" rodColor="white", :segment="stepCount")
+        Slider(:value="sliderNum", @input="controlStep", :width="38", :length="776" :rodLength="743" rodColor="white", :segment="stepCount")
       .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
       .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
     //- 拉远视角
@@ -18,7 +18,7 @@
       //- 增加相机距离按钮
       .add-distance.button(@click="addViewing()")
       //- 相机滑块
-      Slider(:value="distance", v-on:input="changeViewing", :vertical="true", :width="60", :length="410", :segment="80")
+      Slider(:value="distance", @input="changeViewing", :vertical="true", :width="60", :length="410", :segment="80")
       //- 减少相机距离按钮
       .reduce-distance.button(@click="reduceViewing()")
 </template>
@@ -39,6 +39,8 @@ export default {
       origamiStyle: 0,
       // 视角距离
       distance: 40,
+      // step存储
+      lastStep: 0,
       stepCount: null
     }
   },
@@ -139,6 +141,7 @@ export default {
       }
     },
     changeViewing (distance) {
+      this.distance = distance
       this.$refs.draw.camera.position.z = distance / 10 + 4
       // 使物体在相机中央
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
@@ -159,6 +162,16 @@ export default {
     },
     changeStep (step) {
       this.sliderNum = step
+    },
+    controlStep (step) {
+      this.sliderNum = step
+      // 判断是不是组装盒子 正为组装盒子，负为拆开盒子
+      if (step > this.lastStep) {
+        this.$refs.draw.close(step, false)
+      } else {
+        this.$refs.draw.open(step, false)
+      }
+      this.lastStep = step
     }
   }
 }
