@@ -96,16 +96,14 @@ export default {
         this.spiale[1].rotateY(1 * (Math.PI / 180))
         this.spiale[5].rotateY(-1 * (Math.PI / 180))
         this.spiale[6].rotateY(-1 * (Math.PI / 180))
-        // this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        // this.spiale[5].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
-      } else if (step === 90 + 60) {
-        // this.meshs[5].position.set(0.5, 0, 0)
-        // this.spiale[5].position.set(-1, 0, Math.cos(18 * Math.PI / 180) + Math.sin(36 * Math.PI / 180))
-        // this.spiale[5].rotateY(-1 * (Math.PI / 180))
+      } else if (step === 121) {
+        this.meshs[6].position.set(0.5, 0, 0)
+        this.spiale[6].position.set(0.5, 0, Math.sqrt(3))
+        this.spiale[6].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
-      } else if (step <= 90 + 60 + 60) {
-        // this.spiale[5].rotateY(-1 * (Math.PI / 180))
+      } else if (step <= 180) {
+        this.spiale[6].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -170,7 +168,7 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[5].add(new THREE.AxesHelper(50))
+      this.spiale[6].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
       }, 0)
