@@ -61,7 +61,7 @@ export default {
           if (this.pause) {
             this.pause = false
           } else {
-            this.open(this.step)
+            this.open(this.step, auto)
           }
           this.renderScene()
         }, 20)
