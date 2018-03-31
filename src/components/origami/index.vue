@@ -150,15 +150,15 @@ export default {
     },
     addViewing () {
       // 防止可以无限缩放大
-      if (this.distance >= 8) return
-      this.distance++
-      this.changeViewing()
+      if (this.distance >= 80) return
+      const newDistance = this.distance + 2
+      this.changeViewing(newDistance)
     },
     reduceViewing () {
       // 防止可以无限缩小
       if (this.distance <= 0) return
-      this.distance--
-      this.changeViewing()
+      const newDistance = this.distance - 2
+      this.changeViewing(newDistance)
     },
     changeStep (step) {
       this.sliderNum = step
@@ -204,6 +204,7 @@ export default {
   .flip-button {
     position: absolute;
     cursor: pointer;
+    background-repeat: no-repeat;
   }
   .top {
     top: 30px;
@@ -213,25 +214,31 @@ export default {
     background-image: url('..\..\assets\origami\bofang04@1x.png')
   }
   .bottom {
-    top: 520px;
+    top: 510px;
     left: 360px;
     width: 68px;
     height: 40px;
     background-image: url('..\..\assets\origami\bofang06@1x.png')
   }
+  .bottom:hover, .top:hover {
+    background-position: 0px -40px;
+  }
   .left {
     top: 280px;
     left: 30px;
     width: 40px;
-    height: 60px;
+    height: 66px;
     background-image: url('..\..\assets\origami\bofang05@1x.png')
   }
   .right {
     top: 280px;
     left: 730px;
     width: 40px;
-    height: 60px;
+    height: 66px;
     background-image: url('..\..\assets\origami\bofang07@1x.png')
+  }
+  .left:hover, .right:hover {
+    background-position: 0px -66px;
   }
   .distance-control {
     position: absolute;

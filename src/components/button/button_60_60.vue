@@ -5,11 +5,12 @@
 <style lang='less'>
   .button-60-60 {
     height: 60px;
-    width: 60px;
+    width: 125px;
+    position: absolute;
     cursor: pointer;
     background-repeat: no-repeat;
   }
   .button-60-60:hover {
-    transform: scale(1.1);
+    background-position: -4px -72px;
   }
 </style>

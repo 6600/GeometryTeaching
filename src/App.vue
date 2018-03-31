@@ -88,11 +88,14 @@ export default {
     }
     .reduction {
       margin: 25px;
-      background-image: url('.\assets\reduction.png')
+      background-position: -4px -2px;
+      background-image: url('.\assets\button\zcd04@1x.png')
     }
     .explain {
       margin: 25px;
-      background-image: url('.\assets\explain.png')
+      bottom: 60px;
+      background-position: -4px -2px;
+      background-image: url('.\assets\button\zcd05@1x.png')
     }
   }
   .logo {
