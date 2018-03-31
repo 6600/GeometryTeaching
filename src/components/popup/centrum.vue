@@ -66,7 +66,7 @@ export default {
     width: 100%;
     height: 491px;
     position: relative;
-    background-image: url('../../assets/popup/xuanzebg01@1x.png');
+    background-image: url('../../assets/popup/xuanzebg02@1x.png');
     overflow: hidden;
     .slect {
       position: absolute;

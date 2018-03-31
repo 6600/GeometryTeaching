@@ -3,15 +3,16 @@
     .home-title
     .app-box
       .home-left-bar
-        Button70.button(@onClick="showPopup = true", text="柱體")
-        Button70.button(@onClick="clickTest", text="椎體")
+        Button70.button(@onClick="showColumnPopup = true", text="柱體")
+        Button70.button(@onClick="showCentrumPopup = true", text="椎體")
         Line60
         Button70.button.pintu(@onClick="playGame", text="")
         Line60
         Button60.reduction
         Button60.explain(@onClick="help")
       router-view
-    ColumnPopup(v-if="showPopup", @close="showPopup = false")
+    ColumnPopup(v-if="showColumnPopup", @close="showColumnPopup = false")
+    CentrumPopup(v-if="showCentrumPopup", @close="showCentrumPopup = false")
     .logo
 </template>
 
@@ -19,19 +20,22 @@
 import Button60 from '@/components/button/button_60_60.vue'
 import Button70 from '@/components/button/button_70_50.vue'
 import ColumnPopup from '@/components/popup/column.vue'
+import CentrumPopup from '@/components/popup/centrum.vue'
 import Line60 from '@/components/line/line_60.vue'
 export default {
   name: 'App',
   data () {
     return {
-      showPopup: false
+      showColumnPopup: false,
+      showCentrumPopup: false
     }
   },
   components: {
     Button70,
     Button60,
     Line60,
-    ColumnPopup
+    ColumnPopup,
+    CentrumPopup
   },
   methods: {
     help () {
