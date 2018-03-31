@@ -8,9 +8,9 @@
         Line60
         Button70.button.pintu(@onClick="playGame", text="")
         Line60
-        Button60.reduction
+        Button60.reduction(@onClick="reduction")
         Button60.explain(@onClick="help")
-      router-view
+      router-view(ref="view")
     ColumnPopup(v-if="showColumnPopup", @close="showColumnPopup = false")
     CentrumPopup(v-if="showCentrumPopup", @close="showCentrumPopup = false")
     .logo
@@ -46,6 +46,11 @@ export default {
     },
     playGame () {
       window.location.href = '/#/activityGame'
+    },
+    // 还原按钮
+    reduction () {
+      // 通过刷新页面的方式重置数据
+      this.$refs.view.$router.go(0)
     }
   }
 }
