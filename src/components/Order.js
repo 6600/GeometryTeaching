@@ -10,7 +10,7 @@ const Fun = {
     // 创建场景
     let scene = new THREE.Scene()
     // 配置渲染器
-    let renderer = new THREE.WebGLRenderer({ antialias: true })
+    let renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true })
     // 设置渲染器大小
     renderer.setSize(WIDTH, HEIGHT)
     // 设置canvas背景色(clearColor)和背景色透明度（clearAlpha）
