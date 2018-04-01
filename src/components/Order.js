@@ -32,22 +32,22 @@ const Fun = {
 
     // --------------------------- 创建光照 ---------------------------
     // 方向光源
-    let object3d = new THREE.DirectionalLight('white', 1)
-    object3d.position.set(0, 0, 6)
+    let object3d = new THREE.DirectionalLight('white', 0.8)
+    object3d.position.set(0, 0, 26)
     object3d.name = 'Back light'
     scene.add(object3d)
     // 方向光源
-    object3d = new THREE.DirectionalLight('white', 1)
+    object3d = new THREE.DirectionalLight('white', 0.6)
     object3d.position.set(0, 0, -6)
     object3d.name = 'Key light'
     scene.add(object3d)
     // 方向光源
-    object3d = new THREE.DirectionalLight('white', 1)
+    object3d = new THREE.DirectionalLight('white', 0.6)
     object3d.position.set(-2, 6, 0)
     object3d.name = 'Key light'
     scene.add(object3d)
     // 方向光源
-    object3d = new THREE.DirectionalLight('white', 1)
+    object3d = new THREE.DirectionalLight('white', 0.6)
     object3d.position.set(0, -10, 0)
     object3d.name = 'Key light'
     scene.add(object3d)
