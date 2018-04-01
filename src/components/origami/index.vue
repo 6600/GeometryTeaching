@@ -3,7 +3,7 @@
     router-view.origami-show(ref="draw", @stepChange="changeStep", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
     .origami-menu
       Button150.button(text="輸出圖形", @onClick="showExport = true")
-      Button150.button(text="輸出折紙圖樣")
+      Button150.button(text="輸出折紙圖樣", @onClick="showExportOrigami = true")
     .top.flip-button(@click="flipTo(1)")
     .bottom.flip-button(@click="flipTo(3)")
     .left.flip-button(@click="flipTo(4)")
@@ -22,6 +22,7 @@
       //- 减少相机距离按钮
       .reduce-distance.button(@click="reduceViewing()")
     ExportImg(v-if="showExport", @close="showExport = false")
+    Origami(v-if="showExportOrigami", @close="showExportOrigami = false")
 </template>
 
 <script>
@@ -29,9 +30,11 @@ import { Order } from '@/components/Order.js'
 import Button150 from '@/components/button/button_150_50.vue'
 import Slider from '@/components/slider.vue'
 import ExportImg from '@/components/popup/export.vue'
+import Origami from '@/components/popup/exportOrigami.vue'
 export default {
   components: {
     Slider,
+    Origami,
     ExportImg,
     Button150
   },
@@ -45,7 +48,8 @@ export default {
       // step存储
       lastStep: 0,
       stepCount: null,
-      showExport: false
+      showExport: false,
+      showExportOrigami: false
     }
   },
   mounted () {

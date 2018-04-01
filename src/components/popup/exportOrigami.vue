@@ -1,7 +1,7 @@
 <template lang="pug">
-  .export-popup-box
+  .export-origami-popup-box
     .popup
-      .title 輸出圖形:
+      .title 輸出折紙圖樣:
       .popup-panel
         img(v-if="imgBase64", :src="imgBase64")
       .check-box
@@ -31,8 +31,9 @@ export default {
     }
   },
   created () {
-    const canvas = document.getElementsByTagName('canvas')[0]
-    this.imgBase64 = canvas.toDataURL()
+    const routeName = this.$route.name
+    // console.log(routeName)
+    this.imgBase64 = `./static/export/color/${routeName}.png`
   },
   components: {
     Button
@@ -51,7 +52,7 @@ export default {
         case 2: {
           this.checkItem = 2
           console.log(this.$route.name.split('-')[0])
-          this.imgBase64 = `./static/export/line/${this.$route.name.split('-')[0]}.png`
+          this.imgBase64 = `./static/export/origami-line/${this.$route.name}.png`
           break
         }
       }
@@ -61,7 +62,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-  .export-popup-box {
+  .export-origami-popup-box {
     width: 100%;
     height: 100%;
     position: fixed;

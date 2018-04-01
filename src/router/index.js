@@ -4,10 +4,10 @@ import origami from '@/components/origami/index'
 // 立方体
 import cubeOne from '@/components/origami/cube-one'
 import cubetwo from '@/components/origami/cube-two'
-//
+// 三角锥
 import mitsubishiColumnOne from '@/components/origami/mitsubishi-column-one'
 import mitsubishiColumnTwo from '@/components/origami/mitsubishi-column-two'
-// 三角锥
+// 三棱锥
 import trigonometricConeOne from '@/components/origami/trigonometric-cone-one'
 import trigonometricConeTwo from '@/components/origami/trigonometric-cone-two'
 // 长方体1
