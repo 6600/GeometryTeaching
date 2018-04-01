@@ -50,7 +50,8 @@ export default {
         }
         case 2: {
           this.checkItem = 2
-          this.imgBase64 = './export/line/zhuiti@1x0002.png'
+          console.log(this.$route.name)
+          this.imgBase64 = `./static/export/line/${this.$route.name}.png`
           break
         }
       }
