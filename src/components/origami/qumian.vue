@@ -47,7 +47,7 @@ export default {
         plane.vertices[2 * i].z = Math.pow(2, i / 20)
         plane.vertices[2 * i + 1].z = Math.pow(2, i / 20)
       }
-      let mesh = new THREE.Mesh(plane, new THREE.MeshLambertMaterial({color: 0x888888}))
+      let mesh = new THREE.Mesh(plane, new THREE.MeshPhongMaterial({color: 0x888888}))
       mesh.doubleSided = true
       mesh.rotation.y = Math.PI / 2 - 0.5
       scene.add(mesh)

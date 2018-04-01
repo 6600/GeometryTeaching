@@ -16,13 +16,13 @@ const Fun = {
     // 设置canvas背景色(clearColor)和背景色透明度（clearAlpha）
     renderer.setClearColor(0xffffff, 1)
     // 添加阴影
-    // renderer.shadowMap.enabled = true
+    renderer.shadowMap.enabled = true
     // 添加软阴影
     renderer.shadowMapSoft = true
     // 将渲染DOM追加到页面上
     DOM.appendChild(renderer.domElement)
-    // 配置 正交 相机
-    let camera = new THREE.OrthographicCamera(WIDTH / -128, WIDTH / 128, HEIGHT / 128, HEIGHT / -128, 0, 10)
+    // 配置 透视 相机
+    let camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 1000)
     // 设置相机位置
     camera.position.set(0, 0, 8)
     // 指定它看着原点方向

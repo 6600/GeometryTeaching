@@ -85,7 +85,7 @@ export default {
         this.spiale[index] = new THREE.Object3D()
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
-        this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
+        this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
           color: color,
           transparent: true,
           // 双面双面贴图

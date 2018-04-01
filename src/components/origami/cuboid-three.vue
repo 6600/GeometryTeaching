@@ -86,21 +86,21 @@ export default {
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
         if (index === '0' || index === '2') {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '1' || index === '3') {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '4' || index === '5') {
-          this.meshs[index] = new THREE.Mesh(geometry1, new THREE.MeshLambertMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry1, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
