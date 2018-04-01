@@ -120,7 +120,7 @@ export default {
         // 判断当前是否为打开状态
         case 0: {
           this.origamiStyle = 2
-          this.$refs.draw.closeBox()
+          this.$refs.draw.closeBox(true)
           break
         }
         // 判断当前是否为正在打开状态
@@ -137,7 +137,7 @@ export default {
         // 判断当前是否为打开状态
         case 1: {
           this.origamiStyle = 3
-          this.$refs.draw.openBox()
+          this.$refs.draw.openBox(true)
           break
         }
         // 判断当前是否为正在打开状态

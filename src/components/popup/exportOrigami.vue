@@ -51,7 +51,7 @@ export default {
         }
         case 2: {
           this.checkItem = 2
-          console.log(this.$route.name.split('-')[0])
+          // console.log(this.$route.name.split('-')[0])
           this.imgBase64 = `./static/export/origami-line/${this.$route.name}.png`
           break
         }
