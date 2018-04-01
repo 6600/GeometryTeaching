@@ -6,13 +6,13 @@
         img(v-if="imgBase64", :src="imgBase64")
       .check-box
         .input-check(:class="{active: checkItem === 0}")
-          .check(@click="checkItem = 0")
+          .check(@click="toItem(0)")
           .text 彩色圖
         .input-check(:class="{active: checkItem === 1}")
-          .check(@click="checkItem = 1")
+          .check(@click="toItem(1)")
           .text 灰階圖
         .input-check(:class="{active: checkItem === 2}")
-          .check(@click="checkItem = 2")
+          .check(@click="toItem(2)")
           .text 單線圖
       .tool-box
         Button.button(text="确定")
@@ -31,12 +31,30 @@ export default {
     }
   },
   created () {
-    console.log(document.getElementsByTagName('canvas'))
     const canvas = document.getElementsByTagName('canvas')[0]
-    this.imgBase64 = canvas.toDataURL('image/jpeg')
+    this.imgBase64 = canvas.toDataURL()
   },
   components: {
     Button
+  },
+  methods: {
+    toItem (key) {
+      switch (key) {
+        case 0: {
+          this.checkItem = 0
+          break
+        }
+        case 1: {
+          this.checkItem = 1
+          break
+        }
+        case 2: {
+          this.checkItem = 2
+          this.imgBase64 = './export/line/zhuiti@1x0002.png'
+          break
+        }
+      }
+    }
   }
 }
 </script>
@@ -72,7 +90,17 @@ export default {
   .popup-panel {
     width: 100%;
     height: 312px;
+    position: relative;
     box-shadow: 0px -2px 13px #8ba3b2 inset;
+    img {
+      height: 300px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
   }
   .check-box {
     height: 120px;

@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     click (e) {
-      const DOM = this.$el.children[0]
+      const DOM = this.$el
       DOM.addEventListener('mousemove', this.handleMove, true)
     },
     getSliderStyle () {
@@ -110,7 +110,7 @@ export default {
     },
     clear () {
       // 清除监听
-      this.$el.children[0].removeEventListener('mousemove', this.handleMove, true)
+      this.$el.removeEventListener('mousemove', this.handleMove, true)
     }
   }
 }
