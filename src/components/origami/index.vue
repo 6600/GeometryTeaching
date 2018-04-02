@@ -175,9 +175,9 @@ export default {
       this.sliderNum = step
       // 判断是不是组装盒子 正为组装盒子，负为拆开盒子
       if (step > this.lastStep) {
-        this.$refs.draw.close(step, false)
+        this.$refs.draw.dragClose(step)
       } else {
-        this.$refs.draw.open(step, false)
+        this.$refs.draw.dragOpen(step)
       }
       this.lastStep = step
     }

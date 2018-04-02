@@ -68,7 +68,8 @@ export default {
   .home-title {
     height: 70px;
     background-color: white;
-    background-image: url('.\assets\title.png')
+    background-repeat: no-repeat;
+    background-image: url('.\assets\title.png');
   }
   .app-box {
     height: calc(~"100% - 70px");

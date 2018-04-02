@@ -10,6 +10,9 @@
 
 [UI素材](http://p5qgrn52w.bkt.clouddn.com/geometryTeaching/Net_Work_png.zip)
 
+[UI素材2](http://cunchu.site/github/6600/GeometryTeaching/VertexEdgeFace_Work.zip)
+
+
 项目总价格：大约9100元 需要翻新两个原来有Flash写的 几何教学软件，需要打包成桌面，平板端程序
 
 | 形目名称 | 项目价格 | 项目时间 | 
