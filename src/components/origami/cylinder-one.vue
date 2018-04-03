@@ -49,29 +49,31 @@ export default {
         // 盒子下部
         spiale[5].rotation.x = -step * (Math.PI / 180)
         this.nextStep()
-      } else if (step === 91) {
-        // 重设0面转轴
-        this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 0.5)
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step < 181) {
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
-      } else {
-        console.log('动画已播放完毕!')
       }
     },
     creatCube (scene, renderer, camera) {
       // 创建长方体的圆面
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
-      const geometry = new THREE.PlaneGeometry(Math.PI, 2)
+      const geometry = new THREE.PlaneGeometry(Math.PI, 2, 19, 0)
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef']
       // 定义6个坐标
       const positions = [[-Math.PI / 2 + 0.5, 1.5, 0], [0, 0, 0], [-Math.PI / 2 + 0.5, -1.5, 0]]
       // 定义6个转轴
       const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      // ----------------------------
+      console.log(geometry.vertices)
+      const ban = geometry.vertices.length / 2
+      const du = 0.5 / 10
+      const ke = 1 / 10
+      console.log(ban)
+      geometry.vertices[(ban) / 2].z = -1
+      geometry.vertices[(ban) / 2 * 3].z = -1
+      // for (let i = 0; i < ban; i++) {
+      //   geometry.vertices[2 * i].z = Math.pow(2, i / 20)
+      //   geometry.vertices[2 * i + 1].z = Math.pow(2, i / 20)
+      // }
+      // ---------------------------
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色

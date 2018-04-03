@@ -36,7 +36,7 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect: '/origami/cubeOne'
+      redirect: '/origami/mitsubishiColumnOne'
     },
     {
       path: '/origami',
