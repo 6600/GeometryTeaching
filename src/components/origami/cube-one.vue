@@ -43,7 +43,7 @@ export default {
         if (this.pause) {
           this.pause = false
         } else {
-          this.close(this.step, true)
+          this.close(this.step)
         }
         this.renderScene()
       }, 20)

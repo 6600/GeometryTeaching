@@ -3,17 +3,19 @@
 </template>
 
 <script>
-import { Fun } from '@/components/Order.js'
+import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
-  name: 'HelloWorld',
+  name: 'mitsubishiColumnOne',
   data () {
     return {
       camera: null,
       renderer: null,
       spiale: [],
       meshs: [],
-      step: 0
+      pause: false,
+      step: 0,
+      stepCount: 420
     }
   },
   mounted () {
@@ -24,36 +26,127 @@ export default {
       this.scene = Object3D.scene
       this.creatMitsubishiColumn(Object3D.scene, Object3D.renderer, Object3D.camera)
     })
+    // 监听暂停事件
+    Order.$on(`pause`, () => {
+      this.pause = true
+    })
+  },
+  beforeDestroy () { // 移除监听
+    Order.$off('pause')
   },
   methods: {
-    nextStep () {
+    closeBox () {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
         this.step++
-        this.animation(this.step)
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          this.close(this.step)
+        }
+        this.renderScene()
+      }, 20)
+    },
+    openBox () {
+      // console.log('关闭盒子', auto)
+      setTimeout(() => {
+        this.step--
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          this.open(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    animation (step) {
+    close (step) {
       const spiale = this.spiale
+      const ratio = (Math.PI / 180)
       if (step <= 90) {
         // 盒子左1
-        spiale[3].rotation.x = step * (Math.PI / 180)
-        // 盒子右部
-        spiale[4].rotation.x = -step * (Math.PI / 180)
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        spiale[2].rotation.y = -step * (Math.PI / 180)
-        // 盒子上部
-        this.nextStep()
-      } else if (step < 121) {
-        this.spiale[0].rotation.y = (step) * (Math.PI / 180)
-        this.spiale[2].rotation.y = -(step) * (Math.PI / 180)
-        this.nextStep()
+        spiale[3].rotation.x = step * ratio
+        this.closeBox()
+      } else if (step <= 180) {
+        // 上部
+        spiale[4].rotation.x = -(step - 90) * ratio
+        this.closeBox()
+      } else if (step <= 300) {
+        spiale[0].rotation.y = (step - 180) * ratio
+        this.closeBox()
+      } else if (step <= 420) {
+        spiale[2].rotation.y = -(step - 300) * ratio
+        this.closeBox()
       } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
+    },
+    open (step) {
+      const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step < 0) {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step <= 90) {
+        // 盒子左1
+        spiale[3].rotation.x = step * ratio
+        this.openBox()
+      } else if (step <= 180) {
+        // 上部
+        spiale[4].rotation.x = -(step - 90) * ratio
+        this.openBox()
+      } else if (step <= 300) {
+        spiale[0].rotation.y = (step - 180) * ratio
+        this.openBox()
+      } else if (step <= 420) {
+        spiale[2].rotation.y = -(step - 300) * ratio
+        this.openBox()
+      }
+    },
+    dragClose (step) {
+      const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step <= 90) {
+        // 盒子左1
+        spiale[3].rotation.x = step * ratio
+      } else if (step <= 180) {
+        // 盒子左1
+        spiale[3].rotation.x = 90 * ratio
+        // 上部
+        spiale[4].rotation.x = -(step - 90) * ratio
+      } else if (step <= 300) {
+        // 盒子左1
+        spiale[3].rotation.x = 90 * ratio
+        // 上部
+        spiale[4].rotation.x = -90 * ratio
+        spiale[0].rotation.y = (step - 180) * ratio
+      } else if (step <= 420) {
+        // 盒子左1
+        spiale[3].rotation.x = 90 * ratio
+        // 上部
+        spiale[4].rotation.x = -90 * ratio
+        spiale[0].rotation.y = 120 * ratio
+        spiale[2].rotation.y = -(step - 300) * ratio
+      } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
+      this.renderScene()
+    },
+    dragOpen (step) {
+      this.dragClose(step)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
       // 创建正方体的6个平面
@@ -117,7 +210,7 @@ export default {
         this.meshs[index].rotation.set(0, 0, 0)
         // 设置平面缩放
         this.meshs[index].scale.set(1, 1, 1)
-        console.log(this.meshs[index])
+        // console.log(this.meshs[index])
         // 取消面剔除
         this.meshs[index].doubleSided = true
         this.meshs[index].castShadow = true
@@ -127,7 +220,7 @@ export default {
       }
       // this.spiale[1].add(new THREE.AxesHelper(50))
       setTimeout(() => {
-        this.nextStep()
+        this.renderScene()
       }, 0)
     }
   }
