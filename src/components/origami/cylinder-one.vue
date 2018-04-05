@@ -62,13 +62,19 @@ export default {
       // 定义6个转轴
       const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
       // ----------------------------
+      // 待完善
       console.log(geometry.vertices)
       const ban = geometry.vertices.length / 2
-      const du = 0.5 / 10
+      // const du = 0.5 / 10
       const ke = 1 / 10
-      console.log(ban)
-      geometry.vertices[(ban) / 2].z = -1
-      geometry.vertices[(ban) / 2 * 3].z = -1
+      const yiban = ban / 2
+      console.log(ban / 2)
+      for (let i = 0; i < yiban; i++) {
+        geometry.vertices[yiban - i].z = -i * ke
+        geometry.vertices[yiban * 3 - i].z = -i * ke
+        geometry.vertices[yiban + i].z = -i * ke
+        geometry.vertices[yiban * 3 + i].z = -i * ke
+      }
       // for (let i = 0; i < ban; i++) {
       //   geometry.vertices[2 * i].z = Math.pow(2, i / 20)
       //   geometry.vertices[2 * i + 1].z = Math.pow(2, i / 20)
