@@ -14,7 +14,9 @@ export default {
       scene: null,
       spiale: [],
       meshs: [],
-      step: 0
+      step: 0,
+      pause: false,
+      stepCount: 450
     }
   },
   mounted () {
@@ -26,10 +28,17 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
-        this.step++
-        this.animation(this.step)
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
         this.renderScene()
       }, 20)
     },
@@ -40,62 +49,184 @@ export default {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
       if (step <= 90) {
-        // 盒子上部
-        spiale[4].rotation.x = step * ratio
-        this.closeBox()
+        // 盒子左1
+        spiale[0].rotation.y = step * (Math.PI / 180)
+        spiale[1].rotation.y = step * (Math.PI / 180)
+        this.nextStep(2, this.close)
       } else if (step <= 180) {
         // 盒子右部
         spiale[3].rotation.y = -(step - 90) * ratio
-        this.closeBox()
+        this.nextStep(2, this.close)
       } else if (step <= 270) {
-        // 盒子下部
-        spiale[5].rotation.x = -(step - 180) * ratio
-        this.closeBox()
+        // 盒子上部
+        spiale[4].rotation.x = (step - 180) * ratio
+        this.nextStep(2, this.close)
       } else if (step <= 360) {
-        // 盒子左1
-        spiale[0].rotation.y = (step - 270) * ratio
-        spiale[1].rotation.y = (step - 270) * ratio
-        this.closeBox()
-      } else if (step === 361) {
+        // 盒子右部
+        spiale[5].rotation.x = -(step - 270) * ratio
+        this.nextStep(2, this.close)
+      } else if (step === 362) {
         // 重设0面转轴
         this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 1)
+        this.spiale[0].position.set(-0.5, 0, 0.5)
+        spiale[0].rotation.y = 90 * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 450) {
         spiale[0].rotation.y = (step - 270) * ratio
-        this.closeBox()
-      } else if (step < 451) {
-        spiale[0].rotation.y = (step - 270) * ratio
-        this.closeBox()
+        this.nextStep(2, this.close)
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
     },
-    animation (step) {
+    open (step) {
       const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step < 0) {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.y = step * (Math.PI / 180)
         spiale[1].rotation.y = step * (Math.PI / 180)
+        this.nextStep(-2, this.open)
+      } else if (step <= 180) {
         // 盒子右部
-        spiale[3].rotation.y = -step * (Math.PI / 180)
+        spiale[3].rotation.y = -(step - 90) * ratio
+        this.nextStep(-2, this.open)
+      } else if (step <= 270) {
         // 盒子上部
-        spiale[4].rotation.x = step * (Math.PI / 180)
-        // 盒子下部
-        spiale[5].rotation.x = -step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step === 91) {
+        spiale[4].rotation.x = (step - 180) * ratio
+        this.nextStep(-2, this.open)
+      } else if (step <= 360) {
+        // 盒子右部
+        spiale[5].rotation.x = -(step - 270) * ratio
+        this.nextStep(-2, this.open)
+      } else if (step === 362) {
+        // 重设0面转轴
+        this.meshs[0].position.set(-1, 0, 0)
+        this.spiale[0].position.set(-0.5, 0, 0)
+        spiale[0].rotation.y = 90 * ratio
+        this.nextStep(-2, this.open)
+      } else if (step <= 450) {
+        spiale[0].rotation.y = (step - 270) * ratio
+        this.nextStep(-2, this.open)
+      }
+    },
+    dragClose (step) {
+      const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step <= 90) {
+        // 盒子左1
+        spiale[0].rotation.y = step * ratio
+        spiale[1].rotation.y = step * ratio
+      } else if (step <= 180) {
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -(step - 90) * ratio
+      } else if (step <= 270) {
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -90 * ratio
+        // 盒子上部
+        spiale[4].rotation.x = (step - 180) * ratio
+      } else if (step <= 360) {
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -90 * ratio
+        // 盒子上部
+        spiale[4].rotation.x = 90 * ratio
+        // 盒子右部
+        spiale[5].rotation.x = -(step - 270) * ratio
+      } else if (step <= 450) {
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -90 * ratio
+        // 盒子上部
+        spiale[4].rotation.x = 90 * ratio
+        // 盒子右部
+        spiale[5].rotation.x = -90 * ratio
         // 重设0面转轴
         this.meshs[0].position.set(-0.5, 0, 0)
         this.spiale[0].position.set(-0.5, 0, 0.5)
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step < 181) {
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
+        spiale[0].rotation.y = (step - 270) * ratio
       } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
+      this.renderScene()
+    },
+    dragOpen (step) {
+      const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step < 0) {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step <= 90) {
+        this.meshs[0].position.set(-1, 0, 0)
+        this.spiale[0].position.set(-0.5, 0, 0)
+        // 盒子左1
+        spiale[0].rotation.y = step * ratio
+        spiale[1].rotation.y = step * ratio
+      } else if (step <= 180) {
+        this.meshs[0].position.set(-1, 0, 0)
+        this.spiale[0].position.set(-0.5, 0, 0)
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -(step - 90) * ratio
+      } else if (step <= 270) {
+        this.meshs[0].position.set(-1, 0, 0)
+        this.spiale[0].position.set(-0.5, 0, 0)
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -90 * ratio
+        // 盒子上部
+        spiale[4].rotation.x = (step - 180) * ratio
+      } else if (step <= 360) {
+        this.meshs[0].position.set(-1, 0, 0)
+        this.spiale[0].position.set(-0.5, 0, 0)
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -90 * ratio
+        // 盒子上部
+        spiale[4].rotation.x = 90 * ratio
+        // 盒子右部
+        spiale[5].rotation.x = -(step - 270) * ratio
+      } else if (step <= 450) {
+        // 盒子左1
+        spiale[0].rotation.y = 90 * ratio
+        spiale[1].rotation.y = 90 * ratio
+        // 盒子右部
+        spiale[3].rotation.y = -90 * ratio
+        // 盒子上部
+        spiale[4].rotation.x = 90 * ratio
+        // 盒子右部
+        spiale[5].rotation.x = -90 * ratio
+        spiale[0].rotation.y = (step - 270) * ratio
+      }
+      this.renderScene()
     },
     creatCube (scene, renderer, camera) {
       // 创建长方体的6个平面
@@ -157,7 +288,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      // this.spiale[0].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 0)
