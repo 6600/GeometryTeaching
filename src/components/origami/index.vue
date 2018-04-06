@@ -137,7 +137,7 @@ export default {
         // 判断当前是否为打开状态
         case 1: {
           this.origamiStyle = 3
-          this.$refs.draw.openBox(true)
+          this.$refs.draw.open(this.stepCount)
           break
         }
         // 判断当前是否为正在打开状态

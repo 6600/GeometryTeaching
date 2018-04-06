@@ -14,7 +14,8 @@ export default {
       scene: null,
       spiale: [],
       meshs: [],
-      step: 0
+      step: 0,
+      pause: false
     }
   },
   mounted () {
@@ -26,17 +27,24 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
-        this.step++
-        this.animation(this.step)
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    animation (step) {
+    close (step) {
       const spiale = this.spiale
       if (step <= 90) {
         // 盒子左1
@@ -48,11 +56,11 @@ export default {
         spiale[4].rotation.x = step * (Math.PI / 180)
         // 盒子下部
         spiale[5].rotation.x = step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step === 91) {
+        this.nextStep(2, this.close)
+      } else if (step === 92) {
         // 重设0面转轴
-        this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 1)
+        this.meshs[0].position.set(-0.25, 0, 0)
+        this.spiale[0].position.set(-0.25, 0, 1)
         spiale[0].rotation.y = step * (Math.PI / 180)
         // 平面的位置
         this.meshs[4].position.set(1, 0.5, 0)
@@ -62,20 +70,20 @@ export default {
         this.spiale[5].position.set(0.25, 1, 0)
         spiale[4].rotation.y = (-step + 90) * (Math.PI / 180)
         spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
-        this.nextStep()
+        this.nextStep(2, this.close)
       } else if (step < 181) {
         spiale[0].rotation.y = step * (Math.PI / 180)
         spiale[4].rotation.y = (-step + 90) * (Math.PI / 180)
         spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
-        this.nextStep()
-      } else if (step === 181) {
+        this.nextStep(2, this.close)
+      } else if (step === 182) {
         this.meshs[5].position.set(0.25, 0.5, 0)
         this.spiale[5].position.set(0.25, -1, 0)
         spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
-        this.nextStep()
+        this.nextStep(2, this.close)
       } else if (step < 271) {
         spiale[5].rotation.y = (-step + 90) * (Math.PI / 180)
-        this.nextStep()
+        this.nextStep(2, this.close)
       } else {
         console.log('动画已播放完毕!')
       }
@@ -150,7 +158,7 @@ export default {
       // 调试转轴
       this.spiale[5].add(new THREE.AxesHelper(50))
       setTimeout(() => {
-        this.nextStep()
+        this.renderScene()
       }, 0)
     }
   }
