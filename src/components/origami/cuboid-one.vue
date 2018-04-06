@@ -47,7 +47,7 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      const ratio = (Math.PI / 180)
+      const ratio = Math.PI / 180
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.y = step * (Math.PI / 180)
