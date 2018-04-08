@@ -133,16 +133,16 @@ export default {
     // 鼠标穿透点击
     pointer-events: none;
     border: 2px solid white;
-    background-color: blueviolet;
+    background-color: #E19F14;
     width: 20px;
     height: 20px;
     position: absolute;
     margin: auto;
-    border-radius: 50%;
-    line-height: 20px;
-    text-align: center;
-    color: white;
-    font-size: 0.8rem;
+    border-radius: 44%;
+    // line-height: 20px;
+    // text-align: center;
+    // color: white;
+    font-size: 0rem;
   }
   .vertical .rod {
     width: 6px;

@@ -2,18 +2,18 @@
   .column-popup-box
     .popup
       .popup-panel
-        .slect.cube-one(@click="popupCheck = 'cubeOne'", :class="{active: popupCheck === 'cubeOne'}")
-        .slect.cube-two(@click="popupCheck = 'cubeTwo'", :class="{active: popupCheck === 'cubeTwo'}")
-        .slect.mitsubishi-column-one(@click="popupCheck = 'mitsubishiColumnOne'", :class="{active: popupCheck === 'mitsubishiColumnOne'}")
-        .slect.mitsubishi-column-two(@click="popupCheck = 'mitsubishiColumnTwo'", :class="{active: popupCheck === 'mitsubishiColumnTwo'}")
-        .slect.cuboid-one(@click="popupCheck = 'cuboidOne'", :class="{active: popupCheck === 'cuboidOne'}")
-        .slect.cuboid-two(@click="popupCheck = 'cuboidTwo'", :class="{active: popupCheck === 'cuboidTwo'}")
-        .slect.cuboid-three(@click="popupCheck = 'cuboidThree'", :class="{active: popupCheck === 'cuboidThree'}")
-        .slect.cuboid-four(@click="popupCheck = 'cuboidFour'", :class="{active: popupCheck === 'cuboidFour'}")
-        .slect.pentagonal-orism-one(@click="popupCheck = 'pentagonalPrismOne'", :class="{active: popupCheck === 'pentagonalPrismOne'}")
-        .slect.pentagonal-orism-two(@click="popupCheck = 'pentagonalPrismTwo'", :class="{active: popupCheck === 'pentagonalPrismTwo'}")
-        .slect.hexagonal-orism-one(@click="popupCheck = 'hexagonalPrismOne'", :class="{active: popupCheck === 'hexagonalPrismOne'}")
-        .slect.hexagonal-orism-two(@click="popupCheck = 'hexagonalPrismTwo'", :class="{active: popupCheck === 'hexagonalPrismTwo'}")
+        .slect.cube-one(@click="popupCheck = 'cubeOne'", :class="{LineOne: popupCheck === 'cubeOne'}")
+        .slect.cube-two(@click="popupCheck = 'cubeTwo'", :class="{LineOne: popupCheck === 'cubeTwo'}")
+        .slect.mitsubishi-column-one(@click="popupCheck = 'mitsubishiColumnOne'", :class="{LineOne: popupCheck === 'mitsubishiColumnOne'}")
+        .slect.mitsubishi-column-two(@click="popupCheck = 'mitsubishiColumnTwo'", :class="{LineOne: popupCheck === 'mitsubishiColumnTwo'}")
+        .slect.cuboid-one(@click="popupCheck = 'cuboidOne'", :class="{LineTwo: popupCheck === 'cuboidOne'}")
+        .slect.cuboid-two(@click="popupCheck = 'cuboidTwo'", :class="{LineTwo: popupCheck === 'cuboidTwo'}")
+        .slect.cuboid-three(@click="popupCheck = 'cuboidThree'", :class="{LineTwo: popupCheck === 'cuboidThree'}")
+        .slect.cuboid-four(@click="popupCheck = 'cuboidFour'", :class="{LineTwo: popupCheck === 'cuboidFour'}")
+        .slect.pentagonal-orism-one(@click="popupCheck = 'pentagonalPrismOne'", :class="{LineThree: popupCheck === 'pentagonalPrismOne'}")
+        .slect.pentagonal-orism-two(@click="popupCheck = 'pentagonalPrismTwo'", :class="{LineThree: popupCheck === 'pentagonalPrismTwo'}")
+        .slect.hexagonal-orism-one(@click="popupCheck = 'hexagonalPrismOne'", :class="{LineThree: popupCheck === 'hexagonalPrismOne'}")
+        .slect.hexagonal-orism-two(@click="popupCheck = 'hexagonalPrismTwo'", :class="{LineThree: popupCheck === 'hexagonalPrismTwo'}")
       .popup-panel-menu
         Button105.confirm-button(@onClick="confirm()", text="确定")
         Button105.cancel-button(@onClick="$emit('close')", text="取消")
@@ -73,10 +73,21 @@ export default {
     .slect {
       position: absolute;
       width: 105px;
-      height: 90px;
+      height: 78px;
       cursor: pointer;
     }
     .active {
+      border: 2px solid yellow;
+    }
+    .LineOne {
+      border: 2px solid yellow;
+      margin-top: 8px;
+    }
+    .LineTwo{
+      border: 2px solid yellow;
+      margin-top: 8px;
+    }
+    .LineThree {
       border: 2px solid yellow;
     }
     .cube-one {
@@ -113,19 +124,19 @@ export default {
     }
     .pentagonal-orism-one {
       left: 166px;
-      bottom: 111px;
+      bottom: 115px;
     }
     .pentagonal-orism-two {
       left: 277px;
-      bottom: 111px;
+      bottom: 115px;
     }
     .hexagonal-orism-one {
       right: 168px;
-      bottom: 109px;
+      bottom: 115px;
     }
     .hexagonal-orism-two {
       right: 57px;
-      bottom: 109px;
+      bottom: 115px;
     }
   }
   .popup-panel-menu {
