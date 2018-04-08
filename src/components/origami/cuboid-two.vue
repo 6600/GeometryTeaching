@@ -240,6 +240,7 @@ export default {
       }
       this.renderScene()
     },
+    // 待完善 不知道为什么总是出问题
     dragOpen (step) {
       const spiale = this.spiale
       const ratio = Math.PI / 180

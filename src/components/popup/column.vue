@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     confirm () {
-      window.location.href = '/#/origami/' + this.popupCheck
+      this.$router.push(this.popupCheck)
       this.$emit('close')
     }
   }
