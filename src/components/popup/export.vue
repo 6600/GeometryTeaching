@@ -42,6 +42,8 @@ export default {
       switch (key) {
         case 0: {
           this.checkItem = 0
+          const canvas = document.getElementsByTagName('canvas')[0]
+          this.imgBase64 = canvas.toDataURL()
           break
         }
         case 1: {
@@ -50,7 +52,7 @@ export default {
         }
         case 2: {
           this.checkItem = 2
-          console.log(this.$route.name.split('-')[0])
+          // console.log(this.$route.name.split('-')[0])
           this.imgBase64 = `./static/export/line/${this.$route.name.split('-')[0]}.png`
           break
         }
