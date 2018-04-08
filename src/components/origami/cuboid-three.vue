@@ -26,15 +26,57 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
-        this.step++
-        this.animation(this.step)
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
+    },
+    close (step) {
+      const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step <= 90) {
+        // 盒子左1
+        spiale[0].rotation.y = step * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 180) {
+        // 盒子右部
+        spiale[2].rotation.y = -(step - 90) * ratio
+        spiale[3].rotation.y = -(step - 90) * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 270) {
+        // 盒子上部
+        spiale[4].rotation.x = (step - 180) * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 360) {
+        // 盒子下部
+        spiale[5].rotation.x = -(step - 270) * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 362) {
+        // 重设0面转轴
+        this.meshs[3].position.set(0.25, 0, 0)
+        this.spiale[3].position.set(0.25, 0, 0.5)
+        spiale[3].rotation.y = -90 * ratio
+        this.nextStep(2, this.close)
+      } else if (step < 450) {
+        spiale[3].rotation.y = -(step - 270) * (Math.PI / 180)
+        this.nextStep(2, this.close)
+      } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
     },
     animation (step) {
       const spiale = this.spiale
@@ -59,6 +101,8 @@ export default {
         spiale[3].rotation.y = -step * (Math.PI / 180)
         this.nextStep()
       } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
     },
@@ -123,7 +167,7 @@ export default {
       // 调试转轴
       this.spiale[3].add(new THREE.AxesHelper(50))
       setTimeout(() => {
-        this.nextStep()
+        this.renderScene()
       }, 0)
     }
   }

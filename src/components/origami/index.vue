@@ -58,6 +58,8 @@ export default {
     Order.$on(`changeGraph`, () => {
       // 将更新事件放置到队列尾端保证及时更新
       setTimeout(() => {
+        // 恢复默认视距
+        this.distance = 40
         this.stepCount = this.$refs.draw.stepCount
       }, 0)
     })
