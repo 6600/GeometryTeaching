@@ -54,6 +54,16 @@ export default {
   },
   mounted () {
     this.stepCount = this.$refs.draw.stepCount
+    // 监听图形变化事件，如果图形发生改变则刷新stepCount
+    Order.$on(`changeGraph`, () => {
+      // 将更新事件放置到队列尾端保证及时更新
+      setTimeout(() => {
+        this.stepCount = this.$refs.draw.stepCount
+      }, 0)
+    })
+  },
+  beforeDestroy () { // 移除监听
+    Order.$off('changeGraph')
   },
   methods: {
     // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转

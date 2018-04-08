@@ -112,3 +112,41 @@ export default {
     clear: both;
   }
 </style>
+
+<style lang='less' scoped>
+  @media (max-height: 760px) {
+    .home-left-bar{
+      .button {
+        margin: 45px 25px;
+      }
+    }
+  }
+  @media (max-height: 710px) {
+    .home-left-bar{
+      .button {
+        margin: 35px 25px;
+      }
+    }
+  }
+  @media (max-height: 670px) {
+    .home-left-bar{
+      .button {
+        margin: 25px 25px;
+      }
+    }
+  }
+  @media (max-height: 620px) {
+    .home-left-bar{
+      .button {
+        margin: 15px 25px;
+      }
+    }
+  }
+  @media (max-height: 560px) {
+    .home-left-bar{
+      .button {
+        margin: 5px 25px;
+      }
+    }
+  }
+</style>

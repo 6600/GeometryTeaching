@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { Order } from '@/components/Order.js'
 import Button105 from '@/components/button/button_105_55.vue'
 export default {
   name: 'Column',
@@ -35,6 +36,7 @@ export default {
     confirm () {
       this.$router.push(this.popupCheck)
       this.$emit('close')
+      Order.$emit('changeGraph')
     }
   }
 }
