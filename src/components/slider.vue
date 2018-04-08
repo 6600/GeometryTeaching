@@ -134,15 +134,15 @@ export default {
     pointer-events: none;
     border: 2px solid white;
     background-color: #E19F14;
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 13px;
     position: absolute;
     margin: auto;
-    border-radius: 44%;
+    border-radius: 50%;
     // line-height: 20px;
     // text-align: center;
     // color: white;
-    font-size: 0rem;
+    font-size:0rem;
   }
   .vertical .rod {
     width: 6px;
