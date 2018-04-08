@@ -14,6 +14,8 @@
         .slect.pentagonal-orism-two(@click="popupCheck = 'pentagonalPrismTwo'", :class="{LineThree: popupCheck === 'pentagonalPrismTwo'}")
         .slect.hexagonal-orism-one(@click="popupCheck = 'hexagonalPrismOne'", :class="{LineThree: popupCheck === 'hexagonalPrismOne'}")
         .slect.hexagonal-orism-two(@click="popupCheck = 'hexagonalPrismTwo'", :class="{LineThree: popupCheck === 'hexagonalPrismTwo'}")
+        .slect.cylinder-one(@click="popupCheck = 'cylinderone'", :class="{LineThree: popupCheck === 'cylinderone'}")
+        .slect.cylinder-two(@click="popupCheck = 'cylindertwo'", :class="{LineThree: popupCheck === 'cylindertwo'}")
       .popup-panel-menu
         Button105.confirm-button(@onClick="confirm()", text="确定")
         Button105.cancel-button(@onClick="$emit('close')", text="取消")
@@ -139,6 +141,15 @@ export default {
       bottom: 115px;
     }
   }
+  .cylinder-one{
+      left: 168px;
+      bottom: 14px;
+  }
+  .cylinder-two{
+      left: 277px;
+      bottom: 14px;
+  }
+
   .popup-panel-menu {
     display: flex;
     width: 420px;
