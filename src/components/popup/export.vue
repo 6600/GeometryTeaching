@@ -15,12 +15,13 @@
           .check(@click="toItem(2)")
           .text 單線圖
       .tool-box
-        Button.button(text="确定")
+        Button.button(text="确定", @onClick="saveImage()")
         Button.button(text="预览")
         Button.button(text="取消", @onClick="$emit('close')")
 </template>
 
 <script>
+import { Fun } from '@/components/Order.js'
 import Button from '@/components/button/button_105_55.vue'
 export default {
   name: 'Export',
@@ -47,6 +48,8 @@ export default {
           break
         }
         case 1: {
+          const canvas = document.getElementsByTagName('canvas')
+          console.log(canvas)
           this.checkItem = 1
           break
         }
@@ -57,6 +60,23 @@ export default {
           break
         }
       }
+    },
+    saveImage () { // 保存为图片
+      console.log('sdsd')
+      const canvas = document.getElementsByTagName('canvas')[0]
+      let imgData = canvas.toDataURL()
+      const type = 'png'
+      const _fixType = function (type) {
+        type = type.toLowerCase().replace(/jpg/i, 'jpeg')
+        const r = type.match(/png|jpeg|bmp|gif/)[0]
+        return 'image/' + r
+      }
+      // 加工image data，替换mime type
+      imgData = imgData.replace(_fixType(type), 'image/octet-stream')
+      // 下载后的问题名
+      const filename = '导出图片' + '.' + type
+      // download
+      Fun.saveFile(imgData, filename)
     }
   }
 }

@@ -52,6 +52,19 @@ const Fun = {
     object3d.name = 'Key light'
     scene.add(object3d)
     callBack({scene, renderer, camera})
+  },
+  /**
+   * 在本地进行文件保存
+   * @param  {String} data     要保存到本地的图片数据
+   * @param  {String} filename 文件名
+  */
+  saveFile (data, filename) {
+    let saveLink = document.createElementNS('http://www.w3.org/1999/xhtml', 'a')
+    saveLink.href = data
+    saveLink.download = filename
+    const event = document.createEvent('MouseEvents')
+    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+    saveLink.dispatchEvent(event)
   }
 }
 
