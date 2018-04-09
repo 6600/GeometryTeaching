@@ -67,7 +67,7 @@ export default {
   }
   .home-title {
     height: 70px;
-    background-color: white;
+    background-color: #e3f1e2;
     background-repeat: no-repeat;
     background-image: url('.\assets\title.png');
   }
