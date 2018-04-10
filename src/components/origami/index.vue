@@ -49,7 +49,9 @@ export default {
       lastStep: 0,
       stepCount: null,
       showExport: false,
-      showExportOrigami: false
+      showExportOrigami: false,
+      thetay: 0,
+      thetax: 0
     }
   },
   mounted () {
@@ -67,42 +69,73 @@ export default {
         // console.log(type)
         setTimeout(() => {
           // console.log(this.$refs.draw.camera.position)
-          const positionY = this.$refs.draw.camera.position.y
-          const positionX = this.$refs.draw.camera.position.x
-          const calculateY = ratio - Math.pow(positionY, 2)
-          const calculateX = ratio - Math.pow(positionX, 2)
+          var positionY = this.$refs.draw.camera.position.y
+          var positionX = this.$refs.draw.camera.position.x
+          var r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
+          var r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
+          // const calculateY = ratio - Math.pow(positionY, 2)
+          // const calculateX = ratio - Math.pow(positionX, 2)
           // console.log(calculateY, calculateX)
           // console.log(positionY, positionX)
           // 待优化
           switch (type) {
             case 1:
-              if (calculateY > 0 || positionY > 0) {
-                this.$refs.draw.camera.position.y = positionY - 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(calculateY)
-              }
+              this.thetax -= Math.PI / 179
+              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
+              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
+              positionY = Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax)
+              positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
+              // this.$refs.draw.camera.rotation.x = this.thetax
+              this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
+              console.log(this.$refs.draw.camera.position)
+              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
+              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax))
+              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 2:
-              if (calculateX > 0 || positionX > 0) {
-                this.$refs.draw.camera.position.x = positionX - 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(calculateX)
-              }
+              this.thetay -= Math.PI / 179
+              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
+              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
+              positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
+              positionX = Math.sqrt(ratio) * Math.cos(this.thetax) * Math.sin(this.thetay)
+              this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
+              console.log(this.$refs.draw.camera.position)
+              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
+              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
+              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 3:
-              if (calculateY > 0 || positionY < 0) {
-                this.$refs.draw.camera.position.y = positionY + 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(calculateY)
-              }
+              this.thetax += Math.PI / 179
+              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
+              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
+              positionY = Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax)
+              positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
+              this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
+              console.log(this.$refs.draw.camera.position)
+              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
+              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + r1 * Math.sin(this.thetax))
+              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 4:
-              if (calculateX > 0 || positionX < 0) {
-                this.$refs.draw.camera.position.x = positionX + 0.2
-                this.$refs.draw.camera.position.z = Math.sqrt(calculateX)
-              }
+              this.thetay += Math.PI / 179
+              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
+              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
+              positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
+              positionX = Math.sqrt(ratio) * Math.cos(this.thetax) * Math.sin(this.thetay)
+              this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
+              console.log(this.$refs.draw.camera.position)
+              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
+              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
+              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
           }
           this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
           this.$refs.draw.renderScene()
-          if (i < 10) {
+          if (i < 5) {
             i++
             flip(type)
           }
