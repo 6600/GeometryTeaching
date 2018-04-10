@@ -41,11 +41,9 @@ export default {
     help () {
       window.open('https://www.baidu.com/')
     },
-    clickTest () {
-      window.location.href = '/#/origami/cubeTwo'
-    },
     playGame () {
-      window.location.href = '/#/activityGame'
+      this.$router.push('/activityGame')
+      // window.location.href = '/#/activityGame'
     },
     // 还原按钮
     reduction () {

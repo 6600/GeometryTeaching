@@ -34,7 +34,11 @@ export default {
   },
   methods: {
     confirm () {
-      this.$router.push(this.popupCheck)
+      if (this.$router.currentRoute.name === 'activityGame') {
+        this.$router.push('origami/' + this.popupCheck)
+      } else {
+        this.$router.push(this.popupCheck)
+      }
       this.$emit('close')
       Order.$emit('changeGraph')
     }
