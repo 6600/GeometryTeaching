@@ -2,10 +2,10 @@
   .column-popup-box
     .popup
       .popup-panel
-        .slect.cube-one(@click="popupCheck = 'cubeOne'", :class="{active: popupCheck === 'cubeOne'}")
-        .slect.cube-two(@click="popupCheck = 'cubeTwo'", :class="{active: popupCheck === 'cubeTwo'}")
-        .slect.mitsubishi-column-one(@click="popupCheck = 'mitsubishiColumnOne'", :class="{active: popupCheck === 'mitsubishiColumnOne'}")
-        .slect.mitsubishi-column-two(@click="popupCheck = 'mitsubishiColumnTwo'", :class="{active: popupCheck === 'mitsubishiColumnTwo'}")
+        .slect.cube-one(@click="popupCheck = 'cubeOne'", :class="{LineOne: popupCheck === 'cubeOne'}")
+        .slect.cube-two(@click="popupCheck = 'cubeTwo'", :class="{LineOne: popupCheck === 'cubeTwo'}")
+        .slect.mitsubishi-column-one(@click="popupCheck = 'mitsubishiColumnOne'", :class="{LineOne: popupCheck === 'mitsubishiColumnOne'}")
+        .slect.mitsubishi-column-two(@click="popupCheck = 'mitsubishiColumnTwo'", :class="{LineOne: popupCheck === 'mitsubishiColumnTwo'}")
         .slect.cuboid-one(@click="popupCheck = 'cuboidOne'", :class="{active: popupCheck === 'cuboidOne'}")
         .slect.cuboid-two(@click="popupCheck = 'cuboidTwo'", :class="{active: popupCheck === 'cuboidTwo'}")
         .slect.cuboid-three(@click="popupCheck = 'cuboidThree'", :class="{active: popupCheck === 'cuboidThree'}")
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { Order } from '@/components/Order.js'
 import Button105 from '@/components/button/button_105_55.vue'
 export default {
   name: 'Column',
@@ -33,8 +34,9 @@ export default {
   },
   methods: {
     confirm () {
-      window.location.href = '/#/origami/' + this.popupCheck
+      this.$router.push(this.popupCheck)
       this.$emit('close')
+      Order.$emit('changeGraph')
     }
   }
 }
@@ -71,51 +73,55 @@ export default {
     .slect {
       position: absolute;
       width: 105px;
-      height: 90px;
+      height: 78px;
       cursor: pointer;
     }
     .active {
       border: 2px solid yellow;
     }
+    .LineOne{
+      border: 2px solid yellow;
+      margin-top: 24px;
+    }
     .cube-one {
       right: 168px;
-      top: 87px;
+      top: 81px;
     }
     .cube-two {
       right: 58px;
-      top: 87px;
+      top: 81px;
     }
     .mitsubishi-column-one {
       left: 164px;
-      top: 87px;
+      top: 81px;
     }
     .mitsubishi-column-two {
       left: 276px;
-      top: 87px;
+      top: 81px;
     }
     .cuboid-one {
       left: 167px;
-      top: 187px;
+      top: 231px;
     }
     .cuboid-two {
       left: 277px;
-      top: 187px;
+      top: 231px;
     }
     .cuboid-three {
       right: 168px;
-      top: 187px;
+      top: 231px;
     }
     .cuboid-four {
       right: 57px;
-      top: 187px;
+      top: 231px;
     }
     .pentagonal-orism-one {
       left: 166px;
-      bottom: 111px;
+      bottom: 48px;
     }
     .pentagonal-orism-two {
       left: 277px;
-      bottom: 111px;
+      bottom: 48px;
     }
     .hexagonal-orism-one {
       right: 168px;

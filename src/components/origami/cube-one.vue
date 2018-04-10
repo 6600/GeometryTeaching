@@ -289,5 +289,4 @@ export default {
   .cube-one {
     position: relative;
   }
-
 </style>
