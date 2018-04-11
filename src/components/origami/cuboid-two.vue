@@ -6,7 +6,7 @@
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
-  name: 'HelloWorld',
+  name: 'cuboid-two',
   data () {
     return {
       camera: null,
@@ -77,6 +77,7 @@ export default {
         spiale[5].rotation.y = -(step - 180) * ratio
         this.nextStep(2, this.close)
       } else if (step === 272) {
+        console.log(this.meshs[0].position, this.spiale[0].position)
         // 重设0面转轴
         this.meshs[0].position.set(-0.25, 0, 0)
         this.spiale[0].position.set(-0.25, 0, 1)
@@ -251,6 +252,9 @@ export default {
         return
       }
       if (step <= 90) {
+        // 重设0面转轴
+        this.meshs[0].position.set(-1.25, 0, 0)
+        this.spiale[0].position.set(-0.25, 0, 0)
         // 盒子左1
         spiale[0].rotation.y = step * ratio
         spiale[1].rotation.y = step * ratio
@@ -271,6 +275,9 @@ export default {
         // 盒子右部
         spiale[3].rotation.x = 90 * ratio
         spiale[4].rotation.y = -(step - 180) * ratio
+        // 转轴的位置
+        this.meshs[5].position.set(2.25, 0.5, 0)
+        this.spiale[5].position.set(0.25, 1, 0)
         spiale[5].rotation.y = -(step - 180) * ratio
       } else if (step < 360) {
         // 盒子左1
@@ -364,7 +371,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[4].add(new THREE.AxesHelper(50))
+      // this.spiale[4].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 0)

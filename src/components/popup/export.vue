@@ -48,9 +48,10 @@ export default {
           break
         }
         case 1: {
-          const canvas = document.getElementsByTagName('canvas')
-          console.log(canvas)
           this.checkItem = 1
+          const canvas = document.getElementsByTagName('canvas')[0]
+          console.log(document.getElementsByTagName('canvas'))
+          this.grayFilter(canvas)
           break
         }
         case 2: {
@@ -77,6 +78,40 @@ export default {
       const filename = '导出图片' + '.' + type
       // download
       Fun.saveFile(imgData, filename)
+    },
+    grayFilter (canvasDom) {
+      console.log(canvasDom)
+      const ctx = canvasDom.getContext('2d')
+      console.log(ctx)
+      // 白色填充
+      ctx.rect(0, 0, canvasDom.width, canvasDom.height)
+      ctx.fillStyle = 'white'
+      ctx.fill()
+      let canvasData = ctx.getImageData(0, 0, canvasDom.width, canvasDom.height)
+      for (let x = 0; x < canvasData.width; x++) {
+        for (let y = 0; y < canvasData.height; y++) {
+          // Index of the pixel in the array
+          let idx = (x + y * canvasData.width) * 4
+          let r = canvasData.data[idx + 0]
+          let g = canvasData.data[idx + 1]
+          let b = canvasData.data[idx + 2]
+          // calculate gray scale value
+          let gray = 0.299 * r + 0.587 * g + 0.114 * b
+          // assign gray scale value
+          canvasData.data[idx + 0] = gray
+          canvasData.data[idx + 1] = gray
+          canvasData.data[idx + 2] = gray
+          canvasData.data[idx + 3] = 255
+          // add black border
+          if (x < 8 || y < 8 || x > (canvasData.width - 8) || y > (canvasData.height - 8)) {
+            canvasData.data[idx + 0] = 0
+            canvasData.data[idx + 1] = 0
+            canvasData.data[idx + 2] = 0
+          }
+        }
+      }
+      console.log(canvasData)
+      ctx.putImageData(canvasData, 0, 0)
     }
   }
 }
