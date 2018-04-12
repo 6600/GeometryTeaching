@@ -1,7 +1,7 @@
 <template>
-  <div class="slider" :style="getSliderStyle()" @mouseup="clear">
-    <div class="rod" @mousedown.stop.left="click" @mouseup="clear" :style="getRodStyle()">
-      <div class="spot" :style="getSpotStyle()" @mouseup="clear">{{value}}</div>
+  <div class="slider" :style="getSliderStyle()">
+    <div class="rod" @mousedown.stop.self.left="click" :style="getRodStyle()">
+      <div class="spot" :style="getSpotStyle()">{{value}}</div>
     </div>
   </div>
 </template>
@@ -48,10 +48,21 @@ export default {
       default: 10
     }
   },
+  data () {
+    return {
+      positionX: 0,
+      positionY: 0
+    }
+  },
+  mounted () {
+    const position = this.findPosition(this.$el.childNodes[0])
+    this.positionX = position[0]
+    this.positionY = position[1]
+  },
   methods: {
     click (e) {
-      const DOM = this.$el
-      DOM.addEventListener('mousemove', this.handleMove, true)
+      document.addEventListener('mousemove', this.handleMove, true)
+      document.addEventListener('mouseup', this.clear, true)
     },
     getSliderStyle () {
       let styleList = {}
@@ -102,15 +113,38 @@ export default {
     handleMove (e) {
       const rodLength = this.rodLength ? this.rodLength : this.length
       // 将点击位置转换成滑竿数值
-      const num = this.vertical ? e.offsetY / rodLength : e.offsetX / rodLength
-      // let returnNum = Math.round(num * this.segment)
-      // console.log(returnNum)
+      let num = this.vertical ? (e.pageY - this.positionY) / rodLength : (e.pageX - this.positionX) / rodLength
+      // 判断是否超过允许的值
+      if (num < 0) num = 0
+      if (num > 1) num = 1
       const spotStyle = Math.ceil(num * this.segment)
       this.$emit('input', spotStyle)
     },
     clear () {
       // 清除监听
-      this.$el.removeEventListener('mousemove', this.handleMove, true)
+      document.removeEventListener('mousemove', this.handleMove, true)
+    },
+    findPosition (oElement) {
+      let x2 = 0
+      let y2 = 0
+      let width = oElement.offsetWidth
+      let height = oElement.offsetHeight
+      if (typeof (oElement.offsetParent) !== 'undefined') {
+        let posX = 0
+        let posY = 0
+        while (oElement) {
+          posX += oElement.offsetLeft
+          posY += oElement.offsetTop
+          oElement = oElement.offsetParent
+        }
+        x2 = posX + width
+        y2 = posY + height
+        return [posX, posY, x2, y2]
+      } else {
+        x2 = oElement.x + width
+        y2 = oElement.y + height
+        return [oElement.x, oElement.y, x2, y2]
+      }
     }
   }
 }
@@ -134,8 +168,8 @@ export default {
     pointer-events: none;
     border: 2px solid white;
     background-color: #E19F14;
-    width: 13px;
-    height: 13px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     margin: auto;
     border-radius: 50%;
