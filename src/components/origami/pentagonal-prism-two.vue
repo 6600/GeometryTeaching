@@ -38,34 +38,45 @@ export default {
     },
     animation (step) {
       const spiale = this.spiale
+      const ratio = Math.PI / 180
       if (step <= 90) {
+        // spiale[1].rotation.y = step * ratio
+        // spiale[2].rotation.y = step * ratio
+        spiale[3].rotation.y = -step * ratio
+        spiale[4].rotation.y = -step * ratio
+        spiale[5].rotation.y = -step * ratio
+        spiale[6].rotation.y = -step * ratio
+        console.log(ratio)
+        console.log(spiale[2].rotation.y)
         // 盒子左1
-        spiale[1].rotateY(1 * (Math.PI / 180))
-        spiale[2].rotateY(1 * (Math.PI / 180))
-        spiale[3].rotateY(-1 * (Math.PI / 180))
-        spiale[4].rotateY(-1 * (Math.PI / 180))
-        spiale[5].rotateY(-1 * (Math.PI / 180))
-        spiale[6].rotateY(-1 * (Math.PI / 180))
+        spiale[1].rotateY(ratio)
+        spiale[2].rotateY(ratio)
+        console.log(ratio)
+        console.log(spiale[2].rotation.y)
+        // spiale[3].rotateY(-1 * ratio)
+        // spiale[4].rotateY(-1 * ratio)
+        // spiale[5].rotateY(-1 * ratio)
+        // spiale[6].rotateY(-1 * ratio)
         this.nextStep()
       } else if (step === 91) {
         spiale[3].position.set(0, 0.5, 0)
         this.meshs[3].position.set(1, 0.5, 0)
-        spiale[3].rotateX(1 * (Math.PI / 180))
+        spiale[3].rotateX(1 * ratio)
         spiale[5].position.set(0, -0.5, 0)
         this.meshs[5].position.set(1, -0.5, 0)
-        spiale[5].rotateX(-1 * (Math.PI / 180))
+        spiale[5].rotateX(-1 * ratio)
         spiale[6].position.set(0, -0.5, 2)
         this.meshs[6].position.set(0, 0, 0)
-        spiale[6].rotateY(-1 * (Math.PI / 180))
+        spiale[6].rotateY(-1 * ratio)
         // 重设0面转轴
         this.nextStep()
       } else if (step <= 90 + 72) {
-        spiale[3].rotateX(1 * (Math.PI / 180))
-        spiale[5].rotateX(-1 * (Math.PI / 180))
-        spiale[6].rotateY(-1 * (Math.PI / 180))
+        spiale[3].rotateX(1 * ratio)
+        spiale[5].rotateX(-1 * ratio)
+        spiale[6].rotateY(-1 * ratio)
         this.nextStep()
       } else if (step <= 90 + 90) {
-        spiale[6].rotateY(-1 * (Math.PI / 180))
+        spiale[6].rotateY(-1 * ratio)
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -146,7 +157,7 @@ export default {
       }
       this.spiale[1].rotation.z = -36 * (Math.PI / 180)
       this.spiale[2].rotation.z = 36 * (Math.PI / 180)
-      this.spiale[6].add(new THREE.AxesHelper(50))
+      this.spiale[1].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
       }, 0)

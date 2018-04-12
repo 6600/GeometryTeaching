@@ -290,7 +290,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[4].add(new THREE.AxesHelper(50))
+      // this.spiale[4].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 0)

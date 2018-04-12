@@ -25,6 +25,8 @@ import hexagonalPrismTwo from '@/components/origami/hexagonal-prism-two'
 // 圆柱
 import cylinderOne from '@/components/origami/cylinder-one'
 import cylinderTwo from '@/components/origami/cylinder-two'
+// --------------------------棱锥区域--------------------------
+import pyramidThreeOne from '@/components/pyramid/three-one'
 // 活动页面
 import activityGame from '@/components/game/activity'
 
@@ -44,92 +46,30 @@ export default new Router({
       component: origami,
       children: [
         // 立方体
-        {
-          path: '/origami/cubeTwo',
-          name: 'cube-two',
-          component: cubetwo
-        },
-        {
-          path: '/origami/cubeOne',
-          name: 'cube-one',
-          component: cubeOne
-        },
+        { path: '/origami/cubeTwo', name: 'cube-two', component: cubetwo },
+        { path: '/origami/cubeOne', name: 'cube-one', component: cubeOne },
         // 三棱柱
-        {
-          path: '/origami/mitsubishiColumnOne',
-          name: 'mitsubishi-column-one',
-          component: mitsubishiColumnOne
-        },
-        {
-          path: '/origami/mitsubishiColumnTwo',
-          name: 'mitsubishi-column-two',
-          component: mitsubishiColumnTwo
-        },
+        { path: '/origami/mitsubishiColumnOne', name: 'mitsubishi-column-one', component: mitsubishiColumnOne },
+        { path: '/origami/mitsubishiColumnTwo', name: 'mitsubishi-column-two', component: mitsubishiColumnTwo },
         // 长方体
-        {
-          path: '/origami/cuboidOne',
-          name: 'cuboid-one',
-          component: cuboidOne
-        },
-        {
-          path: '/origami/cuboidTwo',
-          name: 'cuboid-two',
-          component: cuboidTwo
-        },
-        {
-          path: '/origami/cuboidThree',
-          name: 'cuboid-three',
-          component: cuboidThree
-        },
-        {
-          path: '/origami/cuboidFour',
-          name: 'cuboid-four',
-          component: cuboidFour
-        },
+        { path: '/origami/cuboidOne', name: 'cuboid-one', component: cuboidOne },
+        { path: '/origami/cuboidTwo', name: 'cuboid-two', component: cuboidTwo },
+        { path: '/origami/cuboidThree', name: 'cuboid-three', component: cuboidThree },
+        { path: '/origami/cuboidFour', name: 'cuboid-four', component: cuboidFour },
         // 五棱柱
-        {
-          path: '/origami/pentagonalPrismOne',
-          name: 'pentagonal-orism-one',
-          component: pentagonalPrismOne
-        },
-        {
-          path: '/origami/pentagonalPrismTwo',
-          name: 'pentagonal-orism-two',
-          component: pentagonalPrismTwo
-        },
+        { path: '/origami/pentagonalPrismOne', name: 'pentagonal-orism-one', component: pentagonalPrismOne },
+        { path: '/origami/pentagonalPrismTwo', name: 'pentagonal-orism-two', component: pentagonalPrismTwo },
         // 六棱柱
-        {
-          path: '/origami/hexagonalPrismOne',
-          name: 'hexagonal-orism-one',
-          component: hexagonalPrismOne
-        },
-        {
-          path: '/origami/hexagonalPrismTwo',
-          name: 'hexagonal-orism-two',
-          component: hexagonalPrismTwo
-        },
+        { path: '/origami/hexagonalPrismOne', name: 'hexagonal-orism-one', component: hexagonalPrismOne },
+        { path: '/origami/hexagonalPrismTwo', name: 'hexagonal-orism-two', component: hexagonalPrismTwo },
         // 圆柱
-        {
-          path: '/origami/cylinderOne',
-          name: 'cylinder-one',
-          component: cylinderOne
-        },
-        {
-          path: '/origami/cylinderTwo',
-          name: 'cylinder-two',
-          component: cylinderTwo
-        },
+        { path: '/origami/cylinderOne', name: 'cylinder-one', component: cylinderOne },
+        { path: '/origami/cylinderTwo', name: 'cylinder-two', component: cylinderTwo },
         // 三棱锥
-        {
-          path: '/origami/trigonometricConeOne',
-          name: 'trigonometric-cone-one',
-          component: trigonometricConeOne
-        },
-        {
-          path: '/origami/trigonometricConeTwo',
-          name: 'trigonometric-cone-two',
-          component: trigonometricConeTwo
-        }
+        { path: '/origami/trigonometricConeOne', name: 'trigonometric-cone-one', component: trigonometricConeOne },
+        { path: '/origami/trigonometricConeTwo', name: 'trigonometric-cone-two', component: trigonometricConeTwo },
+        // 三棱锥
+        { path: '/origami/pyramidThreeOne', name: 'pyramid-three-one', component: pyramidThreeOne }
       ]
     },
     {

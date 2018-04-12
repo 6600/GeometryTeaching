@@ -12,6 +12,10 @@
 
 [UI素材2](http://cunchu.site/github/6600/GeometryTeaching/VertexEdgeFace_Work.zip)
 
+## 原软件演示视频
+[折纸软件](http://p5qgrn52w.bkt.clouddn.com/geometryTeaching/%E5%BD%95%E5%88%B6_2018_04_12_21_39_48_263.mp4)
+
+
 
 项目总价格：大约9100元 需要翻新两个原来有Flash写的 几何教学软件，需要打包成桌面，平板端程序
 

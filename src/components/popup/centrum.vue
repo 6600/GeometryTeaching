@@ -2,7 +2,8 @@
   .column-popup-box
     .popup
       .popup-panel
-        .slect.cube-one(@click="popupCheck = 'cubeOne'", :class="{LineOne: popupCheck === 'cubeOne'}")
+        //- 三角锥
+        .slect.cones-one(@click="popupCheck = 'cubeOne'", :class="{LineOne: popupCheck === 'cubeOne'}")
         .slect.cube-two(@click="popupCheck = 'cubeTwo'", :class="{LineOne: popupCheck === 'cubeTwo'}")
         .slect.mitsubishi-column-one(@click="popupCheck = 'mitsubishiColumnOne'", :class="{LineOne: popupCheck === 'mitsubishiColumnOne'}")
         .slect.mitsubishi-column-two(@click="popupCheck = 'mitsubishiColumnTwo'", :class="{LineOne: popupCheck === 'mitsubishiColumnTwo'}")
