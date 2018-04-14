@@ -3,10 +3,8 @@
     .popup
       .popup-panel
         //- 三角锥
-        .slect.cones-one(@click="popupCheck = 'cubeOne'", :class="{LineOne: popupCheck === 'cubeOne'}")
-        .slect.cube-two(@click="popupCheck = 'cubeTwo'", :class="{LineOne: popupCheck === 'cubeTwo'}")
-        .slect.mitsubishi-column-one(@click="popupCheck = 'mitsubishiColumnOne'", :class="{LineOne: popupCheck === 'mitsubishiColumnOne'}")
-        .slect.mitsubishi-column-two(@click="popupCheck = 'mitsubishiColumnTwo'", :class="{LineOne: popupCheck === 'mitsubishiColumnTwo'}")
+        .slect.cones-one(@click="popupCheck = 'pyramidThreeOne'", :class="{LineOne: popupCheck === 'pyramidThreeOne'}")
+        .slect.cones-two(@click="popupCheck = 'pyramidThreeTwo'", :class="{LineOne: popupCheck === 'pyramidThreeTwo'}")
         .slect.cuboid-one(@click="popupCheck = 'cuboidOne'", :class="{active: popupCheck === 'cuboidOne'}")
         .slect.cuboid-two(@click="popupCheck = 'cuboidTwo'", :class="{active: popupCheck === 'cuboidTwo'}")
         .slect.cuboid-three(@click="popupCheck = 'cuboidThree'", :class="{active: popupCheck === 'cuboidThree'}")
@@ -96,11 +94,11 @@ export default {
       right: 58px;
       top: 81px;
     }
-    .mitsubishi-column-one {
+    .cones-one {
       left: 164px;
       top: 81px;
     }
-    .mitsubishi-column-two {
+    .cones-two {
       left: 276px;
       top: 81px;
     }

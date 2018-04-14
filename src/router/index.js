@@ -28,6 +28,7 @@ import cylinderTwo from '@/components/origami/cylinder-two'
 // --------------------------棱锥区域--------------------------
 import pyramidThreeOne from '@/components/pyramid/three-one'
 import pyramidThreeTwo from '@/components/pyramid/three-two'
+import pyramidFourOne from '@/components/pyramid/four-one'
 // 活动页面
 import activityGame from '@/components/game/activity'
 
@@ -71,7 +72,9 @@ export default new Router({
         { path: '/origami/trigonometricConeTwo', name: 'trigonometric-cone-two', component: trigonometricConeTwo },
         // 三棱锥
         { path: '/origami/pyramidThreeOne', name: 'pyramid-three-one', component: pyramidThreeOne },
-        { path: '/origami/pyramidThreeTwo', name: 'pyramid-three-two', component: pyramidThreeTwo }
+        { path: '/origami/pyramidThreeTwo', name: 'pyramid-three-two', component: pyramidThreeTwo },
+        // 四棱锥
+        { path: '/origami/pyramidFourOne', name: 'pyramid-four-one', component: pyramidFourOne }
       ]
     },
     {
