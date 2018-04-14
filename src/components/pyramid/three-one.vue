@@ -71,17 +71,8 @@ export default {
       const ratio = (Math.PI / 180)
       if (step <= 90) {
         // 盒子左1
-        spiale[3].rotation.x = step * ratio
-        this.closeBox()
-      } else if (step <= 180) {
-        // 上部
-        spiale[4].rotation.x = -(step - 90) * ratio
-        this.closeBox()
-      } else if (step <= 300) {
-        spiale[0].rotation.y = (step - 180) * ratio
-        this.closeBox()
-      } else if (step <= 420) {
-        spiale[2].rotation.y = -(step - 300) * ratio
+        spiale[1].rotation.y = -step * ratio
+        // spiale[3].rotation.x = step * ratio
         this.closeBox()
       } else {
         // 广播关闭完成事件
@@ -149,6 +140,7 @@ export default {
       this.dragClose(step)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
+      const ratio = Math.PI / 180
       let shape1 = new THREE.Shape()
       shape1.moveTo(0, 0)
       shape1.lineTo(1, 0)
@@ -161,24 +153,12 @@ export default {
       shape2.lineTo(0.5, -Math.sqrt(3) / 2)
       shape2.lineTo(0, 0)
       let triangleGeometry2 = new THREE.ShapeGeometry(shape2)
-      let shape3 = new THREE.Shape()
-      shape3.moveTo(0, 0)
-      shape3.lineTo(-0.5, 0)
-      shape3.lineTo(-2.5, -1)
-      shape3.lineTo(0, -Math.sqrt(3) / 2)
-      let triangleGeometry3 = new THREE.ShapeGeometry(shape3)
-      let shape4 = new THREE.Shape()
-      shape4.moveTo(0, 0)
-      shape4.lineTo(0.5, 0)
-      shape4.lineTo(2.5, -1)
-      shape4.lineTo(0, -Math.sqrt(3) / 2)
-      let triangleGeometry4 = new THREE.ShapeGeometry(shape4)
       // 定义3个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161']
       // 定义3个坐标
       const positions = [[0, 0, 0], [0, 0, 0], [-0.5, 0, 0], [-0.5, 0, 0]]
       // 定义3个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const axiss = [[-0.5, 0, 0], [0, -Math.sqrt(3) / 2, 0], [0, 0, 0], [0, 0, 0]]
       // 创造3个平面
       for (let index in colors) {
         // 取得颜色
@@ -206,14 +186,14 @@ export default {
             side: THREE.DoubleSide
           }))
         } else if (index === '0') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry3, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '1') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry4, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
@@ -234,7 +214,9 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      // this.spiale[1].add(new THREE.AxesHelper(50))
+      this.spiale[1].add(new THREE.AxesHelper(50))
+      this.spiale[0].rotation.z = -60 * ratio
+      this.spiale[1].rotation.z = 60 * ratio
       setTimeout(() => {
         this.renderScene()
       }, 0)

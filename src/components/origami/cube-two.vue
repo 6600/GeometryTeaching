@@ -66,8 +66,7 @@ export default {
       // 定义长宽都是1平面
       const geometry = new THREE.PlaneGeometry(1, 1)
       // 定义6个颜色
-      //                  左边绿          左边屎黄色     中间蓝     左边黄色      上面橙色      最下紫罗兰
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec']
+      const colors = ['#fc734f', '#ffc864', '#6f66f7', '#d0bbf4', '#d3b020', '#68ed32']
       // 定义6个坐标
       // const positions = [[-1.5, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [0, 0.5, 0], [0, -0.5, 0]]
       const positions = [[0, -0.5, 0], [0, -1.5, 0], [-0.5, -1, 0], [0, 0, 0], [0.5, 0.5, 0], [1.5, 1.5, 0]]

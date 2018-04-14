@@ -39,7 +39,7 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
-      const ratio = Math.PI / 180
+      // const ratio = Math.PI / 180
       // 五边形
       let shape5 = new THREE.Shape()
       shape5.moveTo(0, 0)
