@@ -83,18 +83,18 @@ export default {
     }
     .pintu {
       background-repeat: no-repeat;
-      background-image: url('.\assets\pintu.png')
+      background-image: url('.\assets\pintu.png');
     }
     .reduction {
       margin: 25px;
       background-position: -4px -2px;
-      background-image: url('.\assets\button\zcd04@1x.png')
+      background-image: url('.\assets\button\zcd04@1x.png');
     }
     .explain {
       margin: 25px;
       bottom: 60px;
       background-position: -4px -2px;
-      background-image: url('.\assets\button\zcd05@1x.png')
+      background-image: url('.\assets\button\zcd05@1x.png');
     }
   }
   .logo {

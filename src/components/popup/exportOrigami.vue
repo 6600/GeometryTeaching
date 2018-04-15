@@ -2,7 +2,7 @@
   .export-origami-popup-box
     .popup
       .title 輸出折紙圖樣:
-      .popup-panel
+      .popup-panel#imgPanel(:class="{gray}")
         img(v-if="imgBase64", :src="imgBase64")
       .check-box
         .input-check(:class="{active: checkItem === 0}")
@@ -15,18 +15,26 @@
           .check(@click="toItem(2)")
           .text 單線圖
       .tool-box
-        Button.button(text="确定")
-        Button.button(text="预览")
+        Button.button(text="确定", @onClick="saveImage()")
+        Button.button(text="预览", @onClick="showPreview = true")
         Button.button(text="取消", @onClick="$emit('close')")
+      .preview-box(v-if="showPreview")
+        .img-box
+          img(v-if="imgBase64", :src="imgBase64", :class="{gray}")
+          Button.button(text="确定", @onClick="showPreview = false")
 </template>
 
 <script>
+import html2canvas from 'html2canvas'
+import { Fun } from '@/components/Order.js'
 import Button from '@/components/button/button_105_55.vue'
 export default {
   name: 'Export',
   data () {
     return {
+      gray: false,
       checkItem: 0,
+      showPreview: false,
       imgBase64: null
     }
   },
@@ -42,20 +50,46 @@ export default {
     toItem (key) {
       switch (key) {
         case 0: {
+          const routeName = this.$route.name
+          // 取消灰度
+          this.gray = false
           this.checkItem = 0
+          this.imgBase64 = `./static/export/color/${routeName}.png`
           break
         }
         case 1: {
+          this.gray = true
           this.checkItem = 1
           break
         }
         case 2: {
+          // 取消灰度
+          this.gray = false
           this.checkItem = 2
           // console.log(this.$route.name.split('-')[0])
           this.imgBase64 = `./static/export/origami-line/${this.$route.name}.png`
           break
         }
       }
+    },
+    saveImage () { // 保存为图片
+      html2canvas(document.getElementById('imgPanel'), {
+        foreignObjectRendering: true
+      }).then(canvas => {
+        let imgData = canvas.toDataURL()
+        const type = 'png'
+        const _fixType = function (type) {
+          type = type.toLowerCase().replace(/jpg/i, 'jpeg')
+          const r = type.match(/png|jpeg|bmp|gif/)[0]
+          return 'image/' + r
+        }
+        // 加工image data，替换mime type
+        imgData = imgData.replace(_fixType(type), 'image/octet-stream')
+        // 下载后的问题名
+        const filename = '导出图片' + '.' + type
+        // download
+        Fun.saveFile(imgData, filename)
+      })
     }
   }
 }
@@ -82,6 +116,45 @@ export default {
     margin: auto;
     background-color: white;
     border-radius: 15px;
+    .gray {
+      filter: gray;
+      filter: grayscale(100%);
+    }
+    .preview-box {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.40);
+    }
+    .img-box {
+      width: 752px;
+      height: 628px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-repeat: no-repeat;
+      background-image: url('..\..\assets\export\yulan@1x.png');
+      img {
+        height: 420px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: 70px;
+      }
+      .button {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+    }
   }
   .title {
     height: 60px;

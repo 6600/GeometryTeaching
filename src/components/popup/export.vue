@@ -2,7 +2,7 @@
   .export-popup-box
     .popup
       .title 輸出圖形:
-      .popup-panel
+      .popup-panel#imgPanel(:class="{gray}")
         img(v-if="imgBase64", :src="imgBase64")
       .check-box
         .input-check(:class="{active: checkItem === 0}")
@@ -16,24 +16,32 @@
           .text 單線圖
       .tool-box
         Button.button(text="确定", @onClick="saveImage()")
-        Button.button(text="预览")
+        Button.button(text="预览", @onClick="showPreview = true")
         Button.button(text="取消", @onClick="$emit('close')")
+      .preview-box(v-if="showPreview")
+        .img-box
+          img(v-if="imgBase64", :src="imgBase64", :class="{gray}")
+          Button.button(text="确定", @onClick="showPreview = false")
 </template>
 
 <script>
 import { Fun } from '@/components/Order.js'
+import html2canvas from 'html2canvas'
 import Button from '@/components/button/button_105_55.vue'
 export default {
   name: 'Export',
   data () {
     return {
       checkItem: 0,
-      imgBase64: null
+      imgBase64: null,
+      showPreview: false,
+      imgBase64Copy: null,
+      gray: false
     }
   },
   created () {
     const canvas = document.getElementsByTagName('canvas')[0]
-    this.imgBase64 = canvas.toDataURL()
+    this.imgBase64 = this.imgBase64Copy = canvas.toDataURL()
   },
   components: {
     Button
@@ -42,19 +50,21 @@ export default {
     toItem (key) {
       switch (key) {
         case 0: {
+          // 取消灰度
+          this.gray = false
           this.checkItem = 0
-          const canvas = document.getElementsByTagName('canvas')[0]
-          this.imgBase64 = canvas.toDataURL()
+          this.imgBase64 = this.imgBase64Copy
           break
         }
         case 1: {
+          this.imgBase64 = this.imgBase64Copy
           this.checkItem = 1
-          const canvas = document.getElementsByTagName('canvas')[0]
-          console.log(document.getElementsByTagName('canvas'))
-          this.grayFilter(canvas)
+          this.gray = true
           break
         }
         case 2: {
+          // 取消灰度
+          this.gray = false
           this.checkItem = 2
           // console.log(this.$route.name.split('-')[0])
           this.imgBase64 = `./static/export/line/${this.$route.name.split('-')[0]}.png`
@@ -63,55 +73,40 @@ export default {
       }
     },
     saveImage () { // 保存为图片
-      console.log('sdsd')
-      const canvas = document.getElementsByTagName('canvas')[0]
-      let imgData = canvas.toDataURL()
-      const type = 'png'
-      const _fixType = function (type) {
-        type = type.toLowerCase().replace(/jpg/i, 'jpeg')
-        const r = type.match(/png|jpeg|bmp|gif/)[0]
-        return 'image/' + r
-      }
-      // 加工image data，替换mime type
-      imgData = imgData.replace(_fixType(type), 'image/octet-stream')
-      // 下载后的问题名
-      const filename = '导出图片' + '.' + type
-      // download
-      Fun.saveFile(imgData, filename)
-    },
-    grayFilter (canvasDom) {
-      console.log(canvasDom)
-      const ctx = canvasDom.getContext('2d')
-      console.log(ctx)
-      // 白色填充
-      ctx.rect(0, 0, canvasDom.width, canvasDom.height)
-      ctx.fillStyle = 'white'
-      ctx.fill()
-      let canvasData = ctx.getImageData(0, 0, canvasDom.width, canvasDom.height)
-      for (let x = 0; x < canvasData.width; x++) {
-        for (let y = 0; y < canvasData.height; y++) {
-          // Index of the pixel in the array
-          let idx = (x + y * canvasData.width) * 4
-          let r = canvasData.data[idx + 0]
-          let g = canvasData.data[idx + 1]
-          let b = canvasData.data[idx + 2]
-          // calculate gray scale value
-          let gray = 0.299 * r + 0.587 * g + 0.114 * b
-          // assign gray scale value
-          canvasData.data[idx + 0] = gray
-          canvasData.data[idx + 1] = gray
-          canvasData.data[idx + 2] = gray
-          canvasData.data[idx + 3] = 255
-          // add black border
-          if (x < 8 || y < 8 || x > (canvasData.width - 8) || y > (canvasData.height - 8)) {
-            canvasData.data[idx + 0] = 0
-            canvasData.data[idx + 1] = 0
-            canvasData.data[idx + 2] = 0
-          }
+      if (this.checkItem === 0) {
+        const canvas = document.getElementsByTagName('canvas')[0]
+        let imgData = canvas.toDataURL()
+        const type = 'png'
+        const _fixType = function (type) {
+          type = type.toLowerCase().replace(/jpg/i, 'jpeg')
+          const r = type.match(/png|jpeg|bmp|gif/)[0]
+          return 'image/' + r
         }
+        // 加工image data，替换mime type
+        imgData = imgData.replace(_fixType(type), 'image/octet-stream')
+        // 下载后的问题名
+        const filename = '导出图片' + '.' + type
+        // download
+        Fun.saveFile(imgData, filename)
+      } else {
+        html2canvas(document.getElementById('imgPanel'), {
+          foreignObjectRendering: true
+        }).then(canvas => {
+          let imgData = canvas.toDataURL()
+          const type = 'png'
+          const _fixType = function (type) {
+            type = type.toLowerCase().replace(/jpg/i, 'jpeg')
+            const r = type.match(/png|jpeg|bmp|gif/)[0]
+            return 'image/' + r
+          }
+          // 加工image data，替换mime type
+          imgData = imgData.replace(_fixType(type), 'image/octet-stream')
+          // 下载后的问题名
+          const filename = '导出图片' + '.' + type
+          // download
+          Fun.saveFile(imgData, filename)
+        })
       }
-      console.log(canvasData)
-      ctx.putImageData(canvasData, 0, 0)
     }
   }
 }
@@ -138,6 +133,45 @@ export default {
     margin: auto;
     background-color: white;
     border-radius: 15px;
+    .gray {
+      filter: gray;
+      filter: grayscale(100%);
+    }
+    .preview-box {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.40);
+    }
+    .img-box {
+      width: 752px;
+      height: 628px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-repeat: no-repeat;
+      background-image: url('..\..\assets\export\yulan@1x.png');
+      img {
+        height: 420px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: 70px;
+      }
+      .button {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+    }
   }
   .title {
     height: 60px;
