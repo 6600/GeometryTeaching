@@ -25,15 +25,49 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
-        // this.step++
-        // this.animation(this.step)
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
+    },
+    close (step) {
+      const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step <= 90) {
+        // 盒子左1
+        spiale[0].rotation.y = step * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 180) {
+        spiale[1].rotation.x = -(step - 90) * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 270) {
+        // 盒子右部
+        spiale[3].rotation.y = -(step - 180) * ratio
+        // 盒子上部
+        spiale[4].rotation.y = -(step - 180) * ratio
+        // 盒子下部
+        spiale[5].rotation.y = -(step - 180) * ratio
+        this.nextStep(2, this.close)
+      } else if (step === 272) {
+        this.spiale[4].position.set(0, 0.5, 0)
+        this.meshs[4].position.set(0.5, 0.5, 0)
+        this.nextStep(2, this.close)
+      } else if (step < 360) {
+        this.spiale[4].rotation.x = (step - 270) * ratio
+        this.nextStep(2, this.close)
+      }
     },
     animation (step) {
       const spiale = this.spiale
@@ -69,9 +103,9 @@ export default {
       const colors = ['#fc734f', '#ffc864', '#6f66f7', '#d0bbf4', '#d3b020', '#68ed32']
       // 定义6个坐标
       // const positions = [[-1.5, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [0, 0.5, 0], [0, -0.5, 0]]
-      const positions = [[0, -0.5, 0], [0, -1.5, 0], [-0.5, -1, 0], [0, 0, 0], [0.5, 0.5, 0], [1.5, 1.5, 0]]
+      const positions = [[-0.5, -0.5, 0], [0, -0.5, 0], [-0.5, -1, 0], [0.5, 0, 0], [0.5, 1, 0], [1.5, 0, 0]]
       // 定义6个转轴
-      const axiss = [[-1.5, 0.5, 0], [-0.5, 0.5, 0], [0, 1, 0], [0.5, 0, 0], [0, 0.5, 0], [0, -0.5, 0]]
+      const axiss = [[-1, 0.5, 0], [-0.5, -0.5, 0], [0, 1, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色
@@ -104,10 +138,10 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      this.spiale[4].add(new THREE.AxesHelper(50))
       setTimeout(() => {
-        this.nextStep()
-      }, 1000)
+        this.renderScene()
+      }, 20)
     }
   }
 }

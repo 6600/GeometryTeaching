@@ -72,7 +72,7 @@ export default {
       if (step <= 110) {
         // 盒子左1
         spiale[1].rotateX(-ratio)
-        // spiale[3].rotation.x = step * ratio
+        // spiale[1].rotation.x = -step * ratio
         this.closeBox()
       } else if (step <= 220) {
         // 盒子左1
@@ -185,21 +185,7 @@ export default {
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
-        } else if (index === '3') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
-            color: color,
-            transparent: true,
-            // 双面双面贴图
-            side: THREE.DoubleSide
-          }))
-        } else if (index === '0') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
-            color: color,
-            transparent: true,
-            // 双面双面贴图
-            side: THREE.DoubleSide
-          }))
-        } else if (index === '1') {
+        } else {
           this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
