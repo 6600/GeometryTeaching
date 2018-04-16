@@ -92,13 +92,13 @@ export default {
           // 待优化
           switch (type) {
             case 1:
-              this.thetax -= Math.PI / 179
+              this.thetax -= Math.PI / 180
               r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
               positionY = Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax)
               positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
-              // this.$refs.draw.camera.rotation.x = this.thetax
               this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
+              // this.$refs.draw.camera.lookAt(positionX, 0, 0)
               console.log(this.$refs.draw.camera.position)
               console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
               console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
@@ -106,7 +106,7 @@ export default {
               console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 2:
-              this.thetay -= Math.PI / 179
+              this.thetay -= Math.PI / 180
               r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
               positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
@@ -119,7 +119,7 @@ export default {
               console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 3:
-              this.thetax += Math.PI / 179
+              this.thetax += Math.PI / 180
               r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
               positionY = Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax)
@@ -132,7 +132,7 @@ export default {
               console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 4:
-              this.thetay += Math.PI / 179
+              this.thetay += Math.PI / 180
               r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
               positionY = Math.sqrt(ratio) * Math.sin(this.thetax)

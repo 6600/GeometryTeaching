@@ -15,7 +15,7 @@ export default {
       meshs: [],
       pause: false,
       step: 0,
-      stepCount: 420
+      stepCount: 330
     }
   },
   mounted () {
@@ -69,9 +69,19 @@ export default {
     close (step) {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
-      if (step <= 90) {
+      if (step <= 110) {
         // 盒子左1
-        spiale[1].rotation.y = -step * ratio
+        spiale[1].rotateX(-ratio)
+        // spiale[3].rotation.x = step * ratio
+        this.closeBox()
+      } else if (step <= 220) {
+        // 盒子左1
+        spiale[0].rotateX(-ratio)
+        // spiale[3].rotation.x = step * ratio
+        this.closeBox()
+      } else if (step <= 330) {
+        // 盒子左1
+        spiale[2].rotateX(ratio)
         // spiale[3].rotation.x = step * ratio
         this.closeBox()
       } else {
@@ -89,19 +99,16 @@ export default {
         console.log('动画已播放完毕!')
         return
       }
-      if (step <= 90) {
+      if (step >= 220) {
         // 盒子左1
-        spiale[3].rotation.x = step * ratio
+        spiale[2].rotateX(-ratio)
         this.openBox()
-      } else if (step <= 180) {
+      } else if (step >= 110) {
         // 上部
-        spiale[4].rotation.x = -(step - 90) * ratio
+        spiale[0].rotateX(ratio)
         this.openBox()
-      } else if (step <= 300) {
-        spiale[0].rotation.y = (step - 180) * ratio
-        this.openBox()
-      } else if (step <= 420) {
-        spiale[2].rotation.y = -(step - 300) * ratio
+      } else if (step >= 0) {
+        spiale[1].rotateX(ratio)
         this.openBox()
       }
     },
@@ -214,7 +221,7 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[1].add(new THREE.AxesHelper(50))
+      this.spiale[2].add(new THREE.AxesHelper(50))
       this.spiale[0].rotation.z = -60 * ratio
       this.spiale[1].rotation.z = 60 * ratio
       setTimeout(() => {
