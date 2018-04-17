@@ -98,19 +98,19 @@ export default {
         console.log('动画已播放完毕!')
         return
       }
-      if (step <= 90) {
+      if (step > 3 * 106.6 + 1) {
         // 盒子左1
-        spiale[3].rotation.x = step * ratio
+        spiale[2].rotateY(ratio)
         this.openBox()
-      } else if (step <= 180) {
+      } else if (step > 2 * 106.6) {
         // 上部
-        spiale[4].rotation.x = -(step - 90) * ratio
+        spiale[0].rotateY(-ratio)
         this.openBox()
-      } else if (step <= 300) {
-        spiale[0].rotation.y = (step - 180) * ratio
+      } else if (step > 106.6) {
+        spiale[4].rotateX(ratio)
         this.openBox()
-      } else if (step <= 420) {
-        spiale[2].rotation.y = -(step - 300) * ratio
+      } else if (step >= 0) {
+        spiale[3].rotateX(-ratio)
         this.openBox()
       }
     },
