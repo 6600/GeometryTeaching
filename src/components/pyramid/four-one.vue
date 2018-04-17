@@ -69,19 +69,19 @@ export default {
     close (step) {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
-      if (step <= 90) {
+      if (step <= 106.6) {
         // 盒子左1
-        spiale[3].rotation.x = step * ratio
+        spiale[3].rotateX(ratio)
         this.closeBox()
-      } else if (step <= 180) {
+      } else if (step <= 2 * 106.6) {
         // 上部
-        spiale[4].rotation.x = -(step - 90) * ratio
+        spiale[4].rotateX(-ratio)
         this.closeBox()
-      } else if (step <= 300) {
-        spiale[0].rotation.y = (step - 180) * ratio
+      } else if (step <= 3 * 106.6 + 1) {
+        spiale[0].rotateY(ratio)
         this.closeBox()
-      } else if (step <= 420) {
-        spiale[2].rotation.y = -(step - 300) * ratio
+      } else if (step <= 4 * 106.6 + 1) {
+        spiale[2].rotateY(-ratio)
         this.closeBox()
       } else {
         // 广播关闭完成事件
@@ -154,13 +154,13 @@ export default {
       let shape1 = new THREE.Shape()
       shape1.moveTo(0, 0)
       shape1.lineTo(1, 0)
-      shape1.lineTo(0.5, Math.sqrt(3) / 2)
+      shape1.lineTo(0.5, Math.sqrt(3))
       shape1.lineTo(0, 0)
       let triangleGeometry1 = new THREE.ShapeGeometry(shape1)
       let shape2 = new THREE.Shape()
       shape2.moveTo(0, 0)
       shape2.lineTo(1, 0)
-      shape2.lineTo(0.5, -Math.sqrt(3) / 2)
+      shape2.lineTo(0.5, -Math.sqrt(3))
       shape2.lineTo(0, 0)
       let triangleGeometry2 = new THREE.ShapeGeometry(shape2)
       // 左一三角形
@@ -168,14 +168,14 @@ export default {
       shape3.moveTo(0, 0)
       shape3.lineTo(0, 0)
       shape3.lineTo(0, -1)
-      shape3.lineTo(-Math.sqrt(3) / 2, -0.5)
+      shape3.lineTo(-Math.sqrt(3), -0.5)
       let triangleGeometry3 = new THREE.ShapeGeometry(shape3)
       // 右一三角形
       let shape4 = new THREE.Shape()
       shape4.moveTo(0, 0)
       shape4.lineTo(0, 0)
       shape4.lineTo(0, -1)
-      shape4.lineTo(Math.sqrt(3) / 2, -0.5)
+      shape4.lineTo(Math.sqrt(3), -0.5)
       let triangleGeometry4 = new THREE.ShapeGeometry(shape4)
       // 定义3个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c']
