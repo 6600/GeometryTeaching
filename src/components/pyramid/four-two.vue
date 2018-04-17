@@ -69,19 +69,26 @@ export default {
     close (step) {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
-      if (step <= 90) {
+      var axis2 = new THREE.Vector3(Math.sin(Math.atan(0.25)), Math.cos(Math.atan(0.25)), 0)
+      var axis3 = new THREE.Vector3(Math.sin(1.5 * 2 * Math.atan(0.25)), Math.cos(1.5 * 2 * Math.atan(0.25)), 0)
+      var axis4 = new THREE.Vector3(Math.sin(2.5 * 2 * Math.atan(0.25)), Math.cos(2.5 * 2 * Math.atan(0.25)), 0)
+      if (step <= 86.5) {
         // 盒子左1
-        spiale[3].rotation.x = step * ratio
+        spiale[2].rotateOnAxis(axis2, -ratio)
+        spiale[3].rotateOnAxis(axis3, -ratio)
+        spiale[4].rotateOnAxis(axis4, -ratio)
         this.closeBox()
-      } else if (step <= 180) {
+      } else if (step <= 2 * 86.5) {
         // 上部
-        spiale[4].rotation.x = -(step - 90) * ratio
+        spiale[3].rotateOnAxis(axis2, -ratio)
+        spiale[4].rotateOnAxis(axis3, -ratio)
         this.closeBox()
-      } else if (step <= 300) {
-        spiale[0].rotation.y = (step - 180) * ratio
+      } else if (step <= 3 * 86.5) {
+        spiale[4].rotateOnAxis(axis2, -ratio)
+        // spiale[0].rotation.y = (step - 180) * ratio
         this.closeBox()
-      } else if (step <= 420) {
-        spiale[2].rotation.y = -(step - 300) * ratio
+      } else if (step <= 3 * 86.5 + 104.5) {
+        spiale[0].rotateX(-ratio)
         this.closeBox()
       } else {
         // 广播关闭完成事件
@@ -92,25 +99,31 @@ export default {
     open (step) {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
+      var axis2 = new THREE.Vector3(Math.sin(Math.atan(0.25)), Math.cos(Math.atan(0.25)), 0)
+      var axis3 = new THREE.Vector3(Math.sin(1.5 * 2 * Math.atan(0.25)), Math.cos(1.5 * 2 * Math.atan(0.25)), 0)
+      var axis4 = new THREE.Vector3(Math.sin(2.5 * 2 * Math.atan(0.25)), Math.cos(2.5 * 2 * Math.atan(0.25)), 0)
       if (step < 0) {
         // 广播关闭完成事件
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
         return
       }
-      if (step <= 90) {
+      if (step >= 3 * 86.5) {
         // 盒子左1
-        spiale[3].rotation.x = step * ratio
+        spiale[0].rotateX(ratio)
         this.openBox()
-      } else if (step <= 180) {
+      } else if (step >= 2 * 86.5) {
         // 上部
-        spiale[4].rotation.x = -(step - 90) * ratio
+        spiale[4].rotateOnAxis(axis2, ratio)
         this.openBox()
-      } else if (step <= 300) {
-        spiale[0].rotation.y = (step - 180) * ratio
+      } else if (step >= 86.5) {
+        spiale[3].rotateOnAxis(axis2, ratio)
+        spiale[4].rotateOnAxis(axis3, ratio)
         this.openBox()
-      } else if (step <= 420) {
-        spiale[2].rotation.y = -(step - 300) * ratio
+      } else if (step >= 0) {
+        spiale[2].rotateOnAxis(axis2, ratio)
+        spiale[3].rotateOnAxis(axis3, ratio)
+        spiale[4].rotateOnAxis(axis4, ratio)
         this.openBox()
       }
     },
@@ -149,7 +162,6 @@ export default {
       this.dragClose(step)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
-      const ratio = Math.PI / 180
       // 创建中间的正方体
       const PlaneGeometry = new THREE.PlaneGeometry(1, 1)
       let shape1 = new THREE.Shape()
@@ -161,9 +173,9 @@ export default {
       // 定义3个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c']
       // 定义3个坐标
-      const positions = [[0, 0, 0], [0, 2.5, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const positions = [[0, -0.5, 0], [0, 2.5, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
       // 定义3个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 2.5, 0], [0, 2.5, 0], [0, 2.5, 0]]
+      const axiss = [[0, 0.5, 0], [0, 0, 0], [0, 2.5, 0], [0, 2.5, 0], [0, 2.5, 0]]
       // 创造3个平面
       for (let index in colors) {
         // 取得颜色
@@ -205,10 +217,10 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[2].rotation.z = 30 * ratio
-      this.spiale[3].rotation.z = 60 * ratio
-      this.spiale[4].rotation.z = 90 * ratio
-      this.spiale[2].add(new THREE.AxesHelper(50))
+      this.spiale[2].rotation.z = 2 * Math.atan(0.25)
+      this.spiale[3].rotation.z = 2 * 2 * Math.atan(0.25)
+      this.spiale[4].rotation.z = 3 * 2 * Math.atan(0.25)
+      this.spiale[0].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 0)
