@@ -3,6 +3,9 @@
 </template>
 
 <script>
+import '../../assets/curves/NURBSCurve.js'
+import '../../assets/curves/NURBSSurface.js'
+import '../../assets/curves/NURBSUtils.js'
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
@@ -19,103 +22,6 @@ export default {
       degree2: 3,
       knots1: [0, 0, 0, 1, 1, 1],
       knots2: [0, 0, 0, 0, 1, 1, 1, 1]
-    }
-  },
-  created () {
-    const calcBasisFunctions = (span, u, p, U) => {
-      var N = []
-      var left = []
-      var right = []
-      N[ 0 ] = 1.0
-      for (var j = 1; j <= p; ++j) {
-        left[ j ] = u - U[ span + 1 - j ]
-        right[ j ] = U[ span + j ] - u
-        var saved = 0.0
-        for (var r = 0; r < j; ++r) {
-          var rv = right[ r + 1 ]
-          var lv = left[ j - r ]
-          var temp = N[ r ] / (rv + lv)
-          N[ r ] = saved + rv * temp
-          saved = lv * temp
-        }
-        N[ j ] = saved
-      }
-      return N
-    }
-    const findSpan = (p, u, U) => {
-      var n = U.length - p - 1
-      if (u >= U[ n ]) {
-        return n - 1
-      }
-      if (u <= U[ p ]) {
-        return p
-      }
-      var low = p
-      var high = n
-      var mid = Math.floor((low + high) / 2)
-      while (u < U[ mid ] || u >= U[ mid + 1 ]) {
-        if (u < U[ mid ]) {
-          high = mid
-        } else {
-          low = mid
-        }
-        mid = Math.floor((low + high) / 2)
-      }
-      return mid
-    }
-    const calcSurfacePoint = (p, q, U, V, P, u, v) => {
-      var uspan = findSpan(p, u, U)
-      var vspan = findSpan(q, v, V)
-      var Nu = calcBasisFunctions(uspan, u, p, U)
-      var Nv = calcBasisFunctions(vspan, v, q, V)
-      var temp = []
-      for (let l = 0; l <= q; ++l) {
-        temp[ l ] = new THREE.Vector4(0, 0, 0, 0)
-        for (var k = 0; k <= p; ++k) {
-          var point = P[ uspan - p + k ][ vspan - q + l ].clone()
-          var w = point.w
-          point.x *= w
-          point.y *= w
-          point.z *= w
-          temp[ l ].add(point.multiplyScalar(Nu[ k ]))
-        }
-      }
-      var Sw = new THREE.Vector4(0, 0, 0, 0)
-      for (let l = 0; l <= q; ++l) {
-        Sw.add(temp[ l ].multiplyScalar(Nv[ l ]))
-      }
-      Sw.divideScalar(Sw.w)
-      return new THREE.Vector3(Sw.x, Sw.y, Sw.z)
-    }
-    /**************************************************************
-     *NURBS surface
-    **************************************************************/
-    THREE.NURBSSurface = function (degree1, degree2, knots1, knots2 /* arrays of reals */, controlPoints /* array^2 of Vector(2|3|4) */) {
-      console.log('sdsd')
-      this.degree1 = degree1
-      this.degree2 = degree2
-      this.knots1 = knots1
-      this.knots2 = knots2
-      this.controlPoints = []
-      var len1 = knots1.length - degree1 - 1
-      var len2 = knots2.length - degree2 - 1
-      // ensure Vector4 for control points
-      for (var i = 0; i < len1; ++i) {
-        this.controlPoints[ i ] = []
-        for (var j = 0; j < len2; ++j) {
-          var point = controlPoints[ i ][ j ]
-          this.controlPoints[ i ][ j ] = new THREE.Vector4(point.x, point.y, point.z, point.w)
-        }
-      }
-    }
-    THREE.NURBSSurface.prototype = {
-      constructor: THREE.NURBSSurface,
-      getPoint: (t1, t2) => {
-        console.log(this.knots1)
-        var u = this.knots1[ 0 ] + t1 * (this.knots1[ this.knots1.length - 1 ] - this.knots1[ 0 ]) // linear mapping t1->u
-        var v = this.knots2[ 0 ] + t2 * (this.knots2[ this.knots2.length - 1 ] - this.knots2[ 0 ]) // linear mapping t2->u
-        return calcSurfacePoint(this.degree1, this.degree2, this.knots1, this.knots2, this.controlPoints, u, v)
-      }
     }
   },
   mounted () {
@@ -232,22 +138,22 @@ export default {
       // NURBS surface
       const nsControlPoints = [
         [
-          new THREE.Vector4(-200, -200, 100, 1),
-          new THREE.Vector4(-200, -100, -200, 1),
-          new THREE.Vector4(-200, 100, 250, 1),
-          new THREE.Vector4(-200, 200, -100, 1)
+          new THREE.Vector4(-2, -2, 1, 1),
+          new THREE.Vector4(-2, -1, -2, 1),
+          new THREE.Vector4(-2, 1, 2.5, 1),
+          new THREE.Vector4(-2, 2, -1, 1)
         ],
         [
-          new THREE.Vector4(0, -200, 0, 1),
-          new THREE.Vector4(0, -100, -100, 5),
-          new THREE.Vector4(0, 100, 150, 5),
-          new THREE.Vector4(0, 200, 0, 1)
+          new THREE.Vector4(0, -2, 0, 1),
+          new THREE.Vector4(0, -1, -1, 5),
+          new THREE.Vector4(0, 1, 1.5, 5),
+          new THREE.Vector4(0, 2, 0, 1)
         ],
         [
-          new THREE.Vector4(200, -200, -100, 1),
-          new THREE.Vector4(200, -100, 200, 1),
-          new THREE.Vector4(200, 100, -250, 1),
-          new THREE.Vector4(200, 200, 100, 1)
+          new THREE.Vector4(2, -2, -1, 1),
+          new THREE.Vector4(2, -1, 2, 1),
+          new THREE.Vector4(2, 1, -2.5, 1),
+          new THREE.Vector4(2, 2, 1, 1)
         ]
       ]
       const knots1 = [0, 0, 0, 1, 1, 1]
@@ -263,7 +169,7 @@ export default {
         side: THREE.DoubleSide
       }))
       object.scale.multiplyScalar(1)
-      // this.scene.add(object)
+      this.scene.add(object)
       setTimeout(() => {
         this.nextStep()
       }, 0)

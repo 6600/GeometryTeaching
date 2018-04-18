@@ -1,3 +1,4 @@
+const THREE = require('three')
 /**
  * @author renej
  * NURBS curve object
@@ -8,15 +9,9 @@
  *
  **/
 
-
-/**************************************************************
- *	NURBS curve
- **************************************************************/
 /* eslint-disable */
 THREE.NURBSCurve = function ( degree, knots /* array of reals */, controlPoints /* array of Vector(2|3|4) */, startKnot /* index in knots */, endKnot /* index in knots */ ) {
-
 	THREE.Curve.call( this );
-
 	this.degree = degree;
 	this.knots = knots;
 	this.controlPoints = [];
@@ -24,13 +19,10 @@ THREE.NURBSCurve = function ( degree, knots /* array of reals */, controlPoints 
 	this.startKnot = startKnot || 0;
 	this.endKnot = endKnot || ( this.knots.length - 1 );
 	for ( var i = 0; i < controlPoints.length; ++ i ) {
-
 		// ensure Vector4 for control points
 		var point = controlPoints[ i ];
 		this.controlPoints[ i ] = new THREE.Vector4( point.x, point.y, point.z, point.w );
-
 	}
-
 };
 
 
