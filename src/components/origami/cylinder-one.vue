@@ -138,22 +138,22 @@ export default {
       // NURBS surface
       const nsControlPoints = [
         [
-          new THREE.Vector4(-2, -2, 1, 1),
-          new THREE.Vector4(-2, -1, -2, 1),
-          new THREE.Vector4(-2, 1, 2.5, 1),
-          new THREE.Vector4(-2, 2, -1, 1)
+          new THREE.Vector4(-2, -1, 0, 1),
+          new THREE.Vector4(-2, -1, 0, 1),
+          new THREE.Vector4(-2, 1, 0, 1),
+          new THREE.Vector4(-2, 1, 0, 1)
         ],
         [
-          new THREE.Vector4(0, -2, 0, 1),
-          new THREE.Vector4(0, -1, -1, 5),
-          new THREE.Vector4(0, 1, 1.5, 5),
-          new THREE.Vector4(0, 2, 0, 1)
+          new THREE.Vector4(0, -1, 0, 1),
+          new THREE.Vector4(0, -1, 0, 5),
+          new THREE.Vector4(0, 1, 0, 5),
+          new THREE.Vector4(0, 1, 0, 1)
         ],
         [
-          new THREE.Vector4(2, -2, -1, 1),
-          new THREE.Vector4(2, -1, 2, 1),
-          new THREE.Vector4(2, 1, -2.5, 1),
-          new THREE.Vector4(2, 2, 1, 1)
+          new THREE.Vector4(1, -1, 1, 1),
+          new THREE.Vector4(1, -1, 1, 1),
+          new THREE.Vector4(1, 1, 1, 1),
+          new THREE.Vector4(1, 1, 1, 1)
         ]
       ]
       const knots1 = [0, 0, 0, 1, 1, 1]
