@@ -61,11 +61,13 @@ export default {
         spiale[5].rotation.y = -(step - 180) * ratio
         this.nextStep(2, this.close)
       } else if (step === 272) {
-        this.spiale[4].position.set(0, 0.5, 0)
-        this.meshs[4].position.set(0.5, 0.5, 0)
+        this.meshs[4].position.set(0, 0.5, 0)
+        this.spiale[4].position.set(0, 0.5, 0.5)
+        // spiale[4].rotation.y = -(step - 270) * ratio
         this.nextStep(2, this.close)
       } else if (step < 360) {
-        this.spiale[4].rotation.x = (step - 270) * ratio
+        console.log(this.spiale[4].rotation)
+        spiale[4].rotation.x = -(step - 270) * ratio
         this.nextStep(2, this.close)
       }
     },

@@ -3,9 +3,11 @@
     .popup
       .popup-panel
         //- 三角锥
-        .slect.cones-one(@click="popupCheck = 'pyramidThreeOne'", :class="{LineOne: popupCheck === 'pyramidThreeOne'}")
-        .slect.cones-two(@click="popupCheck = 'pyramidThreeTwo'", :class="{LineOne: popupCheck === 'pyramidThreeTwo'}")
-        .slect.cuboid-one(@click="popupCheck = 'cuboidOne'", :class="{active: popupCheck === 'cuboidOne'}")
+        .slect.cones-one(@click="popupCheck = 'pyramidThreeOne'", :class="{active: popupCheck === 'pyramidThreeOne'}")
+        .slect.cones-two(@click="popupCheck = 'pyramidThreeTwo'", :class="{active: popupCheck === 'pyramidThreeTwo'}")
+        .slect.four-one(@click="popupCheck = 'pyramidFourOne'", :class="{active: popupCheck === 'pyramidFourOne'}")
+        .slect.four-two(@click="popupCheck = 'pyramidFourTwo'", :class="{active: popupCheck === 'pyramidFourTwo'}")
+        .slect.five-one(@click="popupCheck = 'pyramidFiveOne'", :class="{active: popupCheck === 'pyramidFiveOne'}")
         .slect.cuboid-two(@click="popupCheck = 'cuboidTwo'", :class="{active: popupCheck === 'cuboidTwo'}")
         .slect.cuboid-three(@click="popupCheck = 'cuboidThree'", :class="{active: popupCheck === 'cuboidThree'}")
         .slect.cuboid-four(@click="popupCheck = 'cuboidFour'", :class="{active: popupCheck === 'cuboidFour'}")
@@ -82,10 +84,6 @@ export default {
     .active {
       border: 2px solid yellow;
     }
-    .LineOne{
-      border: 2px solid yellow;
-      margin-top: 24px;
-    }
     .cube-one {
       right: 168px;
       top: 81px;
@@ -94,9 +92,17 @@ export default {
       right: 58px;
       top: 81px;
     }
-    .cones-one {
-      left: 164px;
-      top: 81px;
+    .four-one {
+      right: 160px;
+      top: 102px;
+    }
+    .four-two {
+      right: 55px;
+      top: 102px;
+    }
+    .five-one {
+      left: 167px;
+      top: 235px;
     }
     .cones-two {
       left: 276px;
