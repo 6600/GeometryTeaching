@@ -68,7 +68,6 @@ export default {
         spiale[4].rotateX(2 * ratio)
         this.nextStep(2, this.close)
       } else if (step <= 360) {
-        console.log(this.spiale[4].rotation)
         spiale[4].rotation.y = (step) * ratio
         this.nextStep(2, this.close)
       } else if (step <= 450) {
@@ -76,30 +75,43 @@ export default {
         this.nextStep(2, this.close)
       }
     },
-    animation (step) {
+    open (step) {
       const spiale = this.spiale
+      const ratio = (Math.PI / 180)
+      if (step < 0) {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
       if (step <= 90) {
         // 盒子左1
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        spiale[1].rotation.y = step * (Math.PI / 180)
+        spiale[0].rotation.y = step * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 180) {
+        spiale[1].rotation.x = -(step - 90) * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 270) {
         // 盒子右部
-        spiale[3].rotation.y = -step * (Math.PI / 180)
+        spiale[3].rotation.y = -(step - 180) * ratio
         // 盒子上部
-        spiale[4].rotation.x = step * (Math.PI / 180)
+        spiale[4].rotation.y = -(step - 180) * ratio
         // 盒子下部
-        spiale[5].rotation.x = -step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step === 91) {
-        // 重设0面转轴
-        this.meshs[0].position.set(-0.5, 0, 0)
-        this.spiale[0].position.set(-0.5, 0, 1)
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
-      } else if (step < 181) {
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        this.nextStep()
-      } else {
-        // console.log('动画已播放完毕!')
+        spiale[5].rotation.y = -(step - 180) * ratio
+        this.nextStep(2, this.close)
+      } else if (step === 272) {
+        this.meshs[4].position.set(0, 0.5, 0)
+        this.spiale[4].position.set(0, 0.5, 0.5)
+        this.meshs[5].position.set(0.5, 0, 0)
+        this.spiale[5].position.set(0, 0, 1)
+        spiale[4].rotateX(2 * ratio)
+        this.nextStep(2, this.close)
+      } else if (step <= 360) {
+        spiale[4].rotation.y = (step) * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 450) {
+        spiale[5].rotation.y = -(step - 270) * ratio
+        this.nextStep(2, this.close)
       }
     },
     creatCube (scene, renderer, camera) {
