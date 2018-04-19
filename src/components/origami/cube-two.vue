@@ -63,11 +63,16 @@ export default {
       } else if (step === 272) {
         this.meshs[4].position.set(0, 0.5, 0)
         this.spiale[4].position.set(0, 0.5, 0.5)
-        // spiale[4].rotation.y = -(step - 270) * ratio
+        this.meshs[5].position.set(0.5, 0, 0)
+        this.spiale[5].position.set(0, 0, 1)
+        spiale[4].rotateX(2 * ratio)
         this.nextStep(2, this.close)
-      } else if (step < 360) {
+      } else if (step <= 360) {
         console.log(this.spiale[4].rotation)
-        spiale[4].rotation.x = -(step - 270) * ratio
+        spiale[4].rotation.y = (step) * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 450) {
+        spiale[5].rotation.y = -(step - 270) * ratio
         this.nextStep(2, this.close)
       }
     },
@@ -140,7 +145,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[4].add(new THREE.AxesHelper(50))
+      this.spiale[5].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 20)

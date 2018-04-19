@@ -69,6 +69,7 @@ export default {
     close (step) {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
+      console.log(spiale[1])
       if (step <= 110) {
         // 盒子左1
         spiale[1].rotateX(-ratio)
