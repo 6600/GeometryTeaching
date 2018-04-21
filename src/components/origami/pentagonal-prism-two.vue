@@ -39,24 +39,16 @@ export default {
     animation (step) {
       const spiale = this.spiale
       const ratio = Math.PI / 180
+      console.log(ratio)
       if (step <= 90) {
-        // spiale[1].rotation.y = step * ratio
-        // spiale[2].rotation.y = step * ratio
         spiale[3].rotation.y = -step * ratio
         spiale[4].rotation.y = -step * ratio
         spiale[5].rotation.y = -step * ratio
         spiale[6].rotation.y = -step * ratio
-        console.log(ratio)
-        console.log(spiale[2].rotation.y)
         // 盒子左1
         spiale[1].rotateY(ratio)
+        console.log(spiale[1].rotation)
         spiale[2].rotateY(ratio)
-        console.log(ratio)
-        console.log(spiale[2].rotation.y)
-        // spiale[3].rotateY(-1 * ratio)
-        // spiale[4].rotateY(-1 * ratio)
-        // spiale[5].rotateY(-1 * ratio)
-        // spiale[6].rotateY(-1 * ratio)
         this.nextStep()
       } else if (step === 91) {
         spiale[3].position.set(0, 0.5, 0)

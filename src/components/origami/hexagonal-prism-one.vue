@@ -37,40 +37,15 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     animation (step) {
-      if (step === 1) {
-        this.meshs[0].position.set(0, 0, 0)
-        this.spiale[0].position.set(-0.5, 1, 0)
-        this.meshs[7].position.set(0, -Math.sqrt(3), 0)
-        this.spiale[7].position.set(-0.5, -1, 0)
-        // 左边[-2, 0, 0], [-1, 0, 0]
-        this.meshs[1].position.set(-1.5, 0, 0)
-        this.spiale[1].position.set(-0.5, 0, 0)
-        this.meshs[2].position.set(-0.5, 0, 0)
-        this.spiale[2].position.set(-0.5, 0, 0)
-        // 右边[1, 0, 0], [2, 0, 0], [3, 0, 0]
-        this.meshs[4].position.set(0.5, 0, 0)
-        this.spiale[4].position.set(0.5, 0, 0)
-        this.meshs[5].position.set(1.5, 0, 0)
-        this.spiale[5].position.set(0.5, 0, 0)
-        this.meshs[6].position.set(2.5, 0, 0)
-        this.spiale[6].position.set(0.5, 0, 0)
-        // 旋转
-        this.spiale[0].rotateX(1 * (Math.PI / 180))
-        this.spiale[7].rotateX(-1 * (Math.PI / 180))
-        this.spiale[1].rotateY(1 * (Math.PI / 180))
-        this.spiale[2].rotateY(1 * (Math.PI / 180))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step <= 60) {
-        this.spiale[0].rotateX(1 * (Math.PI / 180))
-        this.spiale[7].rotateX(-1 * (Math.PI / 180))
-        this.spiale[1].rotateY(1 * (Math.PI / 180))
-        this.spiale[2].rotateY(1 * (Math.PI / 180))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
+      const ratio = Math.PI / 180
+      if (step <= 60) {
+        this.spiale[0].rotation.x = step * ratio
+        this.spiale[7].rotation.x = -step * ratio
+        this.spiale[1].rotation.y = step * ratio
+        this.spiale[2].rotation.y = step * ratio
+        this.spiale[4].rotation.y = -step * ratio
+        this.spiale[5].rotation.y = -step * ratio
+        this.spiale[6].rotation.y = -step * ratio
         this.nextStep()
       } else if (step === 61) {
         this.meshs[1].position.set(-0.5, 0, 0)
@@ -79,31 +54,31 @@ export default {
         this.spiale[5].position.set(1, 0, Math.sqrt(3) / 2)
         this.meshs[6].position.set(1.5, 0, 0)
         this.spiale[6].position.set(1, 0, Math.sqrt(3) / 2)
-        this.spiale[0].rotateX(1 * (Math.PI / 180))
-        this.spiale[7].rotateX(-1 * (Math.PI / 180))
-        this.spiale[1].rotateY(1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
+        this.spiale[0].rotation.x = step * ratio
+        this.spiale[7].rotation.x = -step * ratio
+        this.spiale[1].rotation.y = step * ratio
+        this.spiale[5].rotation.y = -step * ratio
+        this.spiale[6].rotation.y = -step * ratio
         this.nextStep()
       } else if (step <= 90) {
-        this.spiale[0].rotateX(1 * (Math.PI / 180))
-        this.spiale[7].rotateX(-1 * (Math.PI / 180))
-        this.spiale[1].rotateY(1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
+        this.spiale[0].rotation.x = step * ratio
+        this.spiale[7].rotation.x = -step * ratio
+        this.spiale[1].rotation.y = step * ratio
+        this.spiale[5].rotation.y = -step * ratio
+        this.spiale[6].rotation.y = -step * ratio
         this.nextStep()
       } else if (step <= 120) {
-        this.spiale[1].rotateY(1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
+        this.spiale[1].rotation.y = step * ratio
+        this.spiale[5].rotation.y = -step * ratio
+        this.spiale[6].rotation.y = -step * ratio
         this.nextStep()
       } else if (step === 121) {
         this.meshs[6].position.set(0.5, 0, 0)
         this.spiale[6].position.set(0.5, 0, Math.sqrt(3))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
+        this.spiale[6].rotation.y = -step * ratio
         this.nextStep()
       } else if (step <= 180) {
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
+        this.spiale[6].rotation.y = -step * ratio
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -125,9 +100,9 @@ export default {
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec', '#f6c161', '#64e530']
       // 定义6个坐标
-      const positions = [[-0.5, 1, 0], [-2, 0, 0], [-1, 0, 0], [0, 0, 0], [1, 0, 0], [2, 0, 0], [3, 0, 0], [-0.5, -1 - hexgonalHigh, 0]]
+      const positions = [[0, 0, 0], [-1.5, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [1.5, 0, 0], [2.5, 0, 0], [0, -Math.sqrt(3), 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const axiss = [[-0.5, 1, 0], [-0.5, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [0.5, 0, 0], [0.5, 0, 0], [-0.5, -1, 0]]
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色
