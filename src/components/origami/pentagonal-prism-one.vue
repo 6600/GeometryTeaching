@@ -37,58 +37,35 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     animation (step) {
-      if (step === 1) {
-        this.meshs[0].position.set(0, 0, 0)
-        this.spiale[0].position.set(-1.5, 1, 0)
-        this.meshs[1].position.set(-0.5, 0, 0)
-        this.spiale[1].position.set(-1.5, 0, 0)
-        this.meshs[3].position.set(0.5, 0, 0)
-        this.spiale[3].position.set(-0.5, 0, 0)
-        this.meshs[4].position.set(1.5, 0, 0)
-        this.spiale[4].position.set(-0.5, 0, 0)
-        this.meshs[5].position.set(2.5, 0, 0)
-        this.spiale[5].position.set(-0.5, 0, 0)
-        this.meshs[6].position.set(0, 0, 0)
-        this.spiale[6].position.set(-1.5, -1, 0)
-        // 旋转
-        this.spiale[0].rotateX(1 * (Math.PI / 180))
-        this.spiale[1].rotateY(1 * (Math.PI / 180))
-        this.spiale[3].rotateY(-1 * (Math.PI / 180))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateX(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step <= 72) {
-        this.spiale[0].rotateX(1 * (Math.PI / 180))
-        this.spiale[1].rotateY(1 * (Math.PI / 180))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[3].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateX(-1 * (Math.PI / 180))
+      const ratio = Math.PI / 180
+      if (step <= 72) {
+        this.spiale[0].rotation.x = step * ratio
+        this.spiale[1].rotation.y = step * ratio
+        this.spiale[4].rotation.y = -step * ratio
+        this.spiale[5].rotation.y = -step * ratio
+        this.spiale[3].rotation.y = -step * ratio
+        this.spiale[6].rotation.x = -step * ratio
         this.nextStep()
       } else if (step <= 90) {
-        this.spiale[0].rotateX(1 * (Math.PI / 180))
-        this.spiale[6].rotateX(-1 * (Math.PI / 180))
+        this.spiale[0].rotation.x = step * ratio
+        this.spiale[6].rotation.x = -step * ratio
         this.nextStep()
       } else if (step === 91) {
         this.meshs[4].position.set(0.5, 0, 0)
         this.spiale[4].position.set(-0.5 + Math.sin(18 * Math.PI / 180), 0, Math.cos(18 * Math.PI / 180))
         this.meshs[5].position.set(1.5, 0, 0)
         this.spiale[5].position.set(-0.5 + Math.sin(18 * Math.PI / 180), 0, Math.cos(18 * Math.PI / 180))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
-      } else if (step < 90 + 72) {
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
+      } else if (step <= 90 + 72) {
+        this.spiale[4].rotation.y = -(step - 19) * ratio
+        this.spiale[5].rotation.y = -(step - 19) * ratio
         this.nextStep()
-      } else if (step === 90 + 72) {
+      } else if (step === 90 + 74) {
         this.meshs[5].position.set(0.5, 0, 0)
         this.spiale[5].position.set(-1, 0, Math.cos(18 * Math.PI / 180) + Math.sin(36 * Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
         this.nextStep()
       } else if (step <= 90 + 72 + 72) {
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
+        this.spiale[5].rotation.y = -(step - 19) * ratio
         this.nextStep()
       } else {
         console.log('动画已播放完毕!')
@@ -116,9 +93,9 @@ export default {
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec', '#64e530']
       // 定义6个坐标
-      const positions = [[-1.5, 1, 0], [-2, 0, 0], [-1, 0, 0], [0, 0, 0], [1, 0, 0], [2, 0, 0], [-1.5, -1, 0]]
+      const positions = [[-0.5, 0, 0], [-0.5, 0, 0], [-1, 0, 0], [0.5, 0, 0], [1.5, 0, 0], [2.5, 0, 0], [-0.5, 0, 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const axiss = [[-1, 1, 0], [-1.5, 0, 0], [0, 0, 0], [-0.5, 0, 0], [-0.5, 0, 0], [-0.5, 0, 0], [-1, -1, 0]]
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色
@@ -167,7 +144,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[5].add(new THREE.AxesHelper(50))
+      this.spiale[4].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.nextStep()
       }, 0)
