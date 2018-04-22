@@ -59,7 +59,7 @@ export default {
       if (step < 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
-        return
+        return false
       }
       if (step > this.stepCount) {
         // 广播关闭完成事件
