@@ -14,7 +14,8 @@ export default {
       scene: null,
       spiale: [],
       meshs: [],
-      step: 0
+      step: 0,
+      stepCount: 300
     }
   },
   mounted () {
@@ -26,87 +27,232 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
-        this.step++
-        this.animation(this.step)
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    animation (step) {
-      if (step === 1) {
-        this.meshs[0].position.set(-Math.sqrt(3), 0, 0)
-        this.spiale[0].position.set(-2, 0, 0)
-        this.spiale[0].rotateY(1 * (Math.PI / 180))
-        this.meshs[1].position.set(-1, 0.5, 0)
-        this.spiale[1].position.set(0, 1, 0)
-        this.spiale[1].rotateX(1 * (Math.PI / 180))
-        this.meshs[3].position.set(-1, -0.5, 0)
-        this.spiale[3].position.set(0, 0, 0)
-        this.spiale[3].rotateX(-1 * (Math.PI / 180))
-        this.meshs[4].position.set(Math.sqrt(3) + 1, 1.5, 0)
-        this.spiale[4].position.set(0, 0, 0)
-        this.meshs[5].position.set(Math.sqrt(3) + 1, 0.5, 0)
-        this.spiale[5].position.set(0, 0, 0)
-        this.meshs[6].position.set(Math.sqrt(3) + 1, -0.5, 0)
-        this.spiale[6].position.set(0, 0, 0)
-        this.meshs[7].position.set(0, 0, 0)
-        this.spiale[7].position.set(0, 0, 0)
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
-        this.spiale[7].rotateY(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step <= 60) {
-        this.spiale[0].rotateY(1 * (Math.PI / 180))
-        this.spiale[1].rotateX(1 * (Math.PI / 180))
-        this.spiale[3].rotateX(-1 * (Math.PI / 180))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
-        this.spiale[7].rotateY(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step <= 90) {
-        this.spiale[0].rotateY(1 * (Math.PI / 180))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
-        this.spiale[7].rotateY(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step === 91) {
+    close (step) {
+      const ratio = (Math.PI / 180)
+      if (step <= 60) {
+        this.spiale[1].rotation.x = step * ratio
+        this.spiale[3].rotation.x = -step * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 90 + 60) {
+        this.spiale[0].rotation.y = (step - 60) * ratio
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+        this.spiale[7].rotation.y = -(step - 60) * ratio
+        this.nextStep(2, this.close)
+      } else if (step === 92 + 60) {
         this.meshs[4].position.set(1, 1.5, 0)
         this.spiale[4].position.set(0, 0, Math.sqrt(3))
         this.meshs[5].position.set(1, 0.5, 0)
         this.spiale[5].position.set(0, 0, Math.sqrt(3))
         this.meshs[6].position.set(1, -0.5, 0)
         this.spiale[6].position.set(0, 0, Math.sqrt(3))
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step <= 180) {
-        this.spiale[4].rotateY(-1 * (Math.PI / 180))
-        this.spiale[5].rotateY(-1 * (Math.PI / 180))
-        this.spiale[6].rotateY(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step === 181) {
-        this.meshs[4].position.set(1, 0.5, 0)
-        this.spiale[4].position.set(0, 1, Math.sqrt(3))
-        this.meshs[6].position.set(1, -0.5, 0)
-        this.spiale[6].position.set(0, 0, Math.sqrt(3))
-        this.spiale[4].rotateX(1 * (Math.PI / 180))
-        this.spiale[6].rotateX(-1 * (Math.PI / 180))
-        this.nextStep()
-      } else if (step <= 240) {
-        this.spiale[4].rotateX(1 * (Math.PI / 180))
-        this.spiale[6].rotateX(-1 * (Math.PI / 180))
-        this.nextStep()
+        this.nextStep(2, this.close)
+      } else if (step <= 180 + 60) {
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+        this.nextStep(2, this.close)
+      } else if (step === 182 + 60) {
+        this.meshs[4].position.set(0, 0.5, 0)
+        this.spiale[4].position.set(-1, 1, Math.sqrt(3))
+        this.meshs[6].position.set(0, -0.5, 0)
+        this.spiale[6].position.set(-1, 0, Math.sqrt(3))
+        this.nextStep(2, this.close)
+      } else if (step <= 240 + 60) {
+        this.spiale[4].rotation.x = -(step - 240) * ratio
+        this.spiale[6].rotation.x = (step - 240) * ratio
+        this.nextStep(2, this.close)
       } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
+    },
+    open (step) {
+      const ratio = (Math.PI / 180)
+      if (step < 0) {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step <= 60) {
+        this.spiale[1].rotation.x = step * ratio
+        this.spiale[3].rotation.x = -step * ratio
+        this.nextStep(-2, this.open)
+      } else if (step <= 90 + 60) {
+        this.spiale[0].rotation.y = (step - 60) * ratio
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+        this.spiale[7].rotation.y = -(step - 60) * ratio
+        this.nextStep(-2, this.open)
+      } else if (step === 92 + 60) {
+        this.meshs[4].position.set(Math.sqrt(3) + 1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, 0)
+        this.meshs[5].position.set(Math.sqrt(3) + 1, 0.5, 0)
+        this.spiale[5].position.set(0, 0, 0)
+        this.meshs[6].position.set(Math.sqrt(3) + 1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, 0)
+        this.nextStep(-2, this.open)
+      } else if (step <= 180 + 60) {
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+        this.nextStep(-2, this.open)
+      } else if (step === 182 + 60) {
+        this.meshs[4].position.set(1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, Math.sqrt(3))
+        this.meshs[6].position.set(1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, Math.sqrt(3))
+        this.nextStep(-2, this.open)
+      } else if (step <= 240 + 60) {
+        this.spiale[4].rotation.x = -(step - 240) * ratio
+        this.spiale[6].rotation.x = (step - 240) * ratio
+        this.nextStep(-2, this.open)
+      } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
+    },
+    dragClose (step) {
+      const ratio = (Math.PI / 180)
+      if (step <= 60) {
+        this.spiale[1].rotation.x = step * ratio
+        this.spiale[3].rotation.x = -step * ratio
+      } else if (step <= 150) {
+        this.spiale[1].rotation.x = 60 * ratio
+        this.spiale[3].rotation.x = -60 * ratio
+        this.spiale[0].rotation.y = (step - 60) * ratio
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+        this.spiale[7].rotation.y = -(step - 60) * ratio
+      } else if (step <= 240) {
+        this.spiale[1].rotation.x = 60 * ratio
+        this.spiale[3].rotation.x = -60 * ratio
+        this.spiale[0].rotation.y = 90 * ratio
+        this.spiale[7].rotation.y = -90 * ratio
+        this.meshs[4].position.set(1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, Math.sqrt(3))
+        this.meshs[5].position.set(1, 0.5, 0)
+        this.spiale[5].position.set(0, 0, Math.sqrt(3))
+        this.meshs[6].position.set(1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, Math.sqrt(3))
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+      } else if (step <= 300) {
+        this.spiale[1].rotation.x = 60 * ratio
+        this.spiale[3].rotation.x = -60 * ratio
+        this.spiale[0].rotation.y = 90 * ratio
+        this.spiale[7].rotation.y = -90 * ratio
+        this.meshs[4].position.set(1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, Math.sqrt(3))
+        this.meshs[5].position.set(1, 0.5, 0)
+        this.spiale[5].position.set(0, 0, Math.sqrt(3))
+        this.meshs[6].position.set(1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, Math.sqrt(3))
+        this.spiale[4].rotation.y = -180 * ratio
+        this.spiale[5].rotation.y = -180 * ratio
+        this.spiale[6].rotation.y = -180 * ratio
+        this.meshs[4].position.set(0, 0.5, 0)
+        this.spiale[4].position.set(-1, 1, Math.sqrt(3))
+        this.meshs[6].position.set(0, -0.5, 0)
+        this.spiale[6].position.set(-1, 0, Math.sqrt(3))
+        this.spiale[4].rotation.x = -(step - 240) * ratio
+        this.spiale[6].rotation.x = (step - 240) * ratio
+      } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
+      this.renderScene()
+    },
+    dragOpen (step) {
+      const ratio = (Math.PI / 180)
+      if (step < 0) {
+        // 广播关闭完成事件
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step <= 60) {
+        this.spiale[4].rotation.x = 0
+        this.spiale[6].rotation.x = 0
+        this.meshs[4].position.set(1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, Math.sqrt(3))
+        this.meshs[6].position.set(1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, Math.sqrt(3))
+        this.meshs[4].position.set(Math.sqrt(3) + 1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, 0)
+        this.meshs[5].position.set(Math.sqrt(3) + 1, 0.5, 0)
+        this.spiale[5].position.set(0, 0, 0)
+        this.meshs[6].position.set(Math.sqrt(3) + 1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, 0)
+        this.spiale[0].rotation.y = 0
+        this.spiale[4].rotation.y = 0
+        this.spiale[5].rotation.y = 0
+        this.spiale[6].rotation.y = 0
+        this.spiale[7].rotation.y = 0
+        this.spiale[1].rotation.x = step * ratio
+        this.spiale[3].rotation.x = -step * ratio
+      } else if (step <= 150) {
+        this.spiale[4].rotation.x = 0
+        this.spiale[6].rotation.x = 0
+        this.meshs[4].position.set(1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, Math.sqrt(3))
+        this.meshs[6].position.set(1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, Math.sqrt(3))
+        this.meshs[4].position.set(Math.sqrt(3) + 1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, 0)
+        this.meshs[5].position.set(Math.sqrt(3) + 1, 0.5, 0)
+        this.spiale[5].position.set(0, 0, 0)
+        this.meshs[6].position.set(Math.sqrt(3) + 1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, 0)
+        this.spiale[0].rotation.y = (step - 60) * ratio
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+        this.spiale[7].rotation.y = -(step - 60) * ratio
+      } else if (step <= 240) {
+        this.spiale[4].rotation.x = 0
+        this.spiale[6].rotation.x = 0
+        this.meshs[4].position.set(1, 1.5, 0)
+        this.spiale[4].position.set(0, 0, Math.sqrt(3))
+        this.meshs[6].position.set(1, -0.5, 0)
+        this.spiale[6].position.set(0, 0, Math.sqrt(3))
+        this.spiale[4].rotation.y = -(step - 60) * ratio
+        this.spiale[5].rotation.y = -(step - 60) * ratio
+        this.spiale[6].rotation.y = -(step - 60) * ratio
+      } else if (step <= 300) {
+        this.spiale[4].rotation.x = -(step - 240) * ratio
+        this.spiale[6].rotation.x = (step - 240) * ratio
+      } else {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
+      this.renderScene()
     },
     creatCube (scene, renderer, camera) {
       // 创建长方体的6个平面
@@ -124,9 +270,9 @@ export default {
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec', '#f6c161', '#64e530']
       // 定义6个坐标
-      const positions = [[-4 + 2 - hexgonalHigh, 0, 0], [-1, 1.5, 0], [-1, 0.5, 0], [-1, -0.5, 0], [3 - 2 + hexgonalHigh, 1.5, 0], [3 - 2 + hexgonalHigh, 0.5, 0], [3 - 2 + hexgonalHigh, -0.5, 0], [0, 0, 0]]
+      const positions = [[-Math.sqrt(3), 0, 0], [0, 0.5, 0], [-1, 0.5, 0], [0, -0.5, 0], [Math.sqrt(3) + 1, 1.5, 0], [Math.sqrt(3) + 1, 0.5, 0], [Math.sqrt(3) + 1, -0.5, 0], [0, 0, 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const axiss = [[-2, 0, 0], [-1, 1, 0], [0, 0, 0], [-1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色
@@ -168,9 +314,9 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[4].add(new THREE.AxesHelper(50))
+      // this.spiale[4].add(new THREE.AxesHelper(50))
       setTimeout(() => {
-        this.nextStep()
+        this.renderScene()
       }, 0)
     }
   }
