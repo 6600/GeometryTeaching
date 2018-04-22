@@ -33,60 +33,70 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
-        // this.step++
-        // this.animation(this.step)
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    animation (step) {
+    close (step) {
       const spiale = this.spiale
+      // spiale[1].matrixWorld.elements[0] = 0
+      console.log(spiale[1])
       if (step <= 90) {
         // 盒子左1
-        spiale[0].rotation.y = step * (Math.PI / 180)
-        spiale[1].rotation.y = step * (Math.PI / 180)
-        // 盒子右部
-        spiale[3].rotation.y = -step * (Math.PI / 180)
-        // 盒子上部
-        spiale[4].rotation.x = step * (Math.PI / 180)
-        // 盒子下部
-        spiale[5].rotation.x = -step * (Math.PI / 180)
-        this.nextStep()
+        spiale[0].rotation.x = step * (Math.PI / 180)
+        spiale[2].rotation.x = -step * (Math.PI / 180)
+        this.nextStep(2, this.close)
       }
     },
     creatCube (scene, renderer, camera) {
-      // 创建长方体的圆面
+      // NURBS surface
+      const nsControlPoints = [
+        [
+          new THREE.Vector4(0, -1, 1, 1),
+          new THREE.Vector4(0, -0.5, 1, 1),
+          new THREE.Vector4(0, 0.5, 1, 1),
+          new THREE.Vector4(0, 1, 1, 1)
+        ],
+        [
+          new THREE.Vector4(-1, -1, 0.5, 1),
+          new THREE.Vector4(-1, -0.5, 0.5, 1),
+          new THREE.Vector4(-1, 0.5, 0.5, 1),
+          new THREE.Vector4(-1, 1, 0.5, 1)
+        ],
+        [
+          new THREE.Vector4(0, -1, 0, 1),
+          new THREE.Vector4(0, -0.5, 0, 1),
+          new THREE.Vector4(0, 0.5, 0, 1),
+          new THREE.Vector4(0, 1, 0, 1)
+        ]
+      ]
+      const knots1 = [0, 0, 0, 1, 1, 1]
+      const knots2 = [0, 0, 0, 0, 1, 1, 1, 1]
+      const nurbsSurface = new THREE.NURBSSurface(2, 3, knots1, knots2, nsControlPoints)
+      const geometry2 = new THREE.ParametricBufferGeometry((u, v) => {
+        return nurbsSurface.getPoint(u, v)
+      }, 20, 20)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
-      const geometry = new THREE.PlaneGeometry(Math.PI, 2, 19, 0)
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef']
       // 定义6个坐标
-      const positions = [[-Math.PI / 2 + 0.5, 1.5, 0], [0, 0, 0], [-Math.PI / 2 + 0.5, -1.5, 0]]
+      const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      const axiss = [[0, 1, 0], [0, 0, 0], [0, -1, 0]]
       // ----------------------------
-      // 待完善
-      // console.log(geometry.vertices)
-      const ban = geometry.vertices.length / 2
-      // const du = 0.5 / 10
-      const ke = 1 / 10
-      const yiban = ban / 2
-      // console.log(ban / 2)
-      for (let i = 0; i < yiban; i++) {
-        geometry.vertices[yiban - i].z = -i * ke
-        geometry.vertices[yiban * 3 - i].z = -i * ke
-        geometry.vertices[yiban + i].z = -i * ke
-        geometry.vertices[yiban * 3 + i].z = -i * ke
-      }
-      // for (let i = 0; i < ban; i++) {
-      //   geometry.vertices[2 * i].z = Math.pow(2, i / 20)
-      //   geometry.vertices[2 * i + 1].z = Math.pow(2, i / 20)
-      // }
-      // ---------------------------
       // 创造6个平面
       for (let index in colors) {
         // 取得颜色
@@ -107,7 +117,7 @@ export default {
             side: THREE.DoubleSide
           }))
         } else if (index === '1') {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry2, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
@@ -127,51 +137,10 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      //      this.camera.position.x = 0
-      //      this.camera.position.y = 0
-      //      this.camera.position.z = 6
-      //      this.camera.lookAt(new THREE.Vector3(0, 0, 0))
-      //      this.scene.add(this.meshs[0])
-      // this.spiale[0].add(this.meshs[0])
       // 调试转轴
       this.spiale[0].add(new THREE.AxesHelper(50))
-      // NURBS surface
-      const nsControlPoints = [
-        [
-          new THREE.Vector4(-2, -1, 0, 1),
-          new THREE.Vector4(-2, -1, 0, 1),
-          new THREE.Vector4(-2, 1, 0, 1),
-          new THREE.Vector4(-2, 1, 0, 1)
-        ],
-        [
-          new THREE.Vector4(0, -1, 0, 1),
-          new THREE.Vector4(0, -1, 0, 5),
-          new THREE.Vector4(0, 1, 0, 5),
-          new THREE.Vector4(0, 1, 0, 1)
-        ],
-        [
-          new THREE.Vector4(1, -1, 1, 1),
-          new THREE.Vector4(1, -1, 1, 1),
-          new THREE.Vector4(1, 1, 1, 1),
-          new THREE.Vector4(1, 1, 1, 1)
-        ]
-      ]
-      const knots1 = [0, 0, 0, 1, 1, 1]
-      const knots2 = [0, 0, 0, 0, 1, 1, 1, 1]
-      const nurbsSurface = new THREE.NURBSSurface(2, 3, knots1, knots2, nsControlPoints)
-      const geometry2 = new THREE.ParametricBufferGeometry((u, v) => {
-        return nurbsSurface.getPoint(u, v)
-      }, 20, 20)
-      var object = new THREE.Mesh(geometry2, new THREE.MeshPhongMaterial({
-        color: '#cccccc',
-        transparent: true,
-        // 双面双面贴图
-        side: THREE.DoubleSide
-      }))
-      object.scale.multiplyScalar(1)
-      this.scene.add(object)
       setTimeout(() => {
-        this.nextStep()
+        this.renderScene()
       }, 0)
     }
   }

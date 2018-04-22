@@ -26,17 +26,24 @@ export default {
     })
   },
   methods: {
-    nextStep () {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
       setTimeout(() => {
-        this.step++
-        this.animation(this.step)
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
         this.renderScene()
       }, 20)
     },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    animation (step) {
+    close (step) {
       const spiale = this.spiale
       const ratio = Math.PI / 180
       console.log(ratio)
@@ -49,7 +56,7 @@ export default {
         spiale[1].rotateY(ratio)
         console.log(spiale[1].rotation)
         spiale[2].rotateY(ratio)
-        this.nextStep()
+        this.nextStep(2, this.close)
       } else if (step === 91) {
         spiale[3].position.set(0, 0.5, 0)
         this.meshs[3].position.set(1, 0.5, 0)
@@ -61,15 +68,15 @@ export default {
         this.meshs[6].position.set(0, 0, 0)
         spiale[6].rotateY(-1 * ratio)
         // 重设0面转轴
-        this.nextStep()
+        this.nextStep(2, this.close)
       } else if (step <= 90 + 72) {
         spiale[3].rotateX(1 * ratio)
         spiale[5].rotateX(-1 * ratio)
         spiale[6].rotateY(-1 * ratio)
-        this.nextStep()
+        this.nextStep(2, this.close)
       } else if (step <= 90 + 90) {
         spiale[6].rotateY(-1 * ratio)
-        this.nextStep()
+        this.nextStep(2, this.close)
       } else {
         console.log('动画已播放完毕!')
       }
@@ -151,7 +158,7 @@ export default {
       this.spiale[2].rotation.z = 36 * (Math.PI / 180)
       this.spiale[1].add(new THREE.AxesHelper(50))
       setTimeout(() => {
-        this.nextStep()
+        this.renderScene()
       }, 0)
     }
   }
