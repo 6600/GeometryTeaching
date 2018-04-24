@@ -53,20 +53,6 @@ export default {
         this.renderScene()
       }, 20)
     },
-    openBox () {
-      // console.log('关闭盒子', auto)
-      setTimeout(() => {
-        this.step--
-        this.$emit('stepChange', this.step)
-        // 判断是否暂停
-        if (this.pause) {
-          this.pause = false
-        } else {
-          this.open(this.step)
-        }
-        this.renderScene()
-      }, 20)
-    },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
