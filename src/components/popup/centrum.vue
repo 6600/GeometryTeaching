@@ -104,9 +104,13 @@ export default {
       left: 167px;
       top: 235px;
     }
+    .cones-one {
+      left: 170px;
+      top: 102px;
+    }
     .cones-two {
       left: 276px;
-      top: 81px;
+      top: 102px;
     }
     .cuboid-one {
       left: 167px;

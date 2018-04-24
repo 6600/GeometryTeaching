@@ -63,6 +63,10 @@ export default {
         // 恢复默认视距
         this.distance = 40
         this.stepCount = this.$refs.draw.stepCount
+        // 清除缓存
+        this.$refs.draw.step = 0
+        this.origamiStyle = 0
+        this.sliderNum = 1
       }, 0)
     })
   },
