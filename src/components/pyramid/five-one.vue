@@ -56,32 +56,24 @@ export default {
       shape1.lineTo(0.5, Math.sqrt(3) / 2)
       shape1.lineTo(0, 0)
       let triangleGeometry1 = new THREE.ShapeGeometry(shape1)
-      let shape2 = new THREE.Shape()
-      shape2.moveTo(0, 0)
-      shape2.lineTo(1, 0)
-      shape2.lineTo(0.5, -Math.sqrt(3) / 2)
-      shape2.lineTo(0, 0)
-      let triangleGeometry2 = new THREE.ShapeGeometry(shape2)
-      // 左一三角形
-      let shape3 = new THREE.Shape()
-      shape3.moveTo(0, 0)
-      shape3.lineTo(0, 0)
-      shape3.lineTo(0, -1)
-      shape3.lineTo(-Math.sqrt(3) / 2, -0.5)
-      let triangleGeometry3 = new THREE.ShapeGeometry(shape3)
-      // 右一三角形
-      let shape4 = new THREE.Shape()
-      shape4.moveTo(0, 0)
-      shape4.lineTo(0, 0)
-      shape4.lineTo(0, -1)
-      shape4.lineTo(Math.sqrt(3) / 2, -0.5)
-      let triangleGeometry4 = new THREE.ShapeGeometry(shape4)
       // 定义3个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c']
       // 定义3个坐标
-      const positions = [[0, 0.5, 0], [0, 0, 0], [0, 0.5, 0], [-0.5, 0, 0], [-0.5, 0, 0]]
+      const positions = [
+        [-0.5, -(Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [-0.5, 0, 0],
+        [-0.5, 0, 0]
+      ]
       // 定义3个转轴
-      const axiss = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [0, 0.5, 0], [0, -0.5, 0]]
+      const axiss = [
+        [0, 0, 0],
+        [-Math.cos(72 * Math.PI / 180) - 0.5, Math.sin(72 * Math.PI / 180) - (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
+        [0, (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
+        [0, 0.5, 0],
+        [0, -0.5, 0]
+      ]
       // 创造3个平面
       for (let index in colors) {
         // 取得颜色
@@ -94,36 +86,15 @@ export default {
         this.spiale[index] = new THREE.Object3D()
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
-        if (index === '3') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshPhongMaterial({
-            color: color,
-            transparent: true,
-            // 双面双面贴图
-            side: THREE.DoubleSide
-          }))
-        } else if (index === '4') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
-            color: color,
-            transparent: true,
-            // 双面双面贴图
-            side: THREE.DoubleSide
-          }))
-        } else if (index === '0') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry3, new THREE.MeshPhongMaterial({
-            color: color,
-            transparent: true,
-            // 双面双面贴图
-            side: THREE.DoubleSide
-          }))
-        } else if (index === '2') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry4, new THREE.MeshPhongMaterial({
+        if (index === '0') {
+          this.meshs[index] = new THREE.Mesh(hexaGeometry, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else {
-          this.meshs[index] = new THREE.Mesh(hexaGeometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
@@ -144,8 +115,9 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[0].add(new THREE.AxesHelper(50))
-      this.spiale[0].rotation.z = Math.cos(72 * Math.PI / 180)
+      this.spiale[2].add(new THREE.AxesHelper(50))
+      this.spiale[1].rotation.z = Math.cos(60 * Math.PI / 180)
+      this.spiale[2].rotation.z = -Math.cos(50 * Math.PI / 180)
       setTimeout(() => {
         this.renderScene()
       }, 0)

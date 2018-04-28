@@ -53,7 +53,7 @@ export default {
     close (step) {
       const spiale = this.spiale
       // spiale[1].matrixWorld.elements[0] = 0
-      console.log(spiale[1])
+      console.log(this.meshs[1])
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.x = step * (Math.PI / 180)
@@ -85,10 +85,13 @@ export default {
       ]
       const knots1 = [0, 0, 0, 1, 1, 1]
       const knots2 = [0, 0, 0, 0, 1, 1, 1, 1]
+      // console.log(nsControlPoints)
       const nurbsSurface = new THREE.NURBSSurface(2, 3, knots1, knots2, nsControlPoints)
       const geometry2 = new THREE.ParametricBufferGeometry((u, v) => {
+        // console.log(nurbsSurface.getPoint(u, v))
         return nurbsSurface.getPoint(u, v)
       }, 20, 20)
+      console.log(geometry2)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef']

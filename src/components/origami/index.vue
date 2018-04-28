@@ -67,6 +67,8 @@ export default {
         this.$refs.draw.step = 0
         this.origamiStyle = 0
         this.sliderNum = 1
+        this.thetay = 0
+        this.thetax = 0
       }, 0)
     })
   },
@@ -84,6 +86,8 @@ export default {
       const flip = (type) => {
         // console.log(type)
         setTimeout(() => {
+          // 计算缩放数值
+          // const distanceZ = (this.distance - 40) / 10
           // console.log(this.$refs.draw.camera.position)
           var positionY = this.$refs.draw.camera.position.y
           var positionX = this.$refs.draw.camera.position.x
@@ -104,10 +108,10 @@ export default {
               this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
               // this.$refs.draw.camera.lookAt(positionX, 0, 0)
               console.log(this.$refs.draw.camera.position)
-              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
-              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax))
-              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
+              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
+              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax))
+              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 2:
               this.thetay -= Math.PI / 180
@@ -117,10 +121,10 @@ export default {
               positionX = Math.sqrt(ratio) * Math.cos(this.thetax) * Math.sin(this.thetay)
               this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
               console.log(this.$refs.draw.camera.position)
-              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
-              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
-              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
+              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
+              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
+              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 3:
               this.thetax += Math.PI / 180
@@ -130,10 +134,10 @@ export default {
               positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
               this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
               console.log(this.$refs.draw.camera.position)
-              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
-              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + r1 * Math.sin(this.thetax))
-              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
+              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
+              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + r1 * Math.sin(this.thetax))
+              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             case 4:
               this.thetay += Math.PI / 180
@@ -143,10 +147,10 @@ export default {
               positionX = Math.sqrt(ratio) * Math.cos(this.thetax) * Math.sin(this.thetay)
               this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
               console.log(this.$refs.draw.camera.position)
-              console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
-              console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
-              console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
+              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
+              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
+              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
+              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
           }
           this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
@@ -199,6 +203,7 @@ export default {
     },
     changeViewing (distance) {
       this.distance = distance
+      console.log(this.$refs.draw.camera.position.z)
       this.$refs.draw.camera.position.z = distance / 10 + 4
       // 使物体在相机中央
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
@@ -209,12 +214,14 @@ export default {
       // 防止可以无限缩放大
       if (this.distance >= 80) return
       const newDistance = this.distance + 2
+      console.log(newDistance)
       this.changeViewing(newDistance)
     },
     reduceViewing () {
       // 防止可以无限缩小
       if (this.distance <= 0) return
       const newDistance = this.distance - 2
+      console.log(newDistance)
       this.changeViewing(newDistance)
     },
     changeStep (step) {
