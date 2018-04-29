@@ -57,22 +57,24 @@ export default {
       shape1.lineTo(0, 0)
       let triangleGeometry1 = new THREE.ShapeGeometry(shape1)
       // 定义3个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c']
+      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#f46f4c']
       // 定义3个坐标
       const positions = [
         [-0.5, -(Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
         [0, 0, 0],
         [0, 0, 0],
-        [-0.5, 0, 0],
-        [-0.5, 0, 0]
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
       ]
       // 定义3个转轴
       const axiss = [
         [0, 0, 0],
         [-Math.cos(72 * Math.PI / 180) - 0.5, Math.sin(72 * Math.PI / 180) - (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
         [0, (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
-        [0, 0.5, 0],
-        [0, -0.5, 0]
+        [0.5 + Math.cos(72 * Math.PI / 180), Math.sin(72 * Math.PI / 180) - (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
+        [0.5, -(Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
+        [-0.5, -(Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0]
       ]
       // 创造3个平面
       for (let index in colors) {
@@ -115,9 +117,12 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[2].add(new THREE.AxesHelper(50))
-      this.spiale[1].rotation.z = Math.cos(60 * Math.PI / 180)
+      this.spiale[5].add(new THREE.AxesHelper(50))
+      this.spiale[1].rotation.z = Math.cos(52 * Math.PI / 180)
       this.spiale[2].rotation.z = -Math.cos(50 * Math.PI / 180)
+      this.spiale[3].rotation.z = -108 * Math.PI / 180
+      this.spiale[4].rotation.z = -180 * Math.PI / 180
+      this.spiale[5].rotation.z = 108 * Math.PI / 180
       setTimeout(() => {
         this.renderScene()
       }, 0)
