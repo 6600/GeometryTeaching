@@ -8,9 +8,9 @@
         .slect.four-one(@click="popupCheck = 'pyramidFourOne'", :class="{active: popupCheck === 'pyramidFourOne'}")
         .slect.four-two(@click="popupCheck = 'pyramidFourTwo'", :class="{active: popupCheck === 'pyramidFourTwo'}")
         .slect.five-one(@click="popupCheck = 'pyramidFiveOne'", :class="{active: popupCheck === 'pyramidFiveOne'}")
-        .slect.cuboid-two(@click="popupCheck = 'cuboidTwo'", :class="{active: popupCheck === 'cuboidTwo'}")
-        .slect.cuboid-three(@click="popupCheck = 'cuboidThree'", :class="{active: popupCheck === 'cuboidThree'}")
-        .slect.cuboid-four(@click="popupCheck = 'cuboidFour'", :class="{active: popupCheck === 'cuboidFour'}")
+        .slect.five-two(@click="popupCheck = 'pyramidFiveTwo'", :class="{active: popupCheck === 'pyramidFiveTwo'}")
+        .slect.six-one(@click="popupCheck = 'pyramidSixOne'", :class="{active: popupCheck === 'pyramidSixOne'}")
+        .slect.six-two(@click="popupCheck = 'pyramidSixTwo'", :class="{active: popupCheck === 'pyramidSixTwo'}")
         .slect.pentagonal-orism-one(@click="popupCheck = 'pentagonalPrismOne'", :class="{active: popupCheck === 'pentagonalPrismOne'}")
         .slect.pentagonal-orism-two(@click="popupCheck = 'pentagonalPrismTwo'", :class="{active: popupCheck === 'pentagonalPrismTwo'}")
         .slect.hexagonal-orism-one(@click="popupCheck = 'hexagonalPrismOne'", :class="{active: popupCheck === 'hexagonalPrismOne'}")
@@ -116,15 +116,15 @@ export default {
       left: 167px;
       top: 231px;
     }
-    .cuboid-two {
+    .five-two {
       left: 277px;
       top: 231px;
     }
-    .cuboid-three {
+    .six-one {
       right: 168px;
       top: 231px;
     }
-    .cuboid-four {
+    .six-two {
       right: 57px;
       top: 231px;
     }
