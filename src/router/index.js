@@ -31,6 +31,8 @@ import pyramidThreeTwo from '@/components/pyramid/three-two'
 import pyramidFourOne from '@/components/pyramid/four-one'
 import pyramidFourTwo from '@/components/pyramid/four-two'
 import pyramidFiveOne from '@/components/pyramid/five-one'
+import pyramidFiveTwo from '@/components/pyramid/five-two'
+
 // 活动页面
 import activityGame from '@/components/game/activity'
 
@@ -79,7 +81,8 @@ export default new Router({
         { path: '/origami/pyramidFourOne', name: 'pyramid-four-one', component: pyramidFourOne },
         { path: '/origami/pyramidFourTwo', name: 'pyramid-four-two', component: pyramidFourTwo },
         // 五棱锥
-        { path: '/origami/pyramidFiveOne', name: 'pyramid-five-one', component: pyramidFiveOne }
+        { path: '/origami/pyramidFiveOne', name: 'pyramid-five-one', component: pyramidFiveOne },
+        { path: '/origami/pyramidFiveTwo', name: 'pyramid-five-one', component: pyramidFiveTwo }
       ]
     },
     {
