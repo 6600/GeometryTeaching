@@ -35,8 +35,37 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
+      setTimeout(() => {
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
+        this.renderScene()
+      }, 20)
+    },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
+    },
+    close (step) {
+      const spiale = this.spiale
+      const ratio = Math.PI / 180
+      if (step <= 128) {
+        // 盒子左1
+        // spiale[0].rotation.y = step * ratio
+        spiale[1].rotateX(ratio)
+        spiale[2].rotateX(ratio)
+        spiale[3].rotateX(ratio)
+        spiale[4].rotateX(ratio)
+        spiale[5].rotateX(ratio)
+        spiale[6].rotateX(ratio)
+        this.nextStep(1, this.close)
+      }
     },
     creatMitsubishiColumn (scene, renderer, camera) {
       const ratio = Math.PI / 180

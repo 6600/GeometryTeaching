@@ -35,11 +35,39 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    nextStep (space, callback) {
+      // console.log('关闭盒子', auto)
+      setTimeout(() => {
+        this.step += space
+        this.$emit('stepChange', this.step)
+        // 判断是否暂停
+        if (this.pause) {
+          this.pause = false
+        } else {
+          callback(this.step)
+        }
+        this.renderScene()
+      }, 20)
+    },
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
+    close (step) {
+      const spiale = this.spiale
+      const ratio = Math.PI / 180
+      if (step <= 111) {
+        // 盒子左1
+        // spiale[0].rotation.y = step * ratio
+        spiale[1].rotateX(ratio)
+        spiale[2].rotateX(ratio)
+        spiale[3].rotateX(ratio)
+        spiale[4].rotateX(ratio)
+        spiale[5].rotateX(ratio)
+        this.nextStep(1, this.close)
+      }
+    },
     creatMitsubishiColumn (scene, renderer, camera) {
-      // const ratio = Math.PI / 180
+      const ratio = Math.PI / 180
       // 五边形
       let shape5 = new THREE.Shape()
       shape5.moveTo(0, 0)
@@ -53,7 +81,7 @@ export default {
       let shape1 = new THREE.Shape()
       shape1.moveTo(0, 0)
       shape1.lineTo(1, 0)
-      shape1.lineTo(0.5, Math.sqrt(3) / 2)
+      shape1.lineTo(0.5, 0.5 / Math.tan(15 * ratio))
       shape1.lineTo(0, 0)
       let triangleGeometry1 = new THREE.ShapeGeometry(shape1)
       // 定义3个颜色
