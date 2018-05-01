@@ -58,11 +58,11 @@ export default {
       if (step <= 111) {
         // 盒子左1
         // spiale[0].rotation.y = step * ratio
-        // spiale[1].rotation.z = -step * ratio
-        spiale[1].rotateZ(ratio)
+        spiale[1].rotation.x = step * ratio
+        // spiale[1].rotateX(ratio)
         spiale[2].rotateX(ratio)
         spiale[3].rotateX(ratio)
-        // spiale[4].rotateX(ratio)
+        spiale[4].rotation.y = -step * ratio
         spiale[5].rotateX(ratio)
         this.nextStep(1, this.close)
       }
@@ -73,9 +73,9 @@ export default {
       let shape5 = new THREE.Shape()
       shape5.moveTo(0, 0)
       shape5.lineTo(1, 0)
-      shape5.lineTo(1 + Math.cos(72 * Math.PI / 180), -Math.sin(72 * Math.PI / 180))
-      shape5.lineTo(0.5, -Math.sin(72 * Math.PI / 180) - Math.sin(36 * Math.PI / 180))
-      shape5.lineTo(-Math.cos(72 * Math.PI / 180), -Math.sin(72 * Math.PI / 180))
+      shape5.lineTo(1 + Math.cos(72 * ratio), -Math.sin(72 * ratio))
+      shape5.lineTo(0.5, -Math.sin(72 * ratio) - Math.sin(36 * ratio))
+      shape5.lineTo(-Math.cos(72 * ratio), -Math.sin(72 * ratio))
       shape5.lineTo(0, 0)
       let hexaGeometry = new THREE.ShapeGeometry(shape5)
       // 三角形
@@ -89,7 +89,7 @@ export default {
       const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#f46f4c']
       // 定义3个坐标
       const positions = [
-        [-0.5, (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
+        [-0.5, (Math.sin(72 * ratio) + Math.sin(36 * ratio)) / 2, 0],
         [-1, 0, 0],
         [0, 0, 0],
         [-1, 0, 0],
@@ -99,11 +99,11 @@ export default {
       // 定义3个转轴
       const axiss = [
         [0, 0, 0],
-        [-0.5, (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
-        [-0.5, (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
-        [0.5 + Math.cos(72 * Math.PI / 180), -Math.sin(72 * Math.PI / 180) + (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
-        [0.5 + Math.cos(72 * Math.PI / 180), -Math.sin(72 * Math.PI / 180) + (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],
-        [-0.5 - Math.cos(72 * Math.PI / 180), (Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2 - Math.sin(72 * Math.PI / 180), 0]
+        [-0.5, (Math.sin(72 * ratio) + Math.sin(36 * ratio)) / 2, 0],
+        [-0.5, (Math.sin(72 * ratio) + Math.sin(36 * ratio)) / 2, 0],
+        [0.5 + Math.cos(72 * ratio), -Math.sin(72 * ratio) + (Math.sin(72 * ratio) + Math.sin(36 * ratio)) / 2, 0],
+        [0.5 + Math.cos(72 * ratio), -Math.sin(72 * ratio) + (Math.sin(72 * ratio) + Math.sin(36 * ratio)) / 2, 0],
+        [-0.5 - Math.cos(72 * ratio), (Math.sin(72 * ratio) + Math.sin(36 * ratio)) / 2 - Math.sin(72 * ratio), 0]
       ]
       // 创造3个平面
       for (let index in colors) {
@@ -146,12 +146,13 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[1].add(new THREE.AxesHelper(50))
-      this.spiale[1].rotation.z = -30 * Math.PI / 180
-      // this.spiale[2].rotation.z = -Math.cos(50 * Math.PI / 180)
-      this.spiale[3].rotation.z = -72 * Math.PI / 180
-      this.spiale[4].rotation.z = -42 * Math.PI / 180
-      this.spiale[5].rotation.z = 145 * Math.PI / 180
+      this.spiale[3].add(new THREE.AxesHelper(50))
+      this.spiale[4].add(new THREE.AxesHelper(50))
+      this.spiale[1].rotation.z = -30 * ratio
+      // this.spiale[2].rotation.z = -Math.cos(50 * ratio)
+      this.spiale[3].rotation.z = -72 * ratio
+      this.spiale[4].rotation.z = -42 * ratio
+      this.spiale[5].rotation.z = 145 * ratio
       setTimeout(() => {
         this.renderScene()
       }, 0)
