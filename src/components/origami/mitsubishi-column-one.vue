@@ -165,7 +165,7 @@ export default {
       shape2.lineTo(0, 0)
       let triangleGeometry2 = new THREE.ShapeGeometry(shape2)
       // 定义3个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c']
+      const colors = ['#ccb8f0', '#f8714e', '#fbc562', '#cfad1f', '#66e931']
       // 定义3个坐标
       const positions = [[-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [-0.5, 0, 0], [-0.5, 0, 0]]
       // 定义3个转轴

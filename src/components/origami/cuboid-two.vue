@@ -311,7 +311,7 @@ export default {
       const geometry2 = new THREE.PlaneGeometry(0.5, 1)
       const geometry3 = new THREE.PlaneGeometry(2, 1)
       // 定义6个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec']
+      const colors = ['#ccb8f0', '#fbc562', '#f8714e', '#fbc562', '#66e931', '#6d64f3']
       // 定义6个坐标
       const positions = [[-1.25, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0, 0.5, 0], [1.25, 0.5, 0], [2.5, 0.5, 0]]
       // 定义6个转轴

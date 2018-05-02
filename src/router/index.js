@@ -84,10 +84,10 @@ export default new Router({
         { path: '/origami/pyramidFourTwo', name: 'pyramid-four-two', component: pyramidFourTwo },
         // 五棱锥
         { path: '/origami/pyramidFiveOne', name: 'pyramid-five-one', component: pyramidFiveOne },
-        { path: '/origami/pyramidFiveTwo', name: 'pyramid-five-one', component: pyramidFiveTwo },
+        { path: '/origami/pyramidFiveTwo', name: 'pyramid-five-two', component: pyramidFiveTwo },
         // 六棱锥
         { path: '/origami/pyramidSixOne', name: 'pyramid-six-one', component: pyramidSixOne },
-        { path: '/origami/pyramidSixTwo', name: 'pyramid-six-one', component: pyramidSixTwo }
+        { path: '/origami/pyramidSixTwo', name: 'pyramid-six-two', component: pyramidSixTwo }
       ]
     },
     {
