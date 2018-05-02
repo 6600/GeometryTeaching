@@ -55,13 +55,21 @@ export default {
     close (step) {
       const spiale = this.spiale
       const ratio = Math.PI / 180
-      if (step <= 111) {
+      if (step <= 110) {
         // 盒子左1
         // spiale[0].rotation.y = step * ratio
         spiale[1].rotateX(ratio)
+        this.nextStep(1, this.close)
+      } else if (step <= 222) {
         spiale[2].rotateX(ratio)
+        this.nextStep(1, this.close)
+      } else if (step <= 333) {
         spiale[3].rotateX(ratio)
+        this.nextStep(1, this.close)
+      } else if (step <= 444) {
         spiale[4].rotateX(ratio)
+        this.nextStep(1, this.close)
+      } else if (step <= 555) {
         spiale[5].rotateX(ratio)
         this.nextStep(1, this.close)
       }
