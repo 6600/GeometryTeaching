@@ -50,6 +50,7 @@ export default {
       stepCount: null,
       showExport: false,
       showExportOrigami: false,
+      cameraPosition: [0, 0, 8],
       thetay: 0,
       thetax: 0
     }
@@ -87,12 +88,20 @@ export default {
           // 待优化
           switch (type) {
             case 1: {
+              // 防止上下旋转角度超过90°
+              if (Math.round(this.$refs.draw.camera.position.y) === -8) return
               this.thetax -= Math.PI / 180
               const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
-              this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
+              this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
+              console.log(this.cameraPosition)
+              const newPos = this.cameraPosition.map((num) => {
+                return num * (this.distance / 40)
+              })
+              console.log(newPos)
+              this.$refs.draw.camera.position.set(...newPos)
               // this.$refs.draw.camera.lookAt(positionX, 0, 0)
-              console.log(this.$refs.draw.camera.position)
+              // console.log(this.$refs.draw.camera.position)
               // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
               // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax))
@@ -103,8 +112,12 @@ export default {
               this.thetay -= Math.PI / 180
               const r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
               const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
-              this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
-              console.log(this.$refs.draw.camera.position)
+              this.cameraPosition = [r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay)]
+              const newPos = this.cameraPosition.map((num) => {
+                return num * (this.distance / 40)
+              })
+              this.$refs.draw.camera.position.set(...newPos)
+              // console.log(this.$refs.draw.camera.position)
               // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
               // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
@@ -112,11 +125,17 @@ export default {
               break
             }
             case 3: {
+              // 防止上下旋转角度超过90°
+              if (Math.round(this.$refs.draw.camera.position.y) === 8) return
               this.thetax += Math.PI / 180
               const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
-              this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
-              console.log(this.$refs.draw.camera.position)
+              this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
+              const newPos = this.cameraPosition.map((num) => {
+                return num * (this.distance / 40)
+              })
+              this.$refs.draw.camera.position.set(...newPos)
+              // console.log(this.$refs.draw.camera.position)
               // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
               // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + r1 * Math.sin(this.thetax))
@@ -127,8 +146,12 @@ export default {
               this.thetay += Math.PI / 180
               const r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
               const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
-              this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
-              console.log(this.$refs.draw.camera.position)
+              this.cameraPosition = [r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay)]
+              const newPos = this.cameraPosition.map((num) => {
+                return num * (this.distance / 40)
+              })
+              this.$refs.draw.camera.position.set(...newPos)
+              // console.log(this.$refs.draw.camera.position)
               // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
               // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
@@ -182,7 +205,11 @@ export default {
     changeViewing (distance) {
       this.distance = distance
       console.log(this.$refs.draw.camera.position.z)
-      this.$refs.draw.camera.position.z = distance / 10 + 4
+      const newPos = this.cameraPosition.map((num) => {
+        return num * (distance / 40)
+      })
+      console.log(newPos)
+      this.$refs.draw.camera.position.set(...newPos)
       // 使物体在相机中央
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
       this.$refs.draw.renderScene()
@@ -192,14 +219,14 @@ export default {
       // 防止可以无限缩放大
       if (this.distance >= 80) return
       const newDistance = this.distance + 2
-      console.log(newDistance)
+      // console.log(newDistance)
       this.changeViewing(newDistance)
     },
     reduceViewing () {
       // 防止可以无限缩小
       if (this.distance <= 0) return
       const newDistance = this.distance - 2
-      console.log(newDistance)
+      // console.log(newDistance)
       this.changeViewing(newDistance)
     },
     changeStep (step) {
