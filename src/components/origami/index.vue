@@ -82,29 +82,14 @@ export default {
       // 为了方便后面的计算 这里使用了平方
       const ratio = Math.pow(8 + this.distance / 10 - 4, 2)
       // console.log(this.$refs.draw.camera.position)
-      let i = 0
-      const flip = (type) => {
-        // console.log(type)
+      for (let i = 0; i < 5; i++) {
         setTimeout(() => {
-          // 计算缩放数值
-          // const distanceZ = (this.distance - 40) / 10
-          // console.log(this.$refs.draw.camera.position)
-          var positionY = this.$refs.draw.camera.position.y
-          var positionX = this.$refs.draw.camera.position.x
-          var r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
-          var r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
-          // const calculateY = ratio - Math.pow(positionY, 2)
-          // const calculateX = ratio - Math.pow(positionX, 2)
-          // console.log(calculateY, calculateX)
-          // console.log(positionY, positionX)
           // 待优化
           switch (type) {
-            case 1:
+            case 1: {
               this.thetax -= Math.PI / 180
-              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
-              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
-              positionY = Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax)
-              positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
+              const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
+              const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
               this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
               // this.$refs.draw.camera.lookAt(positionX, 0, 0)
               console.log(this.$refs.draw.camera.position)
@@ -113,12 +98,11 @@ export default {
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax))
               // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
-            case 2:
+            }
+            case 2: {
               this.thetay -= Math.PI / 180
-              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
-              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
-              positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
-              positionX = Math.sqrt(ratio) * Math.cos(this.thetax) * Math.sin(this.thetay)
+              const r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
+              const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
               this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
               console.log(this.$refs.draw.camera.position)
               // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
@@ -126,12 +110,11 @@ export default {
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
               // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
-            case 3:
+            }
+            case 3: {
               this.thetax += Math.PI / 180
-              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
-              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
-              positionY = Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax)
-              positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
+              const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
+              const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
               this.$refs.draw.camera.position.set(positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax))
               console.log(this.$refs.draw.camera.position)
               // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
@@ -139,12 +122,11 @@ export default {
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + r1 * Math.sin(this.thetax))
               // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
-            case 4:
+            }
+            case 4: {
               this.thetay += Math.PI / 180
-              r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
-              r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
-              positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
-              positionX = Math.sqrt(ratio) * Math.cos(this.thetax) * Math.sin(this.thetay)
+              const r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
+              const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
               this.$refs.draw.camera.position.set(r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay))
               console.log(this.$refs.draw.camera.position)
               // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
@@ -152,16 +134,12 @@ export default {
               // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
               // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
+            }
           }
           this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
           this.$refs.draw.renderScene()
-          if (i < 5) {
-            i++
-            flip(type)
-          }
         }, 20)
       }
-      flip(type)
     },
     styleChange (Num) {
       this.origamiStyle = Num
