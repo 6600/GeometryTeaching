@@ -54,10 +54,32 @@ export default {
     },
     close (step) {
       const ratio = Math.PI / 180
-      if (step <= 108) {
+      if (step <= 128) {
         this.spiale[1].rotation.y = step * ratio
-        this.spiale[2].rotation.y = step * ratio
-        this.nextStep(1, this.close)
+        this.nextStep(2, this.close)
+      } else if (step <= 256) {
+        this.spiale[5].rotateX(2 * ratio)
+        this.nextStep(2, this.close)
+      } else if (step <= 384) {
+        this.spiale[6].rotateX(2 * ratio)
+        this.nextStep(2, this.close)
+      } else if (step <= 512) {
+        this.spiale[2].rotateX(2 * ratio)
+        this.spiale[3].rotateX(2 * ratio)
+        this.spiale[4].rotateX(2 * ratio)
+        this.nextStep(2, this.close)
+      } else if (step === 514) {
+        this.spiale[2].rotation.z = 0 * ratio
+        this.meshs[2].rotation.z = -20 * ratio
+        this.meshs[2].position.x = -0.95
+        this.meshs[2].position.y = 0.35
+        this.spiale[4].rotation.z = 39 * ratio
+        this.meshs[4].rotation.z = 19.8 * ratio
+        this.nextStep(2, this.close)
+      } else if (step <= 560) {
+        this.spiale[2].rotateY(2 * ratio)
+        this.spiale[4].rotateY(-2 * ratio)
+        this.nextStep(2, this.close)
       }
     },
     creatMitsubishiColumn (scene, renderer, camera) {
@@ -85,7 +107,7 @@ export default {
       const positions = [
         [0, 0, 0],
         [0, 0, 0],
-        [-1, 0, 0],
+        [-0.77, 0.64, 0],
         [0, 0, 0],
         [0, 0, 0],
         [0, 0, 0],
@@ -142,11 +164,13 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[1].add(new THREE.AxesHelper(50))
+      this.spiale[4].add(new THREE.AxesHelper(50))
       this.spiale[1].rotation.z = 90 * ratio
-      this.spiale[2].rotation.z = -70 * ratio
+      this.spiale[2].rotation.z = -30 * ratio
+      this.meshs[2].rotation.z = -39 * ratio
       this.spiale[3].rotation.z = -30 * ratio
-      this.spiale[4].rotation.z = 10 * ratio
+      this.spiale[4].rotation.z = -30 * ratio
+      this.meshs[4].rotation.z = 39.2 * ratio
       this.spiale[5].rotation.z = -150 * ratio
       this.spiale[6].rotation.z = 150 * ratio
       setTimeout(() => {
