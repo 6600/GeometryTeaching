@@ -263,8 +263,8 @@ THREE.NURBSUtils = {
 
 		p  : degree
 		U  : knot vector
-		P  : control points
-		u  : Parametric points
+		P  : 控制点
+		u  : 参数点
 		nd : number of derivatives
 
 		returns array[d+1] with derivatives

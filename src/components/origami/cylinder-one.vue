@@ -62,6 +62,7 @@ export default {
       }
     },
     creatCube (scene, renderer, camera) {
+      console.log(0.5)
       // NURBS surface
       const nsControlPoints = [
         [
@@ -71,10 +72,22 @@ export default {
           new THREE.Vector4(0, 1, 1, 1)
         ],
         [
-          new THREE.Vector4(-1, -1, 0.5, 1),
-          new THREE.Vector4(-1, -0.5, 0.5, 1),
-          new THREE.Vector4(-1, 0.5, 0.5, 1),
-          new THREE.Vector4(-1, 1, 0.5, 1)
+          new THREE.Vector4(-0.5, -1, -0.5, 1),
+          new THREE.Vector4(-0.5, -0.5, -0.5, 1),
+          new THREE.Vector4(-0.5, 0.5, -0.5, 1),
+          new THREE.Vector4(-0.5, 1, -0.5, 1)
+        ],
+        [
+          new THREE.Vector4(-1, -1, 1, 1),
+          new THREE.Vector4(-1, -0.5, 1, 1),
+          new THREE.Vector4(-1, 0.5, 1, 1),
+          new THREE.Vector4(-1, 1, 1, 1)
+        ],
+        [
+          new THREE.Vector4(0.5, -1, 0.5, 1),
+          new THREE.Vector4(0.5, -0.5, 0.5, 1),
+          new THREE.Vector4(0.5, 0.5, 0.5, 1),
+          new THREE.Vector4(0.5, 1, 0.5, 1)
         ],
         [
           new THREE.Vector4(0, -1, 0, 1),
@@ -83,10 +96,10 @@ export default {
           new THREE.Vector4(0, 1, 0, 1)
         ]
       ]
-      const knots1 = [0, 0, 0, 1, 1, 1]
+      const knots1 = [0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1]
       const knots2 = [0, 0, 0, 0, 1, 1, 1, 1]
       // console.log(nsControlPoints)
-      const nurbsSurface = new THREE.NURBSSurface(2, 3, knots1, knots2, nsControlPoints)
+      const nurbsSurface = new THREE.NURBSSurface(4, 3, knots1, knots2, nsControlPoints)
       const geometry2 = new THREE.ParametricBufferGeometry((u, v) => {
         // console.log(nurbsSurface.getPoint(u, v))
         return nurbsSurface.getPoint(u, v)
