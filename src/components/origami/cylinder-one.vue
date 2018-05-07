@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import '../../assets/curves/NURBSCurve.js'
+import '../../assets/curves/verb.js'
 import '../../assets/curves/NURBSSurface.js'
 import '../../assets/curves/NURBSUtils.js'
 import { Fun } from '@/components/Order.js'
@@ -72,22 +72,10 @@ export default {
           new THREE.Vector4(0, 1, 1, 1)
         ],
         [
-          new THREE.Vector4(-0.5, -1, -0.5, 1),
-          new THREE.Vector4(-0.5, -0.5, -0.5, 1),
-          new THREE.Vector4(-0.5, 0.5, -0.5, 1),
-          new THREE.Vector4(-0.5, 1, -0.5, 1)
-        ],
-        [
-          new THREE.Vector4(-1, -1, 1, 1),
-          new THREE.Vector4(-1, -0.5, 1, 1),
-          new THREE.Vector4(-1, 0.5, 1, 1),
-          new THREE.Vector4(-1, 1, 1, 1)
-        ],
-        [
-          new THREE.Vector4(0.5, -1, 0.5, 1),
-          new THREE.Vector4(0.5, -0.5, 0.5, 1),
-          new THREE.Vector4(0.5, 0.5, 0.5, 1),
-          new THREE.Vector4(0.5, 1, 0.5, 1)
+          new THREE.Vector4(-1, -1, 0.5, 1),
+          new THREE.Vector4(-1, -0.5, 0.5, 1),
+          new THREE.Vector4(-1, 0.5, 0.5, 1),
+          new THREE.Vector4(-1, 1, 0.5, 1)
         ],
         [
           new THREE.Vector4(0, -1, 0, 1),
@@ -96,22 +84,47 @@ export default {
           new THREE.Vector4(0, 1, 0, 1)
         ]
       ]
-      const knots1 = [0, 0, 0, 0, 0.5, 0.5, 1, 1, 1, 1]
+      // 右边
+      const nsControlPoints2 = [
+        [
+          new THREE.Vector4(0, -1, 1, 1),
+          new THREE.Vector4(0, -0.5, 1, 1),
+          new THREE.Vector4(0, 0.5, 1, 1),
+          new THREE.Vector4(0, 1, 1, 1)
+        ],
+        [
+          new THREE.Vector4(1, -1, 0.5, 1),
+          new THREE.Vector4(1, -0.5, 0.5, 1),
+          new THREE.Vector4(1, 0.5, 0.5, 1),
+          new THREE.Vector4(1, 1, 0.5, 1)
+        ],
+        [
+          new THREE.Vector4(0, -1, 0, 1),
+          new THREE.Vector4(0, -0.5, 0, 1),
+          new THREE.Vector4(0, 0.5, 0, 1),
+          new THREE.Vector4(0, 1, 0, 1)
+        ]
+      ]
+      const knots1 = [0, 0, 0, 1, 1, 1]
       const knots2 = [0, 0, 0, 0, 1, 1, 1, 1]
       // console.log(nsControlPoints)
-      const nurbsSurface = new THREE.NURBSSurface(4, 3, knots1, knots2, nsControlPoints)
+      const nurbsSurface = new THREE.NURBSSurface(2, 3, knots1, knots2, nsControlPoints)
+      const nurbsSurface2 = new THREE.NURBSSurface(2, 3, knots1, knots2, nsControlPoints2)
       const geometry2 = new THREE.ParametricBufferGeometry((u, v) => {
         // console.log(nurbsSurface.getPoint(u, v))
         return nurbsSurface.getPoint(u, v)
       }, 20, 20)
-      console.log(geometry2)
+      const geometry3 = new THREE.ParametricBufferGeometry((u, v) => {
+        // console.log(nurbsSurface.getPoint(u, v))
+        return nurbsSurface2.getPoint(u, v)
+      }, 20, 20)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef']
+      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#ccaa1f']
       // 定义6个坐标
-      const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0]]
+      const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0], [0, 0, 0]]
       // 定义6个转轴
-      const axiss = [[0, 1, 0], [0, 0, 0], [0, -1, 0]]
+      const axiss = [[0, 1, 0], [0, 0, 0], [0, -1, 0], [0, 0, 0]]
       // ----------------------------
       // 创造6个平面
       for (let index in colors) {
@@ -123,6 +136,7 @@ export default {
         const axis = axiss[index]
         // 创建转轴
         this.spiale[index] = new THREE.Object3D()
+        
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
         if (index === '0' || index === '2') {
@@ -134,6 +148,13 @@ export default {
           }))
         } else if (index === '1') {
           this.meshs[index] = new THREE.Mesh(geometry2, new THREE.MeshPhongMaterial({
+            color: color,
+            transparent: true,
+            // 双面双面贴图
+            side: THREE.DoubleSide
+          }))
+        } else if (index === '3') {
+          this.meshs[index] = new THREE.Mesh(geometry3, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
