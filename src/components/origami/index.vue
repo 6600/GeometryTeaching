@@ -94,18 +94,12 @@ export default {
               const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
               this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
-              console.log(this.cameraPosition)
+              // console.log(this.cameraPosition)
               const newPos = this.cameraPosition.map((num) => {
                 return num * (this.distance / 40)
               })
-              console.log(newPos)
+              // console.log(newPos)
               this.$refs.draw.camera.position.set(...newPos)
-              // this.$refs.draw.camera.lookAt(positionX, 0, 0)
-              // console.log(this.$refs.draw.camera.position)
-              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
-              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.cos(this.thetay) * Math.sin(this.thetax))
-              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             }
             case 2: {
@@ -117,11 +111,6 @@ export default {
                 return num * (this.distance / 40)
               })
               this.$refs.draw.camera.position.set(...newPos)
-              // console.log(this.$refs.draw.camera.position)
-              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
-              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
-              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             }
             case 3: {
@@ -135,11 +124,6 @@ export default {
                 return num * (this.distance / 40)
               })
               this.$refs.draw.camera.position.set(...newPos)
-              // console.log(this.$refs.draw.camera.position)
-              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + Math.sqrt(ratio) * Math.sin(this.thetay))
-              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + r1 * Math.sin(this.thetax))
-              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             }
             case 4: {
@@ -151,11 +135,6 @@ export default {
                 return num * (this.distance / 40)
               })
               this.$refs.draw.camera.position.set(...newPos)
-              // console.log(this.$refs.draw.camera.position)
-              // console.log(Math.pow(this.$refs.draw.camera.position.x, 2) + Math.pow(this.$refs.draw.camera.position.y, 2) + Math.pow(this.$refs.draw.camera.position.z, 2))
-              // console.log(this.$refs.draw.camera.position.x + '：：：：positionX：：：：' + r2 * Math.sin(this.thetay))
-              // console.log(this.$refs.draw.camera.position.y + '：：：：positionY：：：：' + Math.sqrt(ratio) * Math.sin(this.thetax))
-              // console.log(Math.sqrt(ratio) * Math.cos(this.thetay) * Math.cos(this.thetax) + '：：：：positionZ：：：：' + Math.sqrt(ratio) * Math.cos(this.thetax) * Math.cos(this.thetay))
               break
             }
           }
