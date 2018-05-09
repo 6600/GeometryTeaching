@@ -18,9 +18,7 @@ export default {
       meshs: [],
       step: 0,
       degree1: 2,
-      degree2: 3,
-      knots1: [0, 0, 0, 1, 1, 1],
-      knots2: [0, 0, 0, 0, 1, 1, 1, 1]
+      degree2: 3
     }
   },
   mounted () {
@@ -53,52 +51,31 @@ export default {
       const spiale = this.spiale
       console.log(this.meshs[1])
       if (step <= 90) {
-        // console.log(this.meshs[1].geometry.vertices)
+        // 原点
         // 因为分为上下两个顶点所以要除2
         const vLength = this.meshs[1].geometry.vertices.length / 2
         // -----------------------------
         // 比例系数
         const coefficient = 2 / 15
         for (var i = 0; i < vLength; i++) {
-          const distance = Math.abs(i - 15)
-          // -----------------------
-          let xCoordinate = 0
-          const temp = Math.sqrt(1 - Math.pow(distance * coefficient - 1, 2))
-          // 判断是坐标轴左面还是右面
-          if (i < 15) {
-            xCoordinate = this.meshs[1].geometry.vertices[i].x + 0.00012 * distance * step
-            // 判断x坐标是否超过了限制
-            if (xCoordinate > -temp) xCoordinate = -temp
-          } else {
-            xCoordinate = this.meshs[1].geometry.vertices[i].x - 0.00012 * distance * step
-            if (xCoordinate < temp) xCoordinate = temp
-          }
-          let zCoordinate = this.meshs[1].geometry.vertices[i].z + 0.001 * step
-          // 判断z坐标是否已经超过最大
-          if (zCoordinate > coefficient * distance) zCoordinate = coefficient * distance
-          this.meshs[1].geometry.vertices[i].x = xCoordinate
-          this.meshs[1].geometry.vertices[i + 31].x = xCoordinate
-          this.meshs[1].geometry.vertices[i].z = zCoordinate
-          this.meshs[1].geometry.vertices[i + 31].z = zCoordinate
+          // console.log(Math.pow(i, 1.0001))
+          // this.meshs[1].geometry.vertices[i].x = 1
+          this.meshs[1].geometry.vertices[i].z = 0.1 * (Math.pow(i, 1.002) - i) * step
+          this.meshs[1].geometry.vertices[i + 31].z = 0.1 * (Math.pow(i, 1.002) - i) * step
         }
         this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(2, this.close)
-      } else if (step <= 180) {
-        // 盒子左1
-        spiale[0].rotation.x = (step - 90) * (Math.PI / 180)
-        spiale[2].rotation.x = -(step - 90) * (Math.PI / 180)
         this.nextStep(2, this.close)
       }
     },
     creatCube (scene, renderer, camera) {
-      const geometry = new THREE.PlaneGeometry(2 * Math.PI, 2, 30, 1)
-      let cylinderGeometry = new THREE.CircleGeometry(1, 64, 0, 2 * Math.PI)
+      const geometry = new THREE.PlaneGeometry(Math.PI, 2, 30, 1)
+      let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef']
       // 定义6个坐标
-      const positions = [[0, 1, 0], [0, 0, 0], [0, -1, 0]]
+      const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0]]
       // 定义6个转轴
-      const axiss = [[0, 1, 0], [0, 0, 0], [0, -1, 0]]
+      const axiss = [[-Math.PI / 2, 1, 0], [0, 0, 0], [-Math.PI / 2, -1, 0]]
       // ----------------------------
       // 创造6个平面
       for (let index in colors) {
