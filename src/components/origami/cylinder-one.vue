@@ -49,26 +49,63 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      console.log(this.meshs[1])
+      const coefficient = 2 / 20
+      spiale[0].rotation.x = step * (Math.PI / 180)
+      spiale[2].rotation.x = -step * (Math.PI / 180)
       if (step <= 90) {
         // 原点
         // 因为分为上下两个顶点所以要除2
         const vLength = this.meshs[1].geometry.vertices.length / 2
         // -----------------------------
-        // 比例系数
-        const coefficient = 2 / 15
-        for (var i = 0; i < vLength; i++) {
-          // console.log(Math.pow(i, 1.0001))
-          // this.meshs[1].geometry.vertices[i].x = 1
-          this.meshs[1].geometry.vertices[i].z = 0.1 * (Math.pow(i, 1.002) - i) * step
-          this.meshs[1].geometry.vertices[i + 31].z = 0.1 * (Math.pow(i, 1.002) - i) * step
+        for (var i = 0; i <= vLength; i++) {
+          if (i <= 10) {
+            // const Z = i * 0.05
+            // const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.PI / 2
+            // this.meshs[1].geometry.vertices[i].z += Z / 90
+            // this.meshs[1].geometry.vertices[i + 41].z += Z / 90
+            // this.meshs[1].geometry.vertices[i].x += X / 90
+            // this.meshs[1].geometry.vertices[i + 41].x += X / 90
+            const Z = i * 0.05
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.PI / 2
+            this.meshs[1].geometry.vertices[i].z = Z
+            this.meshs[1].geometry.vertices[i + 41].z = Z
+            this.meshs[1].geometry.vertices[i].x = X
+            this.meshs[1].geometry.vertices[i + 41].x = X
+          } else if (i <= 20) {
+            const Z = i * 0.05
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2))
+            this.meshs[1].geometry.vertices[i].z = Z
+            this.meshs[1].geometry.vertices[i + 41].z = Z
+            this.meshs[1].geometry.vertices[i].x = X - Math.PI / 2
+            this.meshs[1].geometry.vertices[i + 41].x = X - Math.PI / 2
+          } else if (i <= 30) {
+            const Z = (-i + 40) * 0.05
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2))
+            this.meshs[1].geometry.vertices[i].z = Z
+            this.meshs[1].geometry.vertices[i + 41].z = Z
+            this.meshs[1].geometry.vertices[i].x = -(X + Math.PI / 2)
+            this.meshs[1].geometry.vertices[i + 41].x = -(X + Math.PI / 2)
+          } else if (i <= 40) {
+            const Z = (-i + 40) * 0.05
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2))
+            this.meshs[1].geometry.vertices[i].z = Z
+            this.meshs[1].geometry.vertices[i + 41].z = Z
+            this.meshs[1].geometry.vertices[i].x = -(X + Math.PI / 2)
+            this.meshs[1].geometry.vertices[i + 41].x = -(X + Math.PI / 2)
+          }
+          // if (i > 10) {
+          //   this.meshs[1].geometry.vertices[i].x = this.meshs[1].geometry.vertices[i].x - 0.001 * Math.pow(i, 1.04)
+          //   this.meshs[1].geometry.vertices[i + 40].x = this.meshs[1].geometry.vertices[i].x - 0.001 * Math.pow(i, 1.04)
+          // }
         }
         this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
+      } else {
+        console.log(this.meshs[1].geometry.vertices[5])
       }
     },
     creatCube (scene, renderer, camera) {
-      const geometry = new THREE.PlaneGeometry(Math.PI, 2, 30, 1)
+      const geometry = new THREE.PlaneGeometry(Math.PI, 2, 40, 1)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef']
