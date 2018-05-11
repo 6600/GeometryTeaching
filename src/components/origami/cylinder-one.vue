@@ -49,7 +49,6 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      const coefficient = 2 / 20
       spiale[0].rotation.x = step * (Math.PI / 180)
       spiale[2].rotation.x = -step * (Math.PI / 180)
       if (step <= 90) {
@@ -59,25 +58,23 @@ export default {
         // -----------------------------
         for (var i = 0; i <= vLength; i++) {
           if (i <= 10) {
-            // const Z = i * 0.05
-            // const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.PI / 2
-            // this.meshs[1].geometry.vertices[i].z += Z / 90
-            // this.meshs[1].geometry.vertices[i + 41].z += Z / 90
-            // this.meshs[1].geometry.vertices[i].x += X / 90
-            // this.meshs[1].geometry.vertices[i + 41].x += X / 90
             const Z = i * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.PI / 2
-            this.meshs[1].geometry.vertices[i].z = Z
-            this.meshs[1].geometry.vertices[i + 41].z = Z
-            this.meshs[1].geometry.vertices[i].x = X
-            this.meshs[1].geometry.vertices[i + 41].x = X
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.PI / 2 - this.meshs[1].geometry.vertices[i].x
+            this.meshs[1].geometry.vertices[i].z += Z / 90
+            this.meshs[1].geometry.vertices[i + 41].z += Z / 90
+            this.meshs[1].geometry.vertices[i].x += X / 90
+            this.meshs[1].geometry.vertices[i + 41].x += X / 90
           } else if (i <= 20) {
             const Z = i * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2))
-            this.meshs[1].geometry.vertices[i].z = Z
-            this.meshs[1].geometry.vertices[i + 41].z = Z
-            this.meshs[1].geometry.vertices[i].x = X - Math.PI / 2
-            this.meshs[1].geometry.vertices[i + 41].x = X - Math.PI / 2
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.PI / 2 - this.meshs[1].geometry.vertices[i].x
+            if (i === 20) {
+              console.log(Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.PI / 2)
+              console.log(this.meshs[1].geometry.vertices[i])
+            }
+            this.meshs[1].geometry.vertices[i].z += Z / 90
+            this.meshs[1].geometry.vertices[i + 41].z += Z / 90
+            this.meshs[1].geometry.vertices[i].x += X / 90
+            this.meshs[1].geometry.vertices[i + 41].x += X / 90
           } else if (i <= 30) {
             const Z = (-i + 40) * 0.05
             const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2))
