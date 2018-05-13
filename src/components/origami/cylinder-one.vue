@@ -49,52 +49,99 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      spiale[0].rotation.x = step * (Math.PI / 180)
-      spiale[2].rotation.x = -step * (Math.PI / 180)
       if (step <= 90) {
+        // 步骤一
+        // 上下圆面贴合
+        spiale[0].rotation.x = step * (Math.PI / 180)
+        spiale[2].rotation.x = -step * (Math.PI / 180)
+        // 平面变成直径为4的圆弧
         // 原点
         // 因为分为上下两个顶点所以要除2
         const vLength = this.meshs[1].geometry.vertices.length / 2
         // -----------------------------
-        for (var i = 0; i <= vLength; i++) {
-          if (i < 10) {
+        for (let i = 0; i <= vLength; i++) {
+          if (i <= 40) {
             const Z = i * 0.05
             const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z += Z / 90
             this.meshs[1].geometry.vertices[i + 41].z += Z / 90
             this.meshs[1].geometry.vertices[i].x += X / 90
             this.meshs[1].geometry.vertices[i + 41].x += X / 90
-          } else if (i < 20) {
+          }
+        }
+        this.meshs[1].geometry.verticesNeedUpdate = true
+        this.nextStep(1, this.close)
+      } else if (step <= 180) {
+        // 步骤二
+        // 平面变成直径为2的圆弧
+        const vLength = this.meshs[1].geometry.vertices.length / 2
+        // -----------------------------
+        for (let i = 0; i <= vLength; i++) {
+          if (i <= 40) {
             const Z = i * 0.05
-            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
-            this.meshs[1].geometry.vertices[i].z += Z / 90
-            this.meshs[1].geometry.vertices[i + 41].z += Z / 90
+            const X = Math.sqrt(1 - Math.pow(Z - 1, 2)) - Math.sqrt(4 - Math.pow(Z - 2, 2))
+            // this.meshs[1].geometry.vertices[i].z += Z / 90
+            // this.meshs[1].geometry.vertices[i + 41].z += Z / 90
             this.meshs[1].geometry.vertices[i].x += X / 90
             this.meshs[1].geometry.vertices[i + 41].x += X / 90
-          } else if (i <= 30) {
-            const Z = (-i + 40) * 0.05
-            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) + (i * Math.PI / 40)
-            this.meshs[1].geometry.vertices[i].z += Z / 90
-            this.meshs[1].geometry.vertices[i + 41].z += Z / 90
-            this.meshs[1].geometry.vertices[i].x += -(X) / 90
-            this.meshs[1].geometry.vertices[i + 41].x += -(X) / 90
+          }
+        }
+        this.meshs[1].geometry.verticesNeedUpdate = true
+        this.nextStep(1, this.close)
+      } else if (step <= 270) {
+        // 步骤二
+        // 平面变成直径为1的圆弧
+        const vLength = this.meshs[1].geometry.vertices.length / 2
+        // -----------------------------
+        for (let i = 0; i <= vLength; i++) {
+          if (i < 20) {
+            const Z = i * 0.05
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.sqrt(1 - Math.pow(Z - 1, 2))
+            this.meshs[1].geometry.vertices[i].x += X / 90
+            this.meshs[1].geometry.vertices[i + 41].x += X / 90
           } else if (i <= 40) {
-            const Z = (-i + 40) * 0.05
-            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) + (i * Math.PI / 40)
+            const Z = -0.05 * (i - 20)
+            const X = -((i - 20) * Math.PI / 40) - Math.sqrt(1 - Math.pow(i * 0.05 - 1, 2))
+            // if (i === 40) {
+            //   console.log(-((i - 20) * Math.PI / 40) - Math.sqrt(1 - Math.pow(i * 0.05 - 1, 2)))
+            //   console.log(this.meshs[1].geometry.vertices[0].x)
+            //   console.log(this.meshs[1].geometry.vertices[i].x)
+            //   return
+            // }
             this.meshs[1].geometry.vertices[i].z += Z / 90
             this.meshs[1].geometry.vertices[i + 41].z += Z / 90
+            this.meshs[1].geometry.vertices[i].x += X / 90
+            this.meshs[1].geometry.vertices[i + 41].x += X / 90
+          }
+        }
+        this.meshs[1].geometry.verticesNeedUpdate = true
+        this.nextStep(1, this.close)
+      } else if (step <= 360) {
+        // 步骤二
+        // 平面变成直径为2的圆弧
+        const vLength = this.meshs[1].geometry.vertices.length / 2
+        // -----------------------------
+        for (let i = 0; i <= vLength; i++) {
+          if (i > 20 && i <= 40) {
+            const Z = (i - 20) * 0.05
+            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - ((i - 20) * Math.PI / 40)
+            // if (i === 40) {
+            //   console.log(this.meshs[1].geometry.vertices[0].x)
+            //   console.log(this.meshs[1].geometry.vertices[40].x)
+            //   return
+            // }
+            this.meshs[1].geometry.vertices[i].z += -Z / 90
+            this.meshs[1].geometry.vertices[i + 41].z += -Z / 90
             this.meshs[1].geometry.vertices[i].x += -(X) / 90
             this.meshs[1].geometry.vertices[i + 41].x += -(X) / 90
           }
-          // if (i > 10) {
-          //   this.meshs[1].geometry.vertices[i].x = this.meshs[1].geometry.vertices[i].x - 0.001 * Math.pow(i, 1.04)
-          //   this.meshs[1].geometry.vertices[i + 40].x = this.meshs[1].geometry.vertices[i].x - 0.001 * Math.pow(i, 1.04)
-          // }
         }
         this.meshs[1].geometry.verticesNeedUpdate = true
         this.nextStep(1, this.close)
       } else {
-        console.log(this.meshs[1].geometry.vertices[5])
+        console.log(this.meshs[1].geometry.vertices[0])
+        console.log(this.meshs[1].geometry.vertices[30])
+        console.log(this.meshs[1].geometry.vertices[40])
       }
     },
     creatCube (scene, renderer, camera) {
