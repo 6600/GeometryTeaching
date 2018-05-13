@@ -59,28 +59,28 @@ export default {
         for (var i = 0; i <= vLength; i++) {
           if (i < 10) {
             const Z = i * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - (i * Math.PI / 40)
+            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z += Z / 90
             this.meshs[1].geometry.vertices[i + 41].z += Z / 90
             this.meshs[1].geometry.vertices[i].x += X / 90
             this.meshs[1].geometry.vertices[i + 41].x += X / 90
           } else if (i < 20) {
             const Z = i * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - (i * Math.PI / 40)
+            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z += Z / 90
             this.meshs[1].geometry.vertices[i + 41].z += Z / 90
             this.meshs[1].geometry.vertices[i].x += X / 90
             this.meshs[1].geometry.vertices[i + 41].x += X / 90
           } else if (i <= 30) {
             const Z = (-i + 40) * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) + (i * Math.PI / 40)
+            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) + (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z += Z / 90
             this.meshs[1].geometry.vertices[i + 41].z += Z / 90
             this.meshs[1].geometry.vertices[i].x += -(X) / 90
             this.meshs[1].geometry.vertices[i + 41].x += -(X) / 90
           } else if (i <= 40) {
             const Z = (-i + 40) * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) + (i * Math.PI / 40)
+            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) + (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z += Z / 90
             this.meshs[1].geometry.vertices[i + 41].z += Z / 90
             this.meshs[1].geometry.vertices[i].x += -(X) / 90
