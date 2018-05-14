@@ -60,8 +60,8 @@ export default {
           if (i <= 40) {
             const Z = i * 0.05
             const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
-            this.meshs[1].geometry.vertices[i].z += Z / 90
-            this.meshs[1].geometry.vertices[i + 41].z += Z / 90
+            this.meshs[1].geometry.vertices[i].z = Z / 90 * step
+            this.meshs[1].geometry.vertices[i + 41].z = Z / 90 * step
             this.meshs[1].geometry.vertices[i].x += X / 90
             this.meshs[1].geometry.vertices[i + 41].x += X / 90
           }
