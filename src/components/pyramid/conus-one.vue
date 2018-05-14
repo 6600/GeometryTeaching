@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import '../../assets/curves/NURBSSurface.js'
-import '../../assets/curves/NURBSUtils.js'
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
@@ -48,87 +46,7 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      if (step <= 90) {
-        // 步骤一
-        // 上下圆面贴合
-        spiale[0].rotation.x = step * (Math.PI / 180)
-        spiale[2].rotation.x = -step * (Math.PI / 180)
-        // 平面变成直径为4的圆弧
-        // 原点
-        // 因为分为上下两个顶点所以要除2
-        const vLength = this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          if (i <= 40) {
-            const Z = i * 0.05
-            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
-            this.meshs[1].geometry.vertices[i].z += Z / 90
-            this.meshs[1].geometry.vertices[i + 41].z += Z / 90
-            this.meshs[1].geometry.vertices[i].x += X / 90
-            this.meshs[1].geometry.vertices[i + 41].x += X / 90
-          }
-        }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
-      } else if (step <= 135) {
-        // 步骤二
-        // 平面变成直径为2的圆弧
-        const vLength = this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          if (i <= 40) {
-            const Z = i * 0.05
-            const X = Math.sqrt(1 - Math.pow(Z - 1, 2)) - Math.sqrt(4 - Math.pow(Z - 2, 2))
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
-          }
-        }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
-      } else if (step <= 180) {
-        // 步骤二
-        // 平面变成直径为1的圆弧
-        const vLength = this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          if (i < 20) {
-            const Z = i * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.sqrt(1 - Math.pow(Z - 1, 2))
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
-          } else if (i <= 40) {
-            const Z = -0.05 * (i - 20)
-            const X = -((i - 20) * Math.PI / 40) - Math.sqrt(1 - Math.pow(i * 0.05 - 1, 2))
-            this.meshs[1].geometry.vertices[i].z += Z / 45
-            this.meshs[1].geometry.vertices[i + 41].z += Z / 45
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
-          }
-        }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
-      } else if (step <= 225) {
-        // 步骤二
-        // 平面变成直径为2的圆弧
-        const vLength = this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          if (i > 20 && i <= 40) {
-            const Z = (i - 20) * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - ((i - 20) * Math.PI / 40)
-            this.meshs[1].geometry.vertices[i].z += -Z / 45
-            this.meshs[1].geometry.vertices[i + 41].z += -Z / 45
-            this.meshs[1].geometry.vertices[i].x += -(X) / 45
-            this.meshs[1].geometry.vertices[i + 41].x += -(X) / 45
-          }
-        }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
-      }
+      console.log(spiale)
     },
     creatCube (scene, renderer, camera) {
       const geometry = new THREE.PlaneGeometry(Math.PI, 2, 40, 1)
@@ -136,9 +54,9 @@ export default {
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f']
       // 定义6个坐标
-      const positions = [[0, 0, 0], [0, -0.5, 0]]
+      const positions = [[0, 0, 0], [0, -1, 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [-Math.PI / 2, -1, 0]]
+      const axiss = [[0, 0, 0], [0, 0, 0]]
       // ----------------------------
       // 创造6个平面
       for (let index in colors) {
@@ -176,6 +94,12 @@ export default {
         // 取消面剔除
         this.meshs[index].doubleSided = true
         this.meshs[index].castShadow = true
+        // 将面变成圆锥
+        const vLength = this.meshs[0].geometry.vertices.length / 2
+        for (let i = 0; i <= vLength; i++) {
+          this.meshs[0].geometry.vertices[i].x = 0
+        }
+        console.log(this.meshs[0])
         // 将平面添加到场景中
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])

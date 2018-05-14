@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import '../../assets/curves/NURBSSurface.js'
-import '../../assets/curves/NURBSUtils.js'
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
