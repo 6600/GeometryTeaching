@@ -1,5 +1,5 @@
 <template lang="pug">
-  .cylinder-one
+  .conus-one
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import '../../assets/curves/NURBSUtils.js'
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
 export default {
-  name: 'HelloWorld',
+  name: 'conusOne',
   data () {
     return {
       camera: null,
@@ -134,11 +134,11 @@ export default {
       const geometry = new THREE.PlaneGeometry(Math.PI, 2, 40, 1)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef']
+      const colors = ['#64e530', '#ccaa1f']
       // 定义6个坐标
-      const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0]]
+      const positions = [[0, 0, 0], [0, -0.5, 0]]
       // 定义6个转轴
-      const axiss = [[-Math.PI / 2, 1, 0], [0, 0, 0], [-Math.PI / 2, -1, 0]]
+      const axiss = [[0, 0, 0], [-Math.PI / 2, -1, 0]]
       // ----------------------------
       // 创造6个平面
       for (let index in colors) {
@@ -152,14 +152,14 @@ export default {
         this.spiale[index] = new THREE.Object3D()
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
-        if (index === '0' || index === '2') {
+        if (index === '1') {
           this.meshs[index] = new THREE.Mesh(cylinderGeometry, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
-        } else if (index === '1') {
+        } else {
           this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
             color: color,
             transparent: true,
