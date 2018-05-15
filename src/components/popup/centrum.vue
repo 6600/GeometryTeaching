@@ -11,10 +11,8 @@
         .slect.five-two(@click="popupCheck = 'pyramidFiveTwo'", :class="{active: popupCheck === 'pyramidFiveTwo'}")
         .slect.six-one(@click="popupCheck = 'pyramidSixOne'", :class="{active: popupCheck === 'pyramidSixOne'}")
         .slect.six-two(@click="popupCheck = 'pyramidSixTwo'", :class="{active: popupCheck === 'pyramidSixTwo'}")
-        .slect.pentagonal-orism-one(@click="popupCheck = 'pentagonalPrismOne'", :class="{active: popupCheck === 'pentagonalPrismOne'}")
+        .slect.pyramid-conus(@click="popupCheck = 'pyramidConus'", :class="{active: popupCheck === 'pyramidConus'}")
         .slect.pentagonal-orism-two(@click="popupCheck = 'pentagonalPrismTwo'", :class="{active: popupCheck === 'pentagonalPrismTwo'}")
-        .slect.hexagonal-orism-one(@click="popupCheck = 'hexagonalPrismOne'", :class="{active: popupCheck === 'hexagonalPrismOne'}")
-        .slect.hexagonal-orism-two(@click="popupCheck = 'hexagonalPrismTwo'", :class="{active: popupCheck === 'hexagonalPrismTwo'}")
       .popup-panel-menu
         Button105.confirm-button(@onClick="confirm()", text="确定")
         Button105.cancel-button(@onClick="$emit('close')", text="取消")
@@ -128,7 +126,7 @@ export default {
       right: 57px;
       top: 231px;
     }
-    .pentagonal-orism-one {
+    .pyramid-conus {
       left: 166px;
       bottom: 48px;
     }

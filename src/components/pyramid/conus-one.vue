@@ -96,8 +96,12 @@ export default {
         this.meshs[index].castShadow = true
         // 将面变成圆锥
         const vLength = this.meshs[0].geometry.vertices.length / 2
+        console.log(this.meshs[0].geometry.vertices)
         for (let i = 0; i <= vLength; i++) {
-          this.meshs[0].geometry.vertices[i].x = 0
+          const X = i * Math.PI / 40 - Math.PI / 2
+          const Y = Math.sqrt(4 - Math.pow(X, 2))
+          console.log(X, Y)
+          this.meshs[0].geometry.vertices[i + 40].y = -Y + Math.PI / 2 + 0.5
         }
         console.log(this.meshs[0])
         // 将平面添加到场景中
