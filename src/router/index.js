@@ -24,6 +24,7 @@ import hexagonalPrismOne from '@/components/origami/hexagonal-prism-one'
 import hexagonalPrismTwo from '@/components/origami/hexagonal-prism-two'
 // 圆柱
 import cylinderOne from '@/components/origami/cylinder-one'
+import cylinderTwo from '@/components/origami/cylinder-two'
 // --------------------------棱锥区域--------------------------
 import pyramidThreeOne from '@/components/pyramid/three-one'
 import pyramidThreeTwo from '@/components/pyramid/three-two'
@@ -71,7 +72,7 @@ export default new Router({
         { path: '/origami/hexagonalPrismTwo', name: 'hexagonal-orism-two', component: hexagonalPrismTwo },
         // 圆柱
         { path: '/origami/cylinderOne', name: 'cylinder-one', component: cylinderOne },
-        { path: '/origami/cylinderTwo', name: 'cylinder-two', component: cylinderOne },
+        { path: '/origami/cylinderTwo', name: 'cylinder-two', component: cylinderTwo },
         // 三棱锥
         { path: '/origami/trigonometricConeOne', name: 'trigonometric-cone-one', component: trigonometricConeOne },
         { path: '/origami/trigonometricConeTwo', name: 'trigonometric-cone-two', component: trigonometricConeTwo },

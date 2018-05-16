@@ -46,7 +46,10 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      console.log(spiale)
+      if (step <= 90) {
+        spiale[1].rotation.x = -step * (Math.PI / 180)
+        this.nextStep(1, this.close)
+      }
     },
     creatCube (scene, renderer, camera) {
       const geometry = new THREE.PlaneGeometry(Math.PI, 2, 40, 1)
@@ -54,9 +57,9 @@ export default {
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f']
       // 定义6个坐标
-      const positions = [[0, 0, 0], [0, -1, 0]]
+      const positions = [[0, -Math.PI / 4 + 0.05, 0], [0, -0.5, 0]]
       // 定义6个转轴
-      const axiss = [[0, 0, 0], [0, 0, 0]]
+      const axiss = [[0, 0, 0], [0, -0.5, 0]]
       // ----------------------------
       // 创造6个平面
       for (let index in colors) {
@@ -97,19 +100,19 @@ export default {
         // 将面变成圆锥
         const vLength = this.meshs[0].geometry.vertices.length / 2
         console.log(this.meshs[0].geometry.vertices)
-        for (let i = 0; i <= vLength; i++) {
-          const X = i * Math.PI / 40 - Math.PI / 2
+        for (let i = 1; i <= vLength; i++) {
+          const X = (i - 1) * Math.PI / 40 - Math.PI / 2
           const Y = Math.sqrt(4 - Math.pow(X, 2))
           console.log(X, Y)
-          this.meshs[0].geometry.vertices[i + 40].y = -Y + Math.PI / 2 + 0.5
+          this.meshs[0].geometry.vertices[i + 40].y = -Y + 2.237981784893324
         }
-        console.log(this.meshs[0])
+        console.log(this.meshs[0].geometry.vertices)
         // 将平面添加到场景中
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      // this.spiale[0].add(new THREE.AxesHelper(50))
+      this.spiale[1].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 0)

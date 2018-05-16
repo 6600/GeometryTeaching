@@ -50,6 +50,7 @@ export default {
         // 步骤一
         // 上下圆面贴合
         spiale[0].rotation.x = step * (Math.PI / 180)
+        spiale[2].position.x -= (Math.PI - 0.5) / 90
         spiale[2].rotation.x = -step * (Math.PI / 180)
         // 平面变成直径为4的圆弧
         // 原点
@@ -141,7 +142,7 @@ export default {
       // 定义6个坐标
       const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0]]
       // 定义6个转轴
-      const axiss = [[-Math.PI / 2, 1, 0], [0, 0, 0], [-Math.PI / 2, -1, 0]]
+      const axiss = [[-Math.PI / 2, 1, 0], [0, 0, 0], [Math.PI / 2 - 0.5, -1, 0]]
       // ----------------------------
       // 创造6个平面
       for (let index in colors) {
