@@ -5,7 +5,6 @@
 <script>
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
-let lest = 0
 export default {
   name: 'HelloWorld',
   data () {
@@ -47,7 +46,7 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      if (step <= 90) {
+      if (step < 90) {
         // 步骤一
         // 上下圆面贴合
         spiale[0].rotation.x = step * (Math.PI / 180)
@@ -63,12 +62,8 @@ export default {
             const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z = Z / 90 * step
             this.meshs[1].geometry.vertices[i + 41].z = Z / 90 * step
-            if (i === 4) {
-              console.log(this.meshs[1].geometry.vertices[i].x - lest, Z / 90 * step)
-              lest = this.meshs[1].geometry.vertices[i].x
-            }
-            this.meshs[1].geometry.vertices[i].x += X / 90
-            this.meshs[1].geometry.vertices[i + 41].x += X / 90
+            this.meshs[1].geometry.vertices[i].x = -Math.PI / 2 + i * Math.PI / 40 + step * X / 90
+            this.meshs[1].geometry.vertices[i + 41].x = -Math.PI / 2 + i * Math.PI / 40 + step * X / 90
           }
         }
         this.meshs[1].geometry.verticesNeedUpdate = true
