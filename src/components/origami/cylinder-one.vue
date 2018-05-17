@@ -5,6 +5,7 @@
 <script>
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
+let lest = 0
 export default {
   name: 'HelloWorld',
   data () {
@@ -62,14 +63,13 @@ export default {
             const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z = Z / 90 * step
             this.meshs[1].geometry.vertices[i + 41].z = Z / 90 * step
+            if (i === 4) {
+              console.log(this.meshs[1].geometry.vertices[i].x - lest, Z / 90 * step)
+              lest = this.meshs[1].geometry.vertices[i].x
+            }
             this.meshs[1].geometry.vertices[i].x += X / 90
-            // if (i === 1) {
-            //   console.log(X / 90)
-            //   console.log(this.meshs[1].geometry.vertices[i].x)
-            // }
             this.meshs[1].geometry.vertices[i + 41].x += X / 90
           }
-          // return
         }
         this.meshs[1].geometry.verticesNeedUpdate = true
         this.nextStep(1, this.close)
