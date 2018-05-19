@@ -46,7 +46,7 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
-      if (step < 90) {
+      if (step <= 90) {
         // 步骤一
         // 上下圆面贴合
         spiale[0].rotation.x = step * (Math.PI / 180)
@@ -77,8 +77,8 @@ export default {
           if (i <= 40) {
             const Z = i * 0.05
             const X = Math.sqrt(1 - Math.pow(Z - 1, 2)) - Math.sqrt(4 - Math.pow(Z - 2, 2))
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
+            this.meshs[1].geometry.vertices[i].x = Math.sqrt(4 - Math.pow(Z - 2, 2)) - Math.PI / 2 + (step - 90) * X / 45
+            this.meshs[1].geometry.vertices[i + 41].x = Math.sqrt(4 - Math.pow(Z - 2, 2)) - Math.PI / 2 + (step - 90) * X / 45
           }
         }
         this.meshs[1].geometry.verticesNeedUpdate = true
@@ -89,11 +89,11 @@ export default {
         const vLength = this.meshs[1].geometry.vertices.length / 2
         // -----------------------------
         for (let i = 0; i <= vLength; i++) {
-          if (i < 20) {
+          if (i <= 20) {
             const Z = i * 0.05
             const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.sqrt(1 - Math.pow(Z - 1, 2))
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
+            this.meshs[1].geometry.vertices[i].x  = Math.sqrt(1 - Math.pow(Z - 1, 2)) - Math.PI / 2 + (step - 135) * X / 45
+            this.meshs[1].geometry.vertices[i + 41].x = Math.sqrt(1 - Math.pow(Z - 1, 2)) - Math.PI / 2 + (step - 135) * X / 45
           } else if (i <= 40) {
             const Z = -0.05 * (i - 20)
             const X = -((i - 20) * Math.PI / 40) - Math.sqrt(1 - Math.pow(i * 0.05 - 1, 2))
