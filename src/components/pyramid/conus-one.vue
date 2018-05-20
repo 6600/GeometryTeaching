@@ -57,7 +57,14 @@ export default {
         for (let i = 0; i <= vLength - 1; i++) {
           const Z = Math.abs(i - 20) * 0.05
           let X = null
-          this.meshs[0].geometry.vertices[i + 40].y = -Y + 2.237981784893324
+          const Y = 2 - Math.sqrt(4 - Math.pow(Math.abs(i - 20) * Math.PI / 40, 2))
+          console.log(i, Y)
+          // return
+          this.meshs[0].geometry.vertices[i].y -= Y / 90
+          this.meshs[0].geometry.vertices[i + 41].y -= Y / 90
+          // 中心点慢慢向中心偏移
+          this.meshs[0].geometry.vertices[20].z += 1 / 90
+          // this.meshs[0].geometry.vertices[61].z += 1 / 90
           if (i < 20) {
             X = -Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) + (Math.abs(i - 20) * Math.PI / 40)
           } else {
@@ -126,7 +133,8 @@ export default {
         for (let i = 1; i <= vLength; i++) {
           const X = (i - 1) * Math.PI / 40 - Math.PI / 2
           const Y = Math.sqrt(4 - Math.pow(X, 2))
-          // console.log(X, Y)
+          // console.log(i, X, Y)
+          // return
           this.meshs[0].geometry.vertices[i + 40].y = -Y + 2.237981784893324
         }
         // console.log(this.meshs[0].geometry.vertices)
