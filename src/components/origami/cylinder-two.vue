@@ -5,6 +5,7 @@
 <script>
 import { Fun } from '@/components/Order.js'
 const THREE = require('three')
+const stepSave = require('@/assets/step/cylinder.json')
 export default {
   name: 'HelloWorld',
   data () {
@@ -44,14 +45,25 @@ export default {
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    close (step) {
+    getStep (step) {
+      if (step < 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
+      if (step > this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
       const spiale = this.spiale
+      // 上下圆面贴合
+      spiale[0].rotation.x = step * (Math.PI / 450)
+      spiale[2].rotation.x = -step * (Math.PI / 450)
+      spiale[2].position.x = (0 - step) * Math.PI / 225
       if (step <= 90) {
         // 步骤一
-        // 上下圆面贴合
-        spiale[0].rotation.x = step * (Math.PI / 180)
-        spiale[2].position.x -= (Math.PI - 0.5) / 90
-        spiale[2].rotation.x = -step * (Math.PI / 180)
         // 平面变成直径为4的圆弧
         // 原点
         // 因为分为上下两个顶点所以要除2
@@ -63,17 +75,10 @@ export default {
             const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
             this.meshs[1].geometry.vertices[i].z = Z / 90 * step
             this.meshs[1].geometry.vertices[i + 41].z = Z / 90 * step
-            this.meshs[1].geometry.vertices[i].x += X / 90
-            // if (i === 1) {
-            //   console.log(X / 90)
-            //   console.log(this.meshs[1].geometry.vertices[i].x)
-            // }
-            this.meshs[1].geometry.vertices[i + 41].x += X / 90
+            this.meshs[1].geometry.vertices[i].x = -Math.PI / 2 + i * Math.PI / 40 + step * X / 90
+            this.meshs[1].geometry.vertices[i + 41].x = -Math.PI / 2 + i * Math.PI / 40 + step * X / 90
           }
-          // return
         }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
       } else if (step <= 135) {
         // 步骤二
         // 平面变成直径为2的圆弧
@@ -83,56 +88,37 @@ export default {
           if (i <= 40) {
             const Z = i * 0.05
             const X = Math.sqrt(1 - Math.pow(Z - 1, 2)) - Math.sqrt(4 - Math.pow(Z - 2, 2))
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
+            this.meshs[1].geometry.vertices[i].x = Math.sqrt(4 - Math.pow(Z - 2, 2)) - Math.PI / 2 + (step - 90) * X / 45
+            this.meshs[1].geometry.vertices[i + 41].x = Math.sqrt(4 - Math.pow(Z - 2, 2)) - Math.PI / 2 + (step - 90) * X / 45
           }
         }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
-      } else if (step <= 180) {
-        // 步骤二
-        // 平面变成直径为1的圆弧
-        const vLength = this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          if (i < 20) {
-            const Z = i * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - Math.sqrt(1 - Math.pow(Z - 1, 2))
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
-          } else if (i <= 40) {
-            const Z = -0.05 * (i - 20)
-            const X = -((i - 20) * Math.PI / 40) - Math.sqrt(1 - Math.pow(i * 0.05 - 1, 2))
-            this.meshs[1].geometry.vertices[i].z += Z / 45
-            this.meshs[1].geometry.vertices[i + 41].z += Z / 45
-            this.meshs[1].geometry.vertices[i].x += X / 45
-            this.meshs[1].geometry.vertices[i + 41].x += X / 45
-          }
-        }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
       } else if (step <= 225) {
+        const ind = step - 135
         // 步骤二
         // 平面变成直径为2的圆弧
-        const vLength = this.meshs[1].geometry.vertices.length / 2
+        const vLength = 41 // this.meshs[1].geometry.vertices.length / 2
         // -----------------------------
         for (let i = 0; i <= vLength; i++) {
-          if (i > 20 && i <= 40) {
-            const Z = (i - 20) * 0.05
-            const X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - ((i - 20) * Math.PI / 40)
-            this.meshs[1].geometry.vertices[i].z += -Z / 45
-            this.meshs[1].geometry.vertices[i + 41].z += -Z / 45
-            this.meshs[1].geometry.vertices[i].x += -(X) / 45
-            this.meshs[1].geometry.vertices[i + 41].x += -(X) / 45
-          }
+          this.meshs[1].geometry.vertices[i].z = stepSave[ind][i].z
+          this.meshs[1].geometry.vertices[i + 40].z = stepSave[ind][i].z
+          this.meshs[1].geometry.vertices[i].x = stepSave[ind][i].x
+          this.meshs[1].geometry.vertices[i + 40].x = stepSave[ind][i].x
         }
-        this.meshs[1].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
       }
+      this.meshs[1].geometry.verticesNeedUpdate = true
+      return true
+    },
+    close (step) {
+      if (this.getStep(step)) this.nextStep(1, this.close)
+    },
+    open (step) {
+      if (this.getStep(step)) this.nextStep(-1, this.open)
+    },
+    dragClose (step) {
+      if (this.getStep(step)) this.renderScene()
+    },
+    dragOpen (step) {
+      if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {
       const geometry = new THREE.PlaneGeometry(Math.PI, 2, 40, 1)
@@ -140,9 +126,9 @@ export default {
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f', '#6b63ef']
       // 定义6个坐标
-      const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0]]
+      const positions = [[0, 0.5, 0], [0, 0, 0], [Math.PI / 2, -0.5, 0]]
       // 定义6个转轴
-      const axiss = [[-Math.PI / 2, 1, 0], [0, 0, 0], [Math.PI / 2 - 0.5, -1, 0]]
+      const axiss = [[-Math.PI / 2, 1, 0], [0, 0, 0], [0, -1, 0]]
       // ----------------------------
       // 创造6个平面
       for (let index in colors) {
