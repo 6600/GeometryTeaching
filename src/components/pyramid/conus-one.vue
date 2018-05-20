@@ -46,8 +46,31 @@ export default {
     },
     close (step) {
       const spiale = this.spiale
+      // console.log(this.meshs[0].geometry.vertices)
+      // return
       if (step <= 90) {
         spiale[1].rotation.x = -step * (Math.PI / 180)
+        // 因为分为上下两个顶点所以要除2
+        const vLength = this.meshs[0].geometry.vertices.length / 2
+        // console.log(vLength)
+        // -----------------------------
+        for (let i = 0; i <= vLength - 1; i++) {
+          const Z = Math.abs(i - 20) * 0.05
+          let X = null
+          this.meshs[0].geometry.vertices[i + 40].y = -Y + 2.237981784893324
+          if (i < 20) {
+            X = -Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) + (Math.abs(i - 20) * Math.PI / 40)
+          } else {
+            X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - (Math.abs(i - 20) * Math.PI / 40)
+          }
+          this.meshs[0].geometry.vertices[i].z = Z / 90 * step
+          this.meshs[0].geometry.vertices[i + 41].z = Z / 90 * step
+          this.meshs[0].geometry.vertices[i].x += X / 90
+          this.meshs[0].geometry.vertices[i + 41].x += X / 90
+        }
+        // console.log(this.meshs[0].geometry.vertices)
+        // return
+        this.meshs[0].geometry.verticesNeedUpdate = true
         this.nextStep(1, this.close)
       }
     },
@@ -99,20 +122,20 @@ export default {
         this.meshs[index].castShadow = true
         // 将面变成圆锥
         const vLength = this.meshs[0].geometry.vertices.length / 2
-        console.log(this.meshs[0].geometry.vertices)
+        // console.log(this.meshs[0].geometry.vertices)
         for (let i = 1; i <= vLength; i++) {
           const X = (i - 1) * Math.PI / 40 - Math.PI / 2
           const Y = Math.sqrt(4 - Math.pow(X, 2))
-          console.log(X, Y)
+          // console.log(X, Y)
           this.meshs[0].geometry.vertices[i + 40].y = -Y + 2.237981784893324
         }
-        console.log(this.meshs[0].geometry.vertices)
+        // console.log(this.meshs[0].geometry.vertices)
         // 将平面添加到场景中
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      this.spiale[1].add(new THREE.AxesHelper(50))
+      // this.spiale[1].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 0)

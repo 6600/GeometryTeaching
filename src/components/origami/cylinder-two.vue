@@ -61,7 +61,7 @@ export default {
       // 上下圆面贴合
       spiale[0].rotation.x = step * (Math.PI / 450)
       spiale[2].rotation.x = -step * (Math.PI / 450)
-      spiale[2].position.x = (0 - step) * Math.PI / 225
+      spiale[2].position.x = -step * Math.PI / 225
       if (step <= 90) {
         // 步骤一
         // 平面变成直径为4的圆弧
