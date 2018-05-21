@@ -57,22 +57,26 @@ export default {
         for (let i = 0; i <= vLength - 1; i++) {
           const Z = Math.abs(i - 20) * 0.05
           let X = null
+          let X2 = null
           const Y = 2 - Math.sqrt(4 - Math.pow(Math.abs(i - 20) * Math.PI / 40, 2))
-          console.log(i, Y)
+          // console.log(i, Y)
           // return
           this.meshs[0].geometry.vertices[i].y -= Y / 90
           this.meshs[0].geometry.vertices[i + 41].y -= Y / 90
           // 中心点慢慢向中心偏移
-          this.meshs[0].geometry.vertices[20].z += 1 / 90
+          // this.meshs[0].geometry.vertices[20].z += 1 / 90
           // this.meshs[0].geometry.vertices[61].z += 1 / 90
           if (i < 20) {
             X = -Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) + (Math.abs(i - 20) * Math.PI / 40)
+            this.meshs[0].geometry.vertices[i].x += X / 90 + Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) / 90
           } else {
             X = Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) - (Math.abs(i - 20) * Math.PI / 40)
+            this.meshs[0].geometry.vertices[i].x += X / 90 - Math.sqrt(0.25 - Math.pow(Z - 0.5, 2)) / 90
           }
-          this.meshs[0].geometry.vertices[i].z = Z / 90 * step
-          this.meshs[0].geometry.vertices[i + 41].z = Z / 90 * step
-          this.meshs[0].geometry.vertices[i].x += X / 90
+          // console.log((20 - Math.abs(i - 20)))
+          this.meshs[0].geometry.vertices[i].z = Z / 90 * step + (step * (20 - Math.abs(i - 20)) / 40 / 90)
+          this.meshs[0].geometry.vertices[i + 41].z = Z / 90 * step 
+          
           this.meshs[0].geometry.vertices[i + 41].x += X / 90
         }
         // console.log(this.meshs[0].geometry.vertices)
@@ -82,12 +86,12 @@ export default {
       }
     },
     creatCube (scene, renderer, camera) {
-      const geometry = new THREE.PlaneGeometry(Math.PI, 2, 40, 1)
+      const geometry = new THREE.PlaneGeometry(Math.PI, 1, 40, 1)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
       const colors = ['#64e530', '#ccaa1f']
       // 定义6个坐标
-      const positions = [[0, -Math.PI / 4 + 0.05, 0], [0, -0.5, 0]]
+      const positions = [[0, -Math.PI / 4 + 0.75, 0], [0, -0.5, 0]]
       // 定义6个转轴
       const axiss = [[0, 0, 0], [0, -0.5, 0]]
       // ----------------------------
@@ -135,7 +139,8 @@ export default {
           const Y = Math.sqrt(4 - Math.pow(X, 2))
           // console.log(i, X, Y)
           // return
-          this.meshs[0].geometry.vertices[i + 40].y = -Y + 2.237981784893324
+          this.meshs[0].geometry.vertices[i - 1].y -= Math.abs(i - 21) * 0.005
+          this.meshs[0].geometry.vertices[i + 40].y = -Y + 1.54
         }
         // console.log(this.meshs[0].geometry.vertices)
         // 将平面添加到场景中
