@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { Fun } from '@/components/Order.js'
+import { Fun, Order } from '@/components/Order.js'
 export default {
   name: 'trigonometric-cone-one',
   data () {
@@ -24,6 +24,13 @@ export default {
       this.scene = Object3D.scene
       this.creatMitsubishiColumn(Object3D.scene, Object3D.renderer, Object3D.camera)
     })
+    // 监听暂停事件
+    Order.$on(`pause`, () => {
+      this.pause = true
+    })
+  },
+  beforeDestroy () { // 移除监听
+    Order.$off('pause')
   },
   methods: {
     nextStep () {

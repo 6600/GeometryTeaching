@@ -161,6 +161,7 @@ export default {
         }
         // 判断当前是否为正在打开状态
         case 2: {
+          console.log('暂停')
           this.origamiStyle = 0
           Order.$emit('pause')
           break
