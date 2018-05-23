@@ -91,10 +91,13 @@ export default {
               // 防止上下旋转角度超过90°
               if (Math.round(this.$refs.draw.camera.position.y) === -8) return
               this.thetax -= Math.PI / 180
+              console.log(this.thetax)
               const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
               this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
-              // console.log(this.cameraPosition)
+              console.log(this.distance / 40)
+              console.log(this.cameraPosition)
+              // return
               const newPos = this.cameraPosition.map((num) => {
                 return num * (this.distance / 40)
               })
@@ -183,7 +186,7 @@ export default {
     },
     changeViewing (distance) {
       this.distance = distance
-      console.log(this.$refs.draw.camera.position.z)
+      console.log(distance / 40)
       const newPos = this.cameraPosition.map((num) => {
         return num * (distance / 40)
       })
@@ -196,15 +199,15 @@ export default {
     },
     addViewing () {
       // 防止可以无限缩放大
-      if (this.distance >= 80) return
-      const newDistance = this.distance + 2
+      if (this.distance <= 0) return
+      const newDistance = this.distance - 2
       // console.log(newDistance)
       this.changeViewing(newDistance)
     },
     reduceViewing () {
       // 防止可以无限缩小
-      if (this.distance <= 0) return
-      const newDistance = this.distance - 2
+      if (this.distance >= 80) return
+      const newDistance = this.distance + 2
       // console.log(newDistance)
       this.changeViewing(newDistance)
     },
