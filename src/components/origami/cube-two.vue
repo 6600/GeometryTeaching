@@ -79,7 +79,7 @@ export default {
         // spiale[4].position.y = (272 * ratio)
         this.nextStep(2, this.close)
       } else if (step <= 360) {
-        console.log(spiale[4].rotation)
+        // console.log(spiale[4].rotation)
         spiale[4].rotation.y = (step) * ratio
         this.nextStep(2, this.close)
       } else if (step <= 450) {
@@ -203,7 +203,6 @@ export default {
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.y = step * ratio
-        this.nextStep(-2, this.open)
       } else if (step < 180) {
         spiale[5].rotation.y = -90 * ratio
         spiale[4].rotation.y = 270 * ratio

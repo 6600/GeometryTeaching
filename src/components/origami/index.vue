@@ -187,11 +187,12 @@ export default {
     },
     changeViewing (distance) {
       this.distance = distance
-      console.log(distance / 40)
+      // console.log(distance / 40)
       const newPos = this.cameraPosition.map((num) => {
+        // 除以2的原因是减小发达缩小倍数
         return num * (distance / 40)
       })
-      console.log(newPos)
+      // console.log(newPos)
       this.$refs.draw.camera.position.set(...newPos)
       // 使物体在相机中央
       this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
@@ -216,6 +217,7 @@ export default {
       this.sliderNum = step
     },
     controlStep (step) {
+      // console.log(step, this.lastStep)
       this.sliderNum = step
       // 判断是不是组装盒子 正为组装盒子，负为拆开盒子
       if (step > this.lastStep) {
@@ -246,7 +248,7 @@ export default {
       margin: 0 10px;
     }
     .origami-show {
-      height: 550px;
+      height: calc(100% - 150px);
       width: 780px;
       border-radius: 15px;
       overflow: hidden;

@@ -1,7 +1,7 @@
 <template>
   <div class="slider" :style="getSliderStyle()">
-    <div class="rod" @mousedown.stop.self.left="click" :style="getRodStyle()">
-      <div class="spot" :style="getSpotStyle()">{{value}}</div>
+    <div class="rod" :style="getRodStyle()">
+      <div class="spot" @mousedown.stop.self.left="click" :style="getSpotStyle()">{{value}}</div>
     </div>
   </div>
 </template>
@@ -105,6 +105,7 @@ export default {
         styleList.top = this.value * scale - 10 + 'px'
         styleList.left = (this.rodWidth - 20) / 2 + 'px'
       } else {
+        // console.log(this.value, scale)
         styleList.left = this.value * scale - 10 + 'px'
         styleList.top = (this.rodWidth - 20) / 2 + 'px'
       }
@@ -117,6 +118,7 @@ export default {
       // 判断是否超过允许的值
       if (num < 0) num = 0
       if (num > 1) num = 1
+      // console.log(num)
       const spotStyle = Math.ceil(num * this.segment)
       this.$emit('input', spotStyle)
     },
@@ -165,7 +167,7 @@ export default {
   }
   .spot {
     // 鼠标穿透点击
-    pointer-events: none;
+    // pointer-events: none;
     border: 2px solid white;
     background-color: #E19F14;
     width: 15px;

@@ -155,7 +155,7 @@ export default {
       this.spiale[2].rotation.z = 2 * Math.atan(0.25)
       this.spiale[3].rotation.z = 2 * 2 * Math.atan(0.25)
       this.spiale[4].rotation.z = 3 * 2 * Math.atan(0.25)
-      this.spiale[0].add(new THREE.AxesHelper(50))
+      // this.spiale[0].add(new THREE.AxesHelper(50))
       setTimeout(() => {
         this.renderScene()
       }, 0)

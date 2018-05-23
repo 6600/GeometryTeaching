@@ -60,6 +60,8 @@ export default {
     padding: 0;
     width: 100%;
     height: 100%;
+    min-width: 1024px;
+    min-height: 768px;
     overflow: hidden;
     position: relative;
   }
@@ -71,6 +73,7 @@ export default {
   }
   .app-box {
     height: calc(~"100% - 70px");
+    min-height: 700px;
     width: 100%;
     display: flex;
   }
@@ -87,6 +90,7 @@ export default {
     }
     .reduction {
       margin: 25px;
+      bottom: 140px;
       background-position: -4px -2px;
       background-image: url('.\assets\button\zcd04@1x.png');
     }

@@ -57,7 +57,7 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     close (step) {
-      if (step <= 0) {
+      if (step < 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
         return
