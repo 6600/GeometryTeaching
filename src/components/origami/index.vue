@@ -81,7 +81,8 @@ export default {
     flipTo (type) {
       // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
       // 为了方便后面的计算 这里使用了平方
-      const ratio = Math.pow(8 + this.distance / 10 - 4, 2)
+      const ratio = Math.pow(8, 2)
+      const distance = this.distance
       // console.log(this.$refs.draw.camera.position)
       for (let i = 0; i < 5; i++) {
         setTimeout(() => {
@@ -91,15 +92,15 @@ export default {
               // 防止上下旋转角度超过90°
               if (Math.round(this.$refs.draw.camera.position.y) === -8) return
               this.thetax -= Math.PI / 180
-              console.log(this.thetax)
+              // console.log(this.thetax)
               const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
               const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
               this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
-              console.log(this.distance / 40)
-              console.log(this.cameraPosition)
+              // console.log(2 - distance / 40)
+              // console.log(this.cameraPosition)
               // return
               const newPos = this.cameraPosition.map((num) => {
-                return num * (this.distance / 40)
+                return num / (2 - distance / 40)
               })
               // console.log(newPos)
               this.$refs.draw.camera.position.set(...newPos)
@@ -111,7 +112,7 @@ export default {
               const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
               this.cameraPosition = [r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay)]
               const newPos = this.cameraPosition.map((num) => {
-                return num * (this.distance / 40)
+                return num / (2 - distance / 40)
               })
               this.$refs.draw.camera.position.set(...newPos)
               break
@@ -124,7 +125,7 @@ export default {
               const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
               this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
               const newPos = this.cameraPosition.map((num) => {
-                return num * (this.distance / 40)
+                return num / (2 - distance / 40)
               })
               this.$refs.draw.camera.position.set(...newPos)
               break
@@ -135,7 +136,7 @@ export default {
               const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
               this.cameraPosition = [r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay)]
               const newPos = this.cameraPosition.map((num) => {
-                return num * (this.distance / 40)
+                return num / (2 - distance / 40)
               })
               this.$refs.draw.camera.position.set(...newPos)
               break
@@ -187,7 +188,7 @@ export default {
     },
     changeViewing (distance) {
       this.distance = distance
-      console.log(distance / 40)
+      // console.log(distance / 40)
       const newPos = this.cameraPosition.map((num) => {
         // 除以2的原因是减小发达缩小倍数
         return num / (2 - distance / 40)
