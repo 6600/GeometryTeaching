@@ -15,7 +15,7 @@ export default {
       meshs: [],
       pause: false,
       step: 0,
-      stepCount: 420
+      stepCount: 426.4
     }
   },
   mounted () {
@@ -66,22 +66,24 @@ export default {
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    close (step) {
+    close () {
+      const step = this.step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
+      // console.log(step)
       if (step <= 106.6) {
         // 盒子左1
-        spiale[3].rotateX(ratio)
+        spiale[3].rotation.x = step * ratio
         this.closeBox()
       } else if (step <= 2 * 106.6) {
         // 上部
-        spiale[4].rotateX(-ratio)
+        spiale[4].rotation.x = -(step - 106.6) * ratio
         this.closeBox()
       } else if (step <= 3 * 106.6 + 1) {
-        spiale[0].rotateY(ratio)
+        spiale[0].rotation.y = (step - 106.6 * 2) * ratio
         this.closeBox()
       } else if (step <= 4 * 106.6 + 1) {
-        spiale[2].rotateY(-ratio)
+        spiale[2].rotation.y = -(step - 106.6 * 3) * ratio
         this.closeBox()
       } else {
         // 广播关闭完成事件
@@ -117,27 +119,23 @@ export default {
     dragClose (step) {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
-      if (step <= 90) {
+      // console.log(step)
+      if (step <= 106.6) {
         // 盒子左1
         spiale[3].rotation.x = step * ratio
-      } else if (step <= 180) {
-        // 盒子左1
-        spiale[3].rotation.x = 90 * ratio
+      } else if (step <= 2 * 106.6) {
         // 上部
-        spiale[4].rotation.x = -(step - 90) * ratio
-      } else if (step <= 300) {
-        // 盒子左1
-        spiale[3].rotation.x = 90 * ratio
-        // 上部
-        spiale[4].rotation.x = -90 * ratio
-        spiale[0].rotation.y = (step - 180) * ratio
-      } else if (step <= 420) {
-        // 盒子左1
-        spiale[3].rotation.x = 90 * ratio
-        // 上部
-        spiale[4].rotation.x = -90 * ratio
-        spiale[0].rotation.y = 120 * ratio
-        spiale[2].rotation.y = -(step - 300) * ratio
+        spiale[3].rotation.x = 106.6 * ratio
+        spiale[4].rotation.x = -(step - 106.6) * ratio
+      } else if (step <= 3 * 106.6 + 1) {
+        spiale[3].rotation.x = 106.6 * ratio
+        spiale[4].rotation.x = -(2 * 106.6 - 106.6) * ratio
+        spiale[0].rotation.y = (step - 106.6 * 2) * ratio
+      } else if (step <= 4 * 106.6 + 1) {
+        spiale[3].rotation.x = 106.6 * ratio
+        spiale[4].rotation.x = -(2 * 106.6 - 106.6) * ratio
+        spiale[0].rotation.y = (3 * 106.6 - 106.6 * 2) * ratio
+        spiale[2].rotation.y = -(step - 106.6 * 3) * ratio
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')
