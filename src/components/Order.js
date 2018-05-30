@@ -5,8 +5,8 @@ const THREE = require('three')
 const Order = new Vue()
 const Fun = {
   init3D (DOM, callBack) {
-    const WIDTH = 780
-    const HEIGHT = 550
+    const WIDTH = document.documentElement.clientWidth - 244
+    const HEIGHT = document.documentElement.clientHeight - 218
     // 创建场景
     let scene = new THREE.Scene()
     // 配置渲染器
@@ -51,6 +51,11 @@ const Fun = {
     object3d.position.set(0, -10, 0)
     object3d.name = 'Key light'
     scene.add(object3d)
+    window.onresize = function () {
+      const WIDTH = document.documentElement.clientWidth - 244
+      const HEIGHT = document.documentElement.clientHeight - 218
+      renderer.setSize(WIDTH, HEIGHT)
+    }
     callBack({scene, renderer, camera})
   },
   /**

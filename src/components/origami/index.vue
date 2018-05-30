@@ -249,8 +249,6 @@ export default {
       margin: 0 10px;
     }
     .origami-show {
-      height: calc(100% - 150px);
-      width: 780px;
       border-radius: 15px;
       overflow: hidden;
       margin: 10px;
@@ -263,14 +261,14 @@ export default {
   }
   .top {
     top: 30px;
-    left: 360px;
+    left: calc(~"50% - 33px");
     width: 68px;
     height: 40px;
     background-image: url('..\..\assets\origami\bofang04@1x.png')
   }
   .bottom {
-    top: 510px;
-    left: 360px;
+    bottom: 150px;
+    left: calc(~"50% - 33px");
     width: 68px;
     height: 40px;
     background-image: url('..\..\assets\origami\bofang06@1x.png')
@@ -279,14 +277,14 @@ export default {
     background-position: 0px -40px;
   }
   .left {
-    top: 280px;
+    top: calc(~"50% - 33px");
     left: 30px;
     width: 40px;
     height: 66px;
     background-image: url('..\..\assets\origami\bofang05@1x.png')
   }
   .right {
-    top: 280px;
+    top: calc(~"50% - 33px");
     left: 730px;
     width: 40px;
     height: 66px;
