@@ -7,9 +7,6 @@ import cubetwo from '@/components/origami/cube-two'
 // 三角锥
 import mitsubishiColumnOne from '@/components/origami/mitsubishi-column-one'
 import mitsubishiColumnTwo from '@/components/origami/mitsubishi-column-two'
-// 三棱锥
-import trigonometricConeOne from '@/components/origami/trigonometric-cone-one'
-import trigonometricConeTwo from '@/components/origami/trigonometric-cone-two'
 // 长方体1
 import cuboidOne from '@/components/origami/cuboid-one'
 import cuboidTwo from '@/components/origami/cuboid-two'
@@ -73,9 +70,6 @@ export default new Router({
         // 圆柱
         { path: '/origami/cylinderOne', name: 'cylinder-one', component: cylinderOne },
         { path: '/origami/cylinderTwo', name: 'cylinder-two', component: cylinderTwo },
-        // 三棱锥
-        { path: '/origami/trigonometricConeOne', name: 'trigonometric-cone-one', component: trigonometricConeOne },
-        { path: '/origami/trigonometricConeTwo', name: 'trigonometric-cone-two', component: trigonometricConeTwo },
         // 三棱锥
         { path: '/origami/pyramidThreeOne', name: 'pyramid-three-one', component: pyramidThreeOne },
         { path: '/origami/pyramidThreeTwo', name: 'pyramid-three-two', component: pyramidThreeTwo },

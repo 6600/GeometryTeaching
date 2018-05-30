@@ -59,28 +59,28 @@ export default {
         // 盒子左1
         spiale[0].rotation.y = step * (Math.PI / 180)
         spiale[1].rotation.y = step * (Math.PI / 180)
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 180) {
         // 盒子右部
         spiale[3].rotation.y = -(step - 90) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 270) {
         // 盒子上部
         spiale[4].rotation.x = (step - 180) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 360) {
         // 盒子右部
         spiale[5].rotation.x = -(step - 270) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step === 362) {
         // 重设0面转轴
         this.meshs[0].position.set(-0.5, 0, 0)
         this.spiale[0].position.set(-0.5, 0, 0.5)
         spiale[0].rotation.y = 90 * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 450) {
         spiale[0].rotation.y = (step - 270) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')
@@ -125,6 +125,7 @@ export default {
       }
     },
     dragClose (step) {
+      this.step = step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
       if (step <= 90) {
@@ -177,6 +178,7 @@ export default {
       this.renderScene()
     },
     dragOpen (step) {
+      this.step = step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
       if (step < 0) {

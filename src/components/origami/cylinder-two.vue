@@ -122,9 +122,11 @@ export default {
       if (this.getStep(step)) this.nextStep(-1, this.open)
     },
     dragClose (step) {
+      this.step = step
       if (this.getStep(step)) this.renderScene()
     },
     dragOpen (step) {
+      this.step = step
       if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {

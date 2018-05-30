@@ -131,6 +131,7 @@ export default {
       }
     },
     dragClose (step) {
+      this.step = step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
       if (step <= 90) {
@@ -192,6 +193,7 @@ export default {
       this.renderScene()
     },
     dragOpen (step) {
+      this.step = step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
       if (step < 0) {

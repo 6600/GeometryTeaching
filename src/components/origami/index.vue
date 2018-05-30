@@ -157,7 +157,9 @@ export default {
         // 判断当前是否为打开状态
         case 0: {
           this.origamiStyle = 2
-          this.$refs.draw.close(0)
+          // console.log(this.sliderNum)
+          // this.$refs.draw.step = this.sliderNum
+          this.$refs.draw.close(this.sliderNum)
           break
         }
         // 判断当前是否为正在打开状态
@@ -175,7 +177,7 @@ export default {
         // 判断当前是否为打开状态
         case 1: {
           this.origamiStyle = 3
-          this.$refs.draw.open(this.stepCount)
+          this.$refs.draw.open(this.sliderNum - 1)
           break
         }
         // 判断当前是否为正在打开状态
@@ -285,7 +287,7 @@ export default {
   }
   .right {
     top: calc(~"50% - 33px");
-    left: 730px;
+    right: 130px;
     width: 40px;
     height: 66px;
     background-image: url('..\..\assets\origami\bofang07@1x.png')
