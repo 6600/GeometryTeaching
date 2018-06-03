@@ -1,5 +1,6 @@
 <template lang="pug">
   .origami-box
+    .title {{$route.name.split('-')[0]}}
     router-view.origami-show(ref="draw", @stepChange="changeStep", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
     .origami-menu
       Button150.button(text="輸出圖形", @onClick="showExport = true")
@@ -353,5 +354,14 @@ export default {
       background-position: -10px -5px;
       background-image: url('..\..\assets\origami\bofang03@1x.png');
     }
+  }
+  .title {
+    position: fixed;
+    width: 140px;
+    text-align: center;
+    left: calc(50% - 70px);
+    top: 50px;
+    font-weight: bold;
+    font-size: 21px;
   }
 </style>

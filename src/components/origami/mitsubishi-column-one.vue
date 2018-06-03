@@ -19,6 +19,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this)
     // 创建3D环境
     Fun.init3D(this.$el, (Object3D) => {
       this.camera = Object3D.camera

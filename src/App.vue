@@ -64,6 +64,7 @@ export default {
     min-height: 768px;
     overflow: hidden;
     position: relative;
+    font-family: 'DFYuan-Md-HK-BF';
   }
   .home-title {
     height: 70px;
@@ -112,6 +113,16 @@ export default {
   }
   .clear {
     clear: both;
+  }
+  @font-face {
+    font-family: "DFYuan-Md-HK-BF";
+    src: url("./assets/font/DFYuan-Md-HK-BF.eot"); /* IE9 */
+    src: url("./assets/font/DFYuan-Md-HK-BF.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./assets/font/DFYuan-Md-HK-BF.woff") format("woff"), /* chrome、firefox */
+    url("./assets/font/DFYuan-Md-HK-BF.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    url("./assets/font/DFYuan-Md-HK-BF.svg#DFYuan-Md-HK-BF") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
   }
 </style>
 
