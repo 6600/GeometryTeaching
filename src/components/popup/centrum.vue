@@ -31,6 +31,12 @@ export default {
   components: {
     Button105
   },
+  created () {
+    const temp = this.$route.fullPath.split('/')
+    if (temp[2]) {
+      this.popupCheck = temp[2]
+    }
+  },
   methods: {
     confirm () {
       if (this.$router.currentRoute.name === 'activityGame') {
