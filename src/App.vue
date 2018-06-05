@@ -60,8 +60,8 @@ export default {
     padding: 0;
     width: 100%;
     height: 100%;
-    min-width: 1024px;
-    min-height: 768px;
+    min-width: 768px;
+    min-height: 576px;
     overflow: hidden;
     position: relative;
     font-family: 'DFYuan-Md-HK-BF';
@@ -74,7 +74,7 @@ export default {
   }
   .app-box {
     height: calc(~"100% - 70px");
-    min-height: 700px;
+    min-height: 400px;
     width: 100%;
     display: flex;
   }

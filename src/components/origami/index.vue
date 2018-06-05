@@ -257,6 +257,7 @@ export default {
       border-radius: 15px;
       overflow: hidden;
       margin: 10px;
+      height: calc(~"100% - 140px");
     }
   }
   .flip-button {
@@ -266,14 +267,14 @@ export default {
   }
   .top {
     top: 30px;
-    left: calc(~"50% - 33px");
+    left: calc(~"50% - 82px");
     width: 68px;
     height: 40px;
     background-image: url('..\..\assets\origami\bofang04@1x.png')
   }
   .bottom {
     bottom: 150px;
-    left: calc(~"50% - 33px");
+    left: calc(~"50% - 82px");
     width: 68px;
     height: 40px;
     background-image: url('..\..\assets\origami\bofang06@1x.png')
@@ -282,14 +283,14 @@ export default {
     background-position: 0px -40px;
   }
   .left {
-    top: calc(~"50% - 33px");
+    top: calc(~"50% - 75px");
     left: 30px;
     width: 40px;
     height: 66px;
     background-image: url('..\..\assets\origami\bofang05@1x.png')
   }
   .right {
-    top: calc(~"50% - 33px");
+    top: calc(~"50% - 75px");
     right: 130px;
     width: 40px;
     height: 66px;
