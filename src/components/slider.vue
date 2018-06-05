@@ -72,7 +72,7 @@ export default {
         styleList.width = this.width + 'px'
       } else {
         styleList.height = this.width + 'px'
-        styleList.width = this.length + 'px'
+        styleList.width = '100%'
       }
       return styleList
     },
@@ -156,6 +156,8 @@ export default {
   .slider {
     position: relative;
     cursor: pointer;
+    background-color: #9dbdff;
+    border-radius: 18px;
   }
   .rod {
     height: 6px;

@@ -6,7 +6,7 @@
         Button70.button(@onClick="showColumnPopup = true", text="柱體")
         Button70.button(@onClick="showCentrumPopup = true", text="椎體")
         Line60
-        Button70.button.pintu(@onClick="playGame", text="")
+        Button70.button.pintu(@onClick="playGame", text="", title="拼图")
         Line60
         Button60.reduction(@onClick="reduction")
         Button60.explain(@onClick="help")

@@ -19,7 +19,7 @@
       //- 增加相机距离按钮
       .add-distance.button(@click="addViewing()")
       //- 相机滑块
-      Slider(:value="distance", @input="changeViewing", :vertical="true", :width="60", :length="410", :segment="80")
+      Slider(:value="distance", @input="changeViewing", :vertical="true", :width="60", :length="410", rodColor="white", :segment="80")
       //- 减少相机距离按钮
       .reduce-distance.button(@click="reduceViewing()")
     ExportImg(v-if="showExport", @close="showExport = false")
@@ -305,7 +305,7 @@ export default {
     right: 20px;
     height: 545px;
     width: 65px;
-    background-color: #ffbfdf;
+    background-color: #9dbdff;
     border-radius: 15px;
     .button {
       width: 62px;
@@ -329,10 +329,9 @@ export default {
   }
   .control {
     height: 92px;
-    width: 776px;
+    width: calc(~"100% - 120px");
     margin: 0 20px;
     position: relative;
-    background-image: url('..\..\assets\origami\bofang00@1x.png');
     .button {
       width: 50px;
       height: 50px;

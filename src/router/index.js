@@ -51,11 +51,11 @@ export default new Router({
       component: origami,
       children: [
         // 立方体
-        { path: '/origami/cubeTwo', name: '三角柱体-two', component: cubetwo },
-        { path: '/origami/cubeOne', name: '三角柱体-one', component: cubeOne },
+        { path: '/origami/cubeTwo', name: '正方体-two', component: cubetwo },
+        { path: '/origami/cubeOne', name: '正方体-one', component: cubeOne },
         // 三棱柱
-        { path: '/origami/mitsubishiColumnOne', name: '正方体-one', component: mitsubishiColumnOne },
-        { path: '/origami/mitsubishiColumnTwo', name: '正方体-two', component: mitsubishiColumnTwo },
+        { path: '/origami/mitsubishiColumnOne', name: '三角柱体-one', component: mitsubishiColumnOne },
+        { path: '/origami/mitsubishiColumnTwo', name: '三角柱体-two', component: mitsubishiColumnTwo },
         // 长方体
         { path: '/origami/cuboidOne', name: '长方体-one', component: cuboidOne },
         { path: '/origami/cuboidTwo', name: '长方体-two', component: cuboidTwo },
