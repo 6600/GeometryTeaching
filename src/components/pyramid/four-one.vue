@@ -15,7 +15,7 @@ export default {
       meshs: [],
       pause: false,
       step: 0,
-      stepCount: 426.4
+      stepCount: 428
     }
   },
   mounted () {
@@ -71,21 +71,23 @@ export default {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
       // console.log(step)
-      if (step <= 106.6) {
+      if (step <= 107) {
         // 盒子左1
         spiale[3].rotation.x = step * ratio
         this.closeBox()
-      } else if (step <= 2 * 106.6) {
+      } else if (step <= 2 * 107) {
         // 上部
         spiale[4].rotation.x = -(step - 106.6) * ratio
         this.closeBox()
-      } else if (step <= 3 * 106.6 + 1) {
+      } else if (step <= 3 * 107 - 1) {
         spiale[0].rotation.y = (step - 106.6 * 2) * ratio
         this.closeBox()
-      } else if (step <= 4 * 106.6 + 1) {
+      } else if (step <= 4 * 107 - 1) {
         spiale[2].rotation.y = -(step - 106.6 * 3) * ratio
         this.closeBox()
       } else {
+        spiale[4].rotation.x = spiale[4].rotation.x + 0.01
+        spiale[2].rotation.y = spiale[2].rotation.y + 0.01
         // 广播关闭完成事件
         this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
@@ -120,22 +122,22 @@ export default {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
       // console.log(step)
-      if (step <= 106.6) {
+      if (step <= 107) {
         // 盒子左1
         spiale[3].rotation.x = step * ratio
-      } else if (step <= 2 * 106.6) {
+      } else if (step <= 2 * 107) {
         // 上部
-        spiale[3].rotation.x = 106.6 * ratio
-        spiale[4].rotation.x = -(step - 106.6) * ratio
-      } else if (step <= 3 * 106.6 + 1) {
-        spiale[3].rotation.x = 106.6 * ratio
-        spiale[4].rotation.x = -(2 * 106.6 - 106.6) * ratio
+        spiale[3].rotation.x = 107 * ratio
+        spiale[4].rotation.x = -(step - 107) * ratio
+      } else if (step <= 3 * 107 + 1) {
+        spiale[3].rotation.x = 107 * ratio
+        spiale[4].rotation.x = -(2 * 107 - 107) * ratio
         spiale[0].rotation.y = (step - 106.6 * 2) * ratio
-      } else if (step <= 4 * 106.6 + 1) {
-        spiale[3].rotation.x = 106.6 * ratio
-        spiale[4].rotation.x = -(2 * 106.6 - 106.6) * ratio
-        spiale[0].rotation.y = (3 * 106.6 - 106.6 * 2) * ratio
-        spiale[2].rotation.y = -(step - 106.6 * 3) * ratio
+      } else if (step <= 4 * 107 + 2) {
+        spiale[3].rotation.x = 107 * ratio
+        spiale[4].rotation.x = -(2 * 107 - 107) * ratio
+        spiale[0].rotation.y = (3 * 106.9 - 107 * 2) * ratio
+        spiale[2].rotation.y = -(step - 107.1 * 3) * ratio
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')

@@ -77,7 +77,7 @@ export default {
         this.spiale[3].position.set(0.25, 0, 0.5)
         spiale[3].rotation.y = -90 * ratio
         this.nextStep(2, this.close)
-      } else if (step < 450) {
+      } else if (step <= 450) {
         spiale[3].rotation.y = -(step - 270) * ratio
         this.nextStep(2, this.close)
       } else {
