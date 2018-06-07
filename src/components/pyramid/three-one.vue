@@ -85,7 +85,12 @@ export default {
       if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
-        return
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
       }
       this.spiale[0].rotation.x = this.stepSave[0][step].rotation[0]
       this.spiale[0].rotation.y = this.stepSave[0][step].rotation[1]

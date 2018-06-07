@@ -137,6 +137,16 @@ export default {
     },
     dragClose (step) {
       const ratio = Math.PI / 180
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
       if (step <= 60) {
         this.spiale[1].rotation.y = step * ratio
         this.spiale[2].rotation.y = step * ratio
@@ -189,11 +199,15 @@ export default {
     },
     dragOpen (step) {
       const ratio = Math.PI / 180
-      if (step < 0) {
-        // 广播关闭完成事件
+      if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
-        return
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
       }
       if (step <= 60) {
         this.spiale[0].rotation.x = 0

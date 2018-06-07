@@ -99,28 +99,28 @@ export default {
         this.spiale[4].rotation.y = -step * ratio
         this.spiale[5].rotation.y = -step * ratio
         this.spiale[3].rotation.y = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 74) {
         this.meshs[4].position.set(1.5, 0, 0)
         this.spiale[4].position.set(-0.5, 0, 0)
         this.meshs[5].position.set(2.5, 0, 0)
         this.spiale[5].position.set(-0.5, 0, 0)
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 72 + 90) {
         this.spiale[0].rotation.x = (step - 72) * ratio
         this.spiale[6].rotation.x = -(step - 72) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 180 + 58) {
         this.spiale[4].rotation.y = -(step - 94) * ratio
         this.spiale[5].rotation.y = -(step - 94) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 180 + 60) {
         this.meshs[5].position.set(1.5, 0, 0)
         this.spiale[5].position.set(-0.5 + Math.sin(18 * Math.PI / 180), 0, Math.cos(18 * Math.PI / 180))
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 270 + 54) {
         this.spiale[5].rotation.y = -(step - 96) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')
@@ -130,6 +130,16 @@ export default {
     dragClose (step) {
       this.step = step
       const ratio = Math.PI / 180
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
       if (step <= 72) {
         this.spiale[1].rotation.y = step * ratio
         this.spiale[4].rotation.y = -step * ratio
@@ -167,21 +177,21 @@ export default {
         this.meshs[5].position.set(0.5, 0, 0)
         this.spiale[5].position.set(-1, 0, Math.cos(18 * Math.PI / 180) + Math.sin(36 * Math.PI / 180))
         this.spiale[5].rotation.y = -(step - 96) * ratio
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
       }
       this.renderScene()
     },
     dragOpen (step) {
       this.step = step
       const ratio = Math.PI / 180
-      if (step < 0) {
-        // 广播关闭完成事件
+      if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
-        return
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
       }
       if (step <= 72) {
         this.spiale[6].rotation.x = 0

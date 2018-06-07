@@ -143,6 +143,16 @@ export default {
     },
     dragClose (step) {
       const ratio = (Math.PI / 180)
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
       if (step <= 60) {
         this.spiale[1].rotation.x = step * ratio
         this.spiale[3].rotation.x = -step * ratio
@@ -188,20 +198,20 @@ export default {
         this.spiale[6].position.set(-1, 0, Math.sqrt(3))
         this.spiale[4].rotation.x = -(step - 240) * ratio
         this.spiale[6].rotation.x = (step - 240) * ratio
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
       }
       this.renderScene()
     },
     dragOpen (step) {
       const ratio = (Math.PI / 180)
-      if (step < 0) {
-        // 广播关闭完成事件
+      if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
-        return
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
       }
       if (step <= 60) {
         this.spiale[4].rotation.x = 0
@@ -254,10 +264,6 @@ export default {
       } else if (step <= 300) {
         this.spiale[4].rotation.x = -(step - 240) * ratio
         this.spiale[6].rotation.x = (step - 240) * ratio
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
       }
       this.renderScene()
     },

@@ -112,7 +112,7 @@ export default {
         spiale[0].rotation.y = (step - 270) * ratio
         spiale[1].rotation.y = (step - 270) * ratio
         this.nextStep(-2, this.open)
-      } else if (step === 362) {
+      } else if (step === 361) {
         // 重设0面转轴
         this.meshs[0].position.set(-1.5, 0, 0)
         this.spiale[0].position.set(-0.5, 0, 0)
@@ -131,6 +131,16 @@ export default {
       this.step = step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
       if (step <= 90) {
         // 盒子上部
         spiale[4].rotation.x = step * ratio
@@ -177,7 +187,16 @@ export default {
       this.step = step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
-      if (step < 0) { return }
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
       if (step <= 90) {
         spiale[0].rotation.y = 0 * ratio
         this.meshs[0].position.set(-1.5, 0, 0)

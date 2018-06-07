@@ -167,6 +167,16 @@ export default {
       this.step = step
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.y = step * ratio
@@ -245,10 +255,6 @@ export default {
         this.meshs[5].position.set(0.25, 0.5, 0)
         this.spiale[5].position.set(0.25, -1, 0)
         spiale[5].rotation.y = -(step - 270) * ratio
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
       }
       this.renderScene()
     },
@@ -257,11 +263,22 @@ export default {
       this.step = step
       const spiale = this.spiale
       const ratio = Math.PI / 180
-      if (step < 0) {
-        // 广播关闭完成事件
+      if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
         return
+      }
+      // console.log(step)
+      if (step > this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step === this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
       }
       if (step <= 90) {
         // 重设0面转轴
