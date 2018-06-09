@@ -85,6 +85,7 @@ export default {
       if (this.getStep(step)) this.nextStep(1, this.close)
     },
     open (step) {
+      if (step > this.stepCount) step = this.stepCount
       if (this.getStep(step)) this.nextStep(-1, this.open)
     },
     dragClose (step) {

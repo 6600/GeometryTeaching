@@ -57,10 +57,22 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     close (step) {
-      if (step < 0) {
+      if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
         return
+      }
+      // console.log(step)
+      if (step > this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step === this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
       }
       this.spiale[0].rotation.x = this.stepSave[0][step].rotation[0]
       this.spiale[0].rotation.y = this.stepSave[0][step].rotation[1]
@@ -71,11 +83,6 @@ export default {
       this.spiale[2].rotation.x = this.stepSave[2][step].rotation[0]
       this.spiale[2].rotation.y = this.stepSave[2][step].rotation[1]
       this.spiale[2].rotation.z = this.stepSave[2][step].rotation[2]
-      if (step >= this.stepCount) {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
-      }
       this.nextStep(2, this.close)
     },
     open (step) {
