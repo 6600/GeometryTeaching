@@ -14,6 +14,10 @@
         .input-check(:class="{active: checkItem === 2}")
           .check(@click="toItem(2)")
           .text 單線圖
+      .nianhe
+        .yes.nianhe-check(:class="{active: isnianhe}", @click="chengenianhe(true)")
+        .no.nianhe-check(:class="{active: !isnianhe}", @click="chengenianhe(false)")
+        img(:src=`'../../../static/export/sctx@2x000' + checkItem + '.png'`)
       .tool-box
         Button.button(text="确定", @onClick="saveImage()")
         Button.button(text="预览", @onClick="showPreview = true")
@@ -35,13 +39,15 @@ export default {
       gray: false,
       checkItem: 0,
       showPreview: false,
-      imgBase64: null
+      imgBase64: null,
+      isnianhe: true
     }
   },
   created () {
     const routeName = this.$route.name
     // console.log(routeName)
-    this.imgBase64 = `./static/export/color/${routeName}.png`
+    if (this.isnianhe) this.imgBase64 = `./static/export/color/${routeName}-nianhe.png`
+    else this.imgBase64 = `./static/export/color/${routeName}.png`
   },
   components: {
     Button
@@ -54,7 +60,8 @@ export default {
           // 取消灰度
           this.gray = false
           this.checkItem = 0
-          this.imgBase64 = `./static/export/color/${routeName}.png`
+          if (this.isnianhe) this.imgBase64 = `./static/export/color/${routeName}-nianhe.png`
+          else this.imgBase64 = `./static/export/color/${routeName}.png`
           break
         }
         case 1: {
@@ -66,8 +73,10 @@ export default {
           // 取消灰度
           this.gray = false
           this.checkItem = 2
+          const routeName = this.$route.name
           // console.log(this.$route.name.split('-')[0])
-          this.imgBase64 = `./static/export/origami-line/${this.$route.name}.png`
+          if (this.isnianhe) this.imgBase64 = `./static/export/color/${routeName}-nianhe.png`
+          else this.imgBase64 = `./static/export/color/${routeName}.png`
           break
         }
       }
@@ -90,6 +99,12 @@ export default {
         // download
         Fun.saveFile(imgData, filename)
       })
+    },
+    chengenianhe (bool) {
+      this.isnianhe = bool
+      const routeName = this.$route.name
+      if (this.isnianhe) this.imgBase64 = `./static/export/color/${routeName}-nianhe.png`
+      else this.imgBase64 = `./static/export/color/${routeName}.png`
     }
   }
 }
@@ -205,6 +220,34 @@ export default {
     margin: 25px;
     .button {
       margin: 0 30px;
+    }
+  }
+  .nianhe {
+    position: absolute;
+    bottom: 92px;
+    img {
+      width: 90%;
+      margin: 0 5%;
+    }
+    .nianhe-check {
+      height: 29px;
+      width: 30px;
+      cursor: pointer;
+      background-size: 30px;
+      background-repeat: no-repeat;
+      position: absolute;
+      background-image: url('../../../static/export/bt013@2x.png')
+    }
+    .yes {
+      left: 138px;
+      top: 26px;
+    }
+    .no {
+      right: 233px;
+      top: 26px;
+    }
+    .active {
+      background-position: 0px -28px;
     }
   }
 </style>

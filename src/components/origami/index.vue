@@ -162,7 +162,7 @@ export default {
           this.origamiStyle = 2
           // console.log(this.sliderNum)
           // this.$refs.draw.step = this.sliderNum
-          this.$refs.draw.step = this.sliderNum
+          this.$refs.draw.step = this.sliderNum += 2
           this.$refs.draw.close(this.sliderNum)
           break
         }
@@ -181,7 +181,7 @@ export default {
         // 判断当前是否为打开状态
         case 1: {
           this.origamiStyle = 3
-          this.$refs.draw.step = this.sliderNum
+          this.$refs.draw.step = this.sliderNum -= 2
           this.$refs.draw.open(this.sliderNum)
           break
         }

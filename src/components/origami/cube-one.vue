@@ -89,11 +89,15 @@ export default {
     open (step) {
       const spiale = this.spiale
       const ratio = (Math.PI / 180)
-      if (step < 0) {
-        // 广播关闭完成事件
+      if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
-        return
+        return false
+      }
+      if (step >= this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
       }
       if (step <= 90) {
         // 盒子上部
@@ -121,10 +125,6 @@ export default {
       } else if (step < 451) {
         spiale[0].rotation.y = (step - 270) * ratio
         this.nextStep(-2, this.open)
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
       }
     },
     dragClose (step) {
