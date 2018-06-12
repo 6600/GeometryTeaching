@@ -60,11 +60,13 @@ export default {
     padding: 0;
     width: 100%;
     height: 100%;
-    min-width: 768px;
-    min-height: 576px;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     font-family: 'DFYuan-Md-HK-BF';
+  }
+  #app {
+    min-width: 920px;
+    min-height: 576px;
   }
   .home-title {
     height: 70px;

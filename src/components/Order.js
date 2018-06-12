@@ -1,7 +1,7 @@
 'use strict'
 import Vue from 'vue'
 const THREE = require('three')
-
+// const OrbitControls = require('three-orbit-controls')(THREE)
 const Order = new Vue()
 const Fun = {
   init3D (DOM, callBack) {
@@ -52,10 +52,19 @@ const Fun = {
     object3d.name = 'Key light'
     scene.add(object3d)
     window.onresize = function () {
-      const WIDTH = document.documentElement.clientWidth - 244
-      const HEIGHT = document.documentElement.clientHeight - 218
+      const WIDTH = document.documentElement.clientWidth > 920 ? document.documentElement.clientWidth - 244 : 920 - 244
+      const HEIGHT = document.documentElement.clientHeight > 576 ? document.documentElement.clientHeight - 218 : 576 - 218
+      camera.aspect = WIDTH / HEIGHT
+      camera.updateProjectionMatrix()
       renderer.setSize(WIDTH, HEIGHT)
     }
+
+    // controls
+    // const controls = new OrbitControls(camera)
+    // controls.maxPolarAngle = Math.PI * 0.5
+    // controls.minDistance = 1000
+    // controls.maxDistance = 5000
+    // controls.update()
     callBack({scene, renderer, camera})
   },
   /**

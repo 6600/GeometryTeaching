@@ -17,7 +17,7 @@
       .nianhe
         .yes.nianhe-check(:class="{active: isnianhe}", @click="chengenianhe(true)")
         .no.nianhe-check(:class="{active: !isnianhe}", @click="chengenianhe(false)")
-        img(:src=`'../../../static/export/sctx@2x000' + checkItem + '.png'`)
+        img(:src=`'./static/export/sctx@2x000' + checkItem + '.png'`)
       .tool-box
         Button.button(text="确定", @onClick="saveImage()")
         Button.button(text="预览", @onClick="showPreview = true")

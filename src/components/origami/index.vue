@@ -12,8 +12,9 @@
     .control
       template(v-if="stepCount")
         Slider(:value="sliderNum", @input="controlStep", :width="38", :length="776" :rodLength="743" rodColor="white", :segment="stepCount")
-      .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
-      .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
+        .bottom-button-bar
+          .back.button(@click="back" :class="{active: origamiStyle === 3, enable: origamiStyle === 1}")
+          .play.button(@click="play", :class="{active: origamiStyle === 2, enable: origamiStyle === 0}")
     //- 拉远视角
     .distance-control
       //- 增加相机距离按钮
@@ -246,7 +247,7 @@ export default {
     position: relative;
     background-color: #e3f1e2;
     .origami-menu {
-      position: fixed;
+      position: absolute;
       right: 0;
       bottom: 20px;
       display: flex;
@@ -341,15 +342,22 @@ export default {
       background-repeat: no-repeat;
       background-position: -11px -128px;
       bottom: 5px;
-      position: absolute;
       background-image: url('..\..\assets\origami\bofang02@1x.png');
     }
-    .back {
-      left: 325px;
+    .bottom-button-bar {
+      height: 60px;
+      width: 140px;
+      background-color: #9dbdff;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      display: flex;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
     }
     .play {
       transform:rotate(180deg);
-      right: 325px;
     }
     .enable {
       background-position: -11px -4px;
