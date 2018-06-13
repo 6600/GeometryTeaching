@@ -306,7 +306,7 @@ export default {
     position: absolute;
     top: 20px;
     right: 20px;
-    height: 545px;
+    height: calc(100% - 165px);
     width: 65px;
     background-color: #9dbdff;
     border-radius: 15px;

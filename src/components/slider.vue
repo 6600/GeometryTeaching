@@ -68,7 +68,7 @@ export default {
       let styleList = {}
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.height = this.length + 'px'
+        styleList.height = 'calc(100% - 135px)'
         styleList.width = this.width + 'px'
       } else {
         styleList.height = this.width + 'px'
@@ -79,25 +79,22 @@ export default {
     getRodStyle () {
       let styleList = {}
       styleList.backgroundColor = this.rodColor
-      // 判断滑块长度是否存在 如果不存在则使用总元素宽度
-      const rodLength = this.rodLength ? this.rodLength : this.length
+      // console.log(this.$el)
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.height = rodLength + 'px'
+        styleList.height = '96%'
         styleList.width = this.rodWidth + 'px'
-        styleList.top = (this.length - rodLength) / 2 + 'px'
+        styleList.top = '2%'
         styleList.left = (this.width - this.rodWidth) / 2 + 'px'
       } else {
         styleList.height = this.rodWidth + 'px'
-        styleList.width = rodLength + 'px'
-        styleList.left = (this.length - rodLength) / 2 + 'px'
+        styleList.width = '96%'
+        styleList.left = '2%'
         styleList.top = (this.width - this.rodWidth) / 2 + 'px'
       }
       return styleList
     },
     getSpotStyle () {
-      const rodLength = this.rodLength ? this.rodLength : this.length
-      const scale = rodLength / this.segment
       // console.log(scale)
       let styleList = {}
       // 判断滑块是否是竖直的
@@ -112,9 +109,8 @@ export default {
       return styleList
     },
     handleMove (e) {
-      const rodLength = this.rodLength ? this.rodLength : this.length
       // 将点击位置转换成滑竿数值
-      let num = this.vertical ? (e.pageY - this.positionY) / rodLength : (e.pageX - this.positionX) / rodLength
+      let num = this.vertical ? (e.pageY - this.positionY) / this.$el.childNodes[0].clientHeight : (e.pageX - this.positionX) / this.$el.childNodes[0].clientWidth
       // 判断是否超过允许的值
       if (num < 0) num = 0
       if (num > 1) num = 1
