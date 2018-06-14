@@ -80,76 +80,16 @@ export default {
   },
   methods: {
     // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
-    flipTo (type, num) {
+    flipTo (type) {
       // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
       // 为了方便后面的计算 这里使用了平方
       // console.log(this.$refs.draw.camera.position)
-      if (num > 15) return
-      setTimeout(() => {
-        this.next(type, num + 1)
-      }, 20)
-    },
-    next (type, num) {
-      const ratio = Math.pow(8, 2)
-      const distance = this.distance
       switch (type) {
-        case 1: {
-          // 防止上下旋转角度超过90°
-          if (Math.round(this.$refs.draw.camera.position.y) === -8) return
-          this.thetax -= Math.PI / 180
-          // console.log(this.thetax)
-          const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
-          const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
-          this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
-          // console.log(2 - distance / 40)
-          // console.log(this.cameraPosition)
-          // return
-          const newPos = this.cameraPosition.map((num) => {
-            return num / (2 - distance / 40)
-          })
-          // console.log(newPos)
-          this.$refs.draw.camera.position.set(...newPos)
-          break
-        }
-        case 2: {
-          this.thetay -= Math.PI / 180
-          const r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
-          const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
-          this.cameraPosition = [r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay)]
-          const newPos = this.cameraPosition.map((num) => {
-            return num / (2 - distance / 40)
-          })
-          this.$refs.draw.camera.position.set(...newPos)
-          break
-        }
-        case 3: {
-          // 防止上下旋转角度超过90°
-          if (Math.round(this.$refs.draw.camera.position.y) === 8) return
-          this.thetax += Math.PI / 180
-          const r1 = Math.sqrt(ratio) * Math.cos(this.thetay)
-          const positionX = Math.sqrt(ratio) * Math.sin(this.thetay)
-          this.cameraPosition = [positionX, r1 * Math.sin(this.thetax), r1 * Math.cos(this.thetax)]
-          const newPos = this.cameraPosition.map((num) => {
-            return num / (2 - distance / 40)
-          })
-          this.$refs.draw.camera.position.set(...newPos)
-          break
-        }
-        case 4: {
-          this.thetay += Math.PI / 180
-          const r2 = Math.sqrt(ratio) * Math.cos(this.thetax)
-          const positionY = Math.sqrt(ratio) * Math.sin(this.thetax)
-          this.cameraPosition = [r2 * Math.sin(this.thetay), positionY, r2 * Math.cos(this.thetay)]
-          const newPos = this.cameraPosition.map((num) => {
-            return num / (2 - distance / 40)
-          })
-          this.$refs.draw.camera.position.set(...newPos)
-          break
-        }
+        case 1: this.$refs.draw.controls.rotateUp(-2 * Math.PI / 180); break
+        case 2: this.$refs.draw.controls.rotateLeft(2 * Math.PI / 180); break
+        case 3: this.$refs.draw.controls.rotateUp(2 * Math.PI / 180); break
+        case 4: this.$refs.draw.controls.rotateLeft(-2 * Math.PI / 180); break
       }
-      this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
-      this.$refs.draw.renderScene()
-      this.flipTo(type, num)
     },
     styleChange (Num) {
       this.origamiStyle = Num
