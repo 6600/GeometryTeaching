@@ -5,6 +5,7 @@
 <script>
 import { Fun, Order } from '@/components/Order.js'
 const THREE = require('three')
+const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
   name: 'HelloWorld',
   data () {
@@ -14,6 +15,7 @@ export default {
       spiale: [],
       meshs: [],
       step: 0,
+      controls: null,
       stepCount: 450
     }
   },
@@ -33,6 +35,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     nextStep (space, callback) {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -215,11 +221,16 @@ export default {
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.y = step * ratio
+        spiale[1].rotation.x = 0
+        spiale[3].rotation.y = 0
+        spiale[4].rotation.y = 0
+        spiale[5].rotation.y = 0
+        this.meshs[4].position.set(0.5, 1, 0)
       } else if (step < 180) {
         spiale[5].rotation.y = -90 * ratio
         spiale[4].rotation.y = 270 * ratio
         // 盒子右部
-        spiale[1].rotation.x = 0 * ratio
+        spiale[1].rotation.x = 0
         this.meshs[5].position.set(1.5, 0, 0)
         this.spiale[5].position.set(0, 0, 0)
         this.meshs[4].position.set(0.5, -0.5, 0)
@@ -241,9 +252,10 @@ export default {
       } else if (step <= 450) {
         spiale[5].rotation.y = -(step - 270) * ratio
       }
-      this.renderScene()
+      this.animate()
     },
     creatCube (scene, renderer, camera) {
+      this.controls = new OrbitControls(this.camera)
       // 创建正方体的6个平面
       // 定义长宽都是1平面
       const geometry = new THREE.PlaneGeometry(1, 1)
@@ -288,9 +300,7 @@ export default {
       // 调试转轴
       // this.spiale[4].add(new THREE.AxesHelper(50))
       // this.spiale[5].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 20)
+      this.animate()
     }
   }
 }

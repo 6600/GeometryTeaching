@@ -5,6 +5,7 @@
 <script>
 import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
+const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
   name: 'pyramidFourOne',
   data () {
@@ -15,6 +16,7 @@ export default {
       meshs: [],
       pause: false,
       step: 0,
+      controls: null,
       stepCount: 428
     }
   },
@@ -35,6 +37,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     closeBox () {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -154,6 +160,7 @@ export default {
       this.dragClose(step)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
+      this.controls = new OrbitControls(this.camera)
       // 创建中间的正方体
       const PlaneGeometry = new THREE.PlaneGeometry(1, 1)
       let shape1 = new THREE.Shape()
@@ -251,9 +258,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // this.spiale[1].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
+      this.animate()
     }
   }
 }

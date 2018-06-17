@@ -67,29 +67,48 @@ export default {
         this.distance = 40
         this.stepCount = this.$refs.draw.stepCount
         // 清除缓存
-        this.$refs.draw.step = 0
+        this.$refs.draw.step = 1
         this.origamiStyle = 0
         this.sliderNum = 1
         this.thetay = 0
         this.thetax = 0
       }, 0)
     })
+    Order.$on(`reduction`, () => {
+      // 将更新事件放置到队列尾端保证及时更新
+      this.changeViewing(40)
+      this.$refs.draw.dragOpen(1)
+      this.origamiStyle = 0
+      this.sliderNum = 1
+      this.thetay = 0
+      this.thetax = 0
+    })
   },
   beforeDestroy () { // 移除监听
     Order.$off('changeGraph')
+    Order.$off('reduction')
   },
   methods: {
-    // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
-    flipTo (type) {
-      // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
-      // 为了方便后面的计算 这里使用了平方
-      // console.log(this.$refs.draw.camera.position)
+    flipAnimate (type, index) {
       switch (type) {
         case 1: this.$refs.draw.controls.rotateUp(-2 * Math.PI / 180); break
         case 2: this.$refs.draw.controls.rotateLeft(2 * Math.PI / 180); break
         case 3: this.$refs.draw.controls.rotateUp(2 * Math.PI / 180); break
         case 4: this.$refs.draw.controls.rotateLeft(-2 * Math.PI / 180); break
       }
+      this.$refs.draw.controls.update()
+      if (index < 5) {
+        setTimeout(() => {
+          this.flipAnimate(type, index + 1)
+        }, 20)
+      }
+    },
+    // 翻转相机 1-朝上转 2-朝右转 3-朝下转 4-朝左转
+    flipTo (type) {
+      // 这个系数的含义是物体到相机的距离 8是默认视距 distance是控制的视距
+      // 为了方便后面的计算 这里使用了平方
+      // console.log(this.$refs.draw.camera.position)
+      this.flipAnimate(type, 0)
     },
     styleChange (Num) {
       this.origamiStyle = Num

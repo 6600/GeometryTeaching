@@ -5,6 +5,7 @@
 <script>
 import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
+const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
   name: 'mitsubishiColumnOne',
   data () {
@@ -15,6 +16,7 @@ export default {
       meshs: [],
       pause: false,
       step: 0,
+      controls: null,
       stepCount: 420
     }
   },
@@ -36,6 +38,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     closeBox () {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -132,6 +138,9 @@ export default {
       if (step <= 90) {
         // 盒子左1
         spiale[3].rotation.x = step * ratio
+        spiale[4].rotation.x = 0
+        spiale[0].rotation.y = 0
+        spiale[2].rotation.y = 0
       } else if (step <= 180) {
         // 盒子左1
         spiale[3].rotation.x = 90 * ratio
@@ -157,6 +166,7 @@ export default {
       this.dragClose(step)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
+      this.controls = new OrbitControls(this.camera)
       // 创建正方体的6个平面
       // 定义长宽都是1平面
       const PlaneGeometry = new THREE.PlaneGeometry(1, 2)
@@ -227,9 +237,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // this.spiale[1].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
+      this.animate()
     }
   }
 }

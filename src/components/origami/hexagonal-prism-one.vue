@@ -5,6 +5,7 @@
 <script>
 import { Fun, Order } from '@/components/Order.js'
 const THREE = require('three')
+const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
   name: 'HelloWorld',
   data () {
@@ -15,6 +16,7 @@ export default {
       spiale: [],
       meshs: [],
       step: 0,
+      controls: null,
       stepCount: 270
     }
   },
@@ -34,6 +36,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     nextStep (space, callback) {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -245,6 +251,7 @@ export default {
       this.renderScene()
     },
     creatCube (scene, renderer, camera) {
+      this.controls = new OrbitControls(this.camera)
       // 创建长方体的6个平面
       var hexgonalHigh = Math.sqrt(3)
       let shape1 = new THREE.Shape()
@@ -304,9 +311,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // this.spiale[6].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
+      this.animate()
     }
   }
 }

@@ -51,7 +51,6 @@ export default {
         } else {
           callback(this.step)
         }
-        this.renderScene()
       }, 20)
     },
     renderScene () {
@@ -187,7 +186,6 @@ export default {
         this.spiale[0].position.set(-0.5, 0, 1)
         spiale[0].rotation.y = (step - 270) * ratio
       }
-      this.renderScene()
     },
     dragOpen (step) {
       this.step = step
@@ -246,7 +244,6 @@ export default {
       } else if (step < 451) {
         spiale[0].rotation.y = (step - 270) * ratio
       }
-      this.renderScene()
     },
     creatCube (scene, renderer, camera) {
       this.controls = new OrbitControls(this.camera)
@@ -291,9 +288,6 @@ export default {
       }
       // 调试转轴
       // this.spiale[0].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
       this.animate()
     }
   }

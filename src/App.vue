@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { Order } from '@/components/Order.js'
 import Button60 from '@/components/button/button_60_60.vue'
 import Button70 from '@/components/button/button_70_50.vue'
 import ColumnPopup from '@/components/popup/column.vue'
@@ -39,7 +40,7 @@ export default {
   },
   methods: {
     help () {
-      window.open('https://www.baidu.com/')
+      window.open('./static/Net_c_Help.pdf')
     },
     playGame () {
       this.$router.push('/activityGame')
@@ -47,8 +48,7 @@ export default {
     },
     // 还原按钮
     reduction () {
-      // 通过刷新页面的方式重置数据
-      this.$refs.view.$router.go(0)
+      Order.$emit('reduction')
     }
   }
 }

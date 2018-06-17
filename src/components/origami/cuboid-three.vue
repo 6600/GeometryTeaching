@@ -5,6 +5,7 @@
 <script>
 import { Fun, Order } from '@/components/Order.js'
 const THREE = require('three')
+const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
   name: 'HelloWorld',
   data () {
@@ -15,6 +16,7 @@ export default {
       spiale: [],
       meshs: [],
       step: 0,
+      controls: null,
       stepCount: 450
     }
   },
@@ -34,6 +36,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     nextStep (space, callback) {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -199,6 +205,10 @@ export default {
       if (step <= 90) {
         // 盒子左1
         spiale[0].rotation.y = step * ratio
+        spiale[2].rotation.y = 0
+        spiale[3].rotation.y = 0
+        spiale[4].rotation.x = 0
+        spiale[5].rotation.x = 0
       } else if (step <= 180) {
         // 重设0面转轴
         this.meshs[3].position.set(0.75, 0, 0)
@@ -218,6 +228,7 @@ export default {
       this.renderScene()
     },
     creatCube (scene, renderer, camera) {
+      this.controls = new OrbitControls(this.camera)
       // 创建长方体的6个平面
       // 定义长宽都是1平面
       const geometry = new THREE.PlaneGeometry(0.5, 2)
@@ -277,9 +288,7 @@ export default {
       }
       // 调试转轴
       // this.spiale[3].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
+      this.animate()
     }
   }
 }

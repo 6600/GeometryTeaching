@@ -5,6 +5,7 @@
 <script>
 import { Fun, Order } from '@/components/Order.js'
 const THREE = require('three')
+const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
   name: 'HelloWorld',
   data () {
@@ -15,6 +16,7 @@ export default {
       spiale: [],
       meshs: [],
       step: 0,
+      controls: null,
       stepCount: 270
     }
   },
@@ -34,6 +36,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     nextStep (space, callback) {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -212,8 +218,13 @@ export default {
         // 重设转轴
         this.meshs[5].position.set(1, -0.75, 0)
         this.spiale[5].position.set(0.25, -1, 0)
+        spiale[5].rotation.x = 0
+        spiale[0].rotation.z = 0
+        spiale[1].rotation.y = 0
         // 盒子下部
-        spiale[5].rotation.x = -step * ratio
+        spiale[5].rotation.x = 0
+        spiale[4].rotation.y = 0
+        spiale[5].rotation.z = 0
       } else if (step < 180) {
         // 盒子左1
         spiale[0].rotation.x = 90 * ratio
@@ -250,6 +261,7 @@ export default {
       this.renderScene()
     },
     creatCube (scene, renderer, camera) {
+      this.controls = new OrbitControls(this.camera)
       // 创建长方体的6个平面
       // 定义长宽都是1平面
       const geometry = new THREE.PlaneGeometry(0.5, 0.5)
@@ -310,9 +322,7 @@ export default {
       }
       // 调试转轴
       // this.spiale[4].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
+      this.animate()
     }
   }
 }

@@ -5,6 +5,7 @@
 <script>
 import { Fun, Order } from '@/components/Order.js'
 const THREE = require('three')
+const OrbitControls = require('three-orbit-controls')(THREE)
 const stepSave = require('@/assets/step/conus.json')
 export default {
   name: 'conusOne',
@@ -16,6 +17,7 @@ export default {
       spiale: [],
       meshs: [],
       step: 0,
+      controls: null,
       stepCount: 90
     }
   },
@@ -35,6 +37,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     nextStep (space, callback) {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -100,6 +106,7 @@ export default {
       if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {
+      this.controls = new OrbitControls(this.camera)
       const geometry = new THREE.PlaneGeometry(Math.PI, 1, 40, 1)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
@@ -163,9 +170,7 @@ export default {
       }
       // 调试转轴
       // this.spiale[1].add(new THREE.AxesHelper(50))
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
+      this.animate()
     }
   }
 }
