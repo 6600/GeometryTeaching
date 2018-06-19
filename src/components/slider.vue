@@ -99,11 +99,11 @@ export default {
       let styleList = {}
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.top = this.value / this.segment * 100 + '%'
+        styleList.top = this.value / this.segment * 100 - 2 + '%'
         styleList.left = (this.rodWidth - 20) / 2 + 'px'
       } else {
         // console.log(this.value, scale)
-        styleList.left = this.value / this.segment * 100 + '%'
+        styleList.left = this.value / this.segment * 100 - 1 + '%'
         styleList.top = (this.rodWidth - 20) / 2 + 'px'
       }
       return styleList
