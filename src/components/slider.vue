@@ -1,7 +1,10 @@
 <template>
   <div class="slider" :style="getSliderStyle()">
     <div class="rod" :style="getRodStyle()">
-      <div class="spot" @mousedown.stop.self.left="click" :style="getSpotStyle()">{{value}}</div>
+      <div class="spot-box" :style="getSpotStyle()">
+        <div class="bar"></div>
+        <div class="spot" @mousedown.stop.self.left="click"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -163,20 +166,32 @@ export default {
     bottom: 0;
     width: 100%;
   }
-  .spot {
+  .spot-box {
     // 鼠标穿透点击
     // pointer-events: none;
-    border: 2px solid white;
-    background-color: #E19F14;
-    width: 15px;
-    height: 15px;
     position: absolute;
     margin: auto;
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
     // line-height: 20px;
     // text-align: center;
     // color: white;
     font-size:0rem;
+    .spot {
+      border: 2px solid white;
+      background-color: #E19F14;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+    .bar {
+      background-color: #E19F14;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
   }
   .vertical .rod {
     width: 6px;
