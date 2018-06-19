@@ -2,7 +2,7 @@
   <div class="slider" :style="getSliderStyle()">
     <div class="rod" :style="getRodStyle()">
       <div class="spot-box" :style="getSpotStyle()">
-        <div class="bar"></div>
+        <div class="bar" :style="getBarStyle()"></div>
         <div class="spot" @mousedown.stop.self.left="click"></div>
       </div>
     </div>
@@ -103,11 +103,24 @@ export default {
       // 判断滑块是否是竖直的
       if (this.vertical) {
         styleList.top = this.value / this.segment * 100 - 2 + '%'
-        styleList.left = (this.rodWidth - 20) / 2 + 'px'
       } else {
         // console.log(this.value, scale)
         styleList.left = this.value / this.segment * 100 - 1 + '%'
-        styleList.top = (this.rodWidth - 20) / 2 + 'px'
+      }
+      return styleList
+    },
+    getBarStyle () {
+      // console.log(scale)
+      let styleList = {}
+      const value = this.value / this.segment * 100 - 2
+      // 判断滑块是否是竖直的
+      if (this.vertical) {
+        styleList.height = value + '%'
+        styleList.top = -value + '%'
+      } else {
+        styleList.width = value + '%'
+        // console.log(this.value, scale)
+        styleList.left = -value + '%'
       }
       return styleList
     },
@@ -176,21 +189,22 @@ export default {
     // line-height: 20px;
     // text-align: center;
     // color: white;
-    font-size:0rem;
+    font-size: 0rem;
     .spot {
       border: 2px solid white;
       background-color: #E19F14;
       width: 15px;
       height: 15px;
       border-radius: 50%;
+      position: absolute;
+      top: -5px;
+      left: -5px;
     }
     .bar {
-      background-color: #E19F14;
+      background-color: #8acff1;
+      position: absolute;
       width: 100%;
       height: 100%;
-      position: absolute;
-      top: 5px;
-      left: 5px;
     }
   }
   .vertical .rod {

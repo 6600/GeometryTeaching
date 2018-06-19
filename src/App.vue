@@ -77,6 +77,7 @@ export default {
   .app-box {
     height: calc(~"100% - 70px");
     min-height: 400px;
+    overflow: hidden;
     width: 100%;
     display: flex;
   }
