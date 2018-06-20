@@ -95,32 +95,37 @@ export default {
         styleList.left = '2%'
         styleList.top = (this.width - this.rodWidth) / 2 + 'px'
       }
+      if (styleList.top < 0) styleList.top = 0
+      if (styleList.left < 0) styleList.left = 0
       return styleList
     },
     getSpotStyle () {
       // console.log(scale)
       let styleList = {}
+      let value = this.value / this.segment * 100 - 1
+      if (value < 0) value = 0
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.top = this.value / this.segment * 100 - 2 + '%'
+        styleList.top = value + '%'
       } else {
         // console.log(this.value, scale)
-        styleList.left = this.value / this.segment * 100 - 1 + '%'
+        styleList.left = value + '%'
       }
       return styleList
     },
     getBarStyle () {
       // console.log(scale)
       let styleList = {}
-      const value = this.value / this.segment * 100 - 2
+      let value = this.value / this.segment * 100 - 2
+      if (value < 0) value = 0
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.height = value + '%'
-        styleList.top = -value + '%'
+        styleList.height = value + 1 + '%'
+        styleList.top = -value - 1 + '%'
       } else {
-        styleList.width = value + '%'
+        styleList.width = value + 1 + '%'
         // console.log(this.value, scale)
-        styleList.left = -value + '%'
+        styleList.left = -value - 1 + '%'
       }
       return styleList
     },
