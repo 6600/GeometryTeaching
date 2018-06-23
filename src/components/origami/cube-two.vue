@@ -62,33 +62,37 @@ export default {
       if (step < 0) { return }
       if (step <= 90) {
         // 盒子左1
-        spiale[0].rotation.y = step * ratio
+        spiale[0].rotation.y = step * ratio + 0.01
         this.nextStep(2, this.close)
       } else if (step <= 180) {
-        spiale[1].rotation.x = -(step - 90) * ratio
+        spiale[1].rotation.x = -(step - 90) * ratio - 0.02
         this.nextStep(2, this.close)
       } else if (step <= 270) {
         // 盒子右部
-        spiale[3].rotation.y = -(step - 180) * ratio
+        spiale[3].rotation.y = -(step - 180) * ratio - 0.01
         // 盒子上部
         spiale[4].rotation.y = -(step - 180) * ratio
         // 盒子下部
         spiale[5].rotation.y = -(step - 180) * ratio
         this.nextStep(2, this.close)
-      } else if (step === 272) {
+      } else if (step === 271) {
         this.meshs[4].position.set(0, 0.5, 0)
         this.spiale[4].position.set(0, 0.5, 0.5)
         this.meshs[5].position.set(0.5, 0, 0)
-        this.spiale[5].position.set(0, 0, 1)
+        this.spiale[5].position.set(0, 1, 1)
         spiale[4].rotation.x = 90 * ratio
         spiale[4].rotation.z = 90 * ratio
         // spiale[4].position.y = (272 * ratio)
         this.nextStep(2, this.close)
       } else if (step <= 360) {
         // console.log(spiale[4].rotation)
+        // return
         spiale[4].rotation.y = (step) * ratio
+        console.log(spiale[5])
+        spiale[5].rotateX(ratio)
         this.nextStep(2, this.close)
       } else if (step <= 450) {
+        return
         spiale[5].rotation.y = -(step - 270) * ratio
         this.nextStep(2, this.close)
       } else {
@@ -263,7 +267,7 @@ export default {
       const colors = ['#fc734f', '#ffc864', '#6f66f7', '#d0bbf4', '#d3b020', '#68ed32']
       // 定义6个坐标
       // const positions = [[-1.5, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0.5, 0, 0], [0, 0.5, 0], [0, -0.5, 0]]
-      const positions = [[-0.5, -0.5, 0], [0, -0.5, 0], [-0.5, -1, 0], [0.5, 0, 0], [0.5, 1, 0], [1.5, 0, 0]]
+      const positions = [[-0.5, -0.5, 0], [0, -0.5, 0], [-0.5, -1, 0], [0.5, 0, 0], [0.5, 1, 0], [1.5, 1, 0]]
       // 定义6个转轴
       const axiss = [[-1, 0.5, 0], [-0.5, -0.5, 0], [0, 1, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
       // 创造6个平面
@@ -299,7 +303,7 @@ export default {
       }
       // 调试转轴
       // this.spiale[4].add(new THREE.AxesHelper(50))
-      // this.spiale[5].add(new THREE.AxesHelper(50))
+      this.spiale[5].add(new THREE.AxesHelper(50))
       this.animate()
     }
   }
