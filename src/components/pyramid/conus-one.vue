@@ -63,7 +63,6 @@ export default {
         for (let i = 0; i <= vLength - 1; i++) {
           const Z = Math.abs(i - 20) * 0.05
           let X = null
-          let X2 = null
           const Y = 2 - Math.sqrt(4 - Math.pow(Math.abs(i - 20) * Math.PI / 40, 2))
           // console.log(i, Y)
           // return
@@ -81,8 +80,7 @@ export default {
           }
           // console.log((20 - Math.abs(i - 20)))
           this.meshs[0].geometry.vertices[i].z = Z / 90 * step + (step * (20 - Math.abs(i - 20)) / 40 / 90)
-          this.meshs[0].geometry.vertices[i + 41].z = Z / 90 * step 
-          
+          this.meshs[0].geometry.vertices[i + 41].z = Z / 90 * step
           this.meshs[0].geometry.vertices[i + 41].x += X / 90
         }
         // console.log(this.meshs[0].geometry.vertices)
@@ -90,7 +88,7 @@ export default {
         this.meshs[0].geometry.verticesNeedUpdate = true
         this.nextStep(1, this.close)
       } else {
-        var geometry = new THREE.ConeBufferGeometry( 0.5, 1, 100 );
+        var geometry = new THREE.ConeBufferGeometry(0.5, 1, 100)
         this.meshs[0].geometry = geometry
         this.spiale[0].position.set(0, 0.04, 0.5)
         console.log(geometry)

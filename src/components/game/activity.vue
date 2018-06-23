@@ -9,7 +9,7 @@
       .game-menu
         Line110(@onClick="reset",text="重設")
         Line110(@onClick="check", text="確定")
-        Line110.disable(text="觀看動畫")
+        Line110(text="觀看動畫", @onClick="$router.push('/origami/cubeOne')", :disable="playButtonDisable")
         Line110(text="輸出圖樣")
     .activity-popup-box(v-if="popupType !== 0")
       .popup-box
@@ -28,7 +28,7 @@ for (var i = 0; i < 5; i++) {
     arr[i][j] = false
   }
 }
-var data = { blocks: arr, popupType: 0 }
+var data = { blocks: arr, popupType: 0, playButtonDisable: true }
 export default {
   data: function () {
     return data
@@ -43,6 +43,7 @@ export default {
           this.$set(this.blocks[i], [j], false)
         }
       }
+      this.playButtonDisable = true
     },
     check () {
       var firstx = 0
@@ -89,6 +90,7 @@ export default {
             }
           }
           if (flag) {
+            this.playButtonDisable = false
             this.popupType = 1
             return
           }
@@ -213,6 +215,7 @@ export default {
       }
     }
     .disable {
+      user-select:none;
       background-color: #666666;
       color: #999999;
       border-color: #333333;

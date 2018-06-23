@@ -3,10 +3,10 @@
     .home-title
     .app-box
       .home-left-bar
-        Button70.button(@onClick="showColumnPopup = true", text="柱體")
-        Button70.button(@onClick="showCentrumPopup = true", text="椎體")
+        Button70.button(@onClick="showColumnPopup = true", text="柱體", title="柱體")
+        Button70.button(@onClick="showCentrumPopup = true", text="椎體", title="椎體")
         Line60
-        Button70.button.pintu(@onClick="playGame", text="", title="拼图")
+        Button70.button.pintu(@onClick="playGame", text="", title="活動")
         Line60
         Button60.reduction(@onClick="reduction")
         Button60.explain(@onClick="help")
