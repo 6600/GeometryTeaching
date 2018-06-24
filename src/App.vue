@@ -14,6 +14,10 @@
     ColumnPopup(v-if="showColumnPopup", @close="showColumnPopup = false")
     CentrumPopup(v-if="showCentrumPopup", @close="showCentrumPopup = false")
     .logo
+    .app-control
+      .narrow.item
+      .expand.item
+      .close.item
 </template>
 
 <script>
@@ -80,6 +84,32 @@ export default {
     overflow: hidden;
     width: 100%;
     display: flex;
+  }
+  .app-control {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9;
+    display: flex;
+    .item {
+      cursor: pointer;
+      height: 35px;
+      width: 35px;
+      background-position: -68px 2px;
+      background-repeat: no-repeat;
+      background-size: 100px;
+    }
+    .narrow {
+      background-image: url('.\assets\control\bt001.png');
+    }
+    .expand {
+      background-image: url('.\assets\control\bt002.png');
+    }
+    .close {
+      background-size: 60px;
+      background-position: -27px 2px;
+      background-image: url('.\assets\control\bt003.png');
+    }
   }
   .home-left-bar {
     width: 130px;
