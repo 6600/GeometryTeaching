@@ -6,6 +6,7 @@
 import { Fun, Order } from '@/components/Order.js'
 const THREE = require('three')
 const OrbitControls = require('three-orbit-controls')(THREE)
+const stepSave = require('@/assets/step/cube-two.json')
 export default {
   name: 'HelloWorld',
   data () {
@@ -16,7 +17,8 @@ export default {
       meshs: [],
       step: 0,
       controls: null,
-      stepCount: 450
+      stepCount: 450,
+      stepSave: []
     }
   },
   mounted () {
@@ -56,208 +58,72 @@ export default {
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    close (step) {
-      const spiale = this.spiale
-      const ratio = (Math.PI / 180)
-      if (step < 0) { return }
-      if (step <= 90) {
-        // 盒子左1
-        spiale[0].rotation.y = step * ratio + 0.02
-        this.nextStep(2, this.close)
-      } else if (step <= 180) {
-        spiale[1].rotation.x = -(step - 90) * ratio - 0.02
-        this.nextStep(2, this.close)
-      } else if (step <= 270) {
-        // 盒子右部
-        spiale[3].rotation.y = -(step - 180) * ratio - 0.01
-        // 盒子上部
-        spiale[4].rotation.y = -(step - 180) * ratio
-        // 盒子下部
-        spiale[5].rotation.y = -(step - 180) * ratio
-        this.nextStep(2, this.close)
-      } else if (step === 271) {
-        this.meshs[4].position.set(0, 0.5, 0)
-        this.spiale[4].position.set(0, 0.5, 0.5)
-        this.meshs[5].position.set(0.5, 0, 0)
-        this.spiale[5].position.set(0, 1, 1)
-        spiale[4].rotation.x = 90 * ratio
-        spiale[4].rotation.z = 90 * ratio
-        spiale[5].rotateY(-ratio)
-        this.nextStep(2, this.close)
-      } else if (step <= 361) {
-        // console.log(spiale[4].rotation)
-        // return
-        spiale[4].rotation.y = (step - 1) * ratio
-        console.log(spiale[5])
-        spiale[5].position.set(0, 0.5, 1)
-        this.meshs[5].position.y = 0.5
-        spiale[5].rotateX(2 * ratio)
-        this.nextStep(2, this.close)
-      } else if (step <= 450) {
-        spiale[5].rotation.x = (step - 270) * ratio + 0.02
-        this.nextStep(2, this.close)
-      } else {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
-      }
-    },
-    open (step) {
-      const spiale = this.spiale
-      const ratio = (Math.PI / 180)
-      if (step < 0) {
-        // 广播关闭完成事件
+    getStep (step) {
+      if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
         return
       }
-      if (step <= 90) {
-        // 盒子左1
-        spiale[0].rotation.y = step * ratio
-        this.nextStep(-2, this.open)
-      } else if (step < 180) {
-        // 盒子右部
-        spiale[3].rotation.y = -(step - 90) * ratio
-        spiale[4].rotation.x = 0
-        spiale[4].rotation.z = 0
-        spiale[4].rotation.y = -(step - 90) * ratio
-        spiale[5].rotation.y = -(step - 90) * ratio
-        this.nextStep(-2, this.open)
-      } else if (step === 180) {
-        this.meshs[5].position.set(1.5, 0, 0)
-        this.spiale[5].position.set(0, 0, 0)
-        this.meshs[4].position.set(0.5, -0.5, 0)
-        this.spiale[4].position.set(0, 1.5, 0)
-        this.nextStep(-2, this.open)
-      } else if (step <= 270) {
-        // 盒子右部
-        spiale[1].rotation.x = -(step - 180) * ratio
-        this.nextStep(-2, this.open)
-      } else if (step < 360) {
-        spiale[4].rotation.y = (step) * ratio
-        this.nextStep(-2, this.open)
-      } else if (step <= 450) {
-        spiale[5].rotation.y = -(step - 270) * ratio
-        this.nextStep(-2, this.open)
+      // console.log(step)
+      if (step > this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+        return
       }
+      if (step === this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
+      const spiale = this.spiale
+      if (!stepSave[step]) {
+        return true
+      }
+      spiale[0].rotation.x = stepSave[step].spiale0rotation._x
+      spiale[0].rotation.y = stepSave[step].spiale0rotation._y
+      spiale[0].rotation.z = stepSave[step].spiale0rotation._z
+      spiale[1].rotation.x = stepSave[step].spiale1rotation._x
+      spiale[1].rotation.y = stepSave[step].spiale1rotation._y
+      spiale[1].rotation.z = stepSave[step].spiale1rotation._z
+      spiale[3].rotation.x = stepSave[step].spiale3rotation._x
+      spiale[3].rotation.y = stepSave[step].spiale3rotation._y
+      spiale[3].rotation.z = stepSave[step].spiale3rotation._z
+      spiale[4].rotation.x = stepSave[step].spiale4rotation._x
+      spiale[4].rotation.y = stepSave[step].spiale4rotation._y
+      spiale[4].rotation.z = stepSave[step].spiale4rotation._z
+      spiale[5].rotation.x = stepSave[step].spiale5rotation._x
+      spiale[5].rotation.y = stepSave[step].spiale5rotation._y
+      spiale[5].rotation.z = stepSave[step].spiale5rotation._z
+      this.meshs[4].position.x = stepSave[step].meshs4position.x
+      this.meshs[4].position.y = stepSave[step].meshs4position.y
+      this.meshs[4].position.z = stepSave[step].meshs4position.z
+      this.spiale[4].position.x = stepSave[step].spiale4position.x
+      this.spiale[4].position.y = stepSave[step].spiale4position.y
+      this.spiale[4].position.z = stepSave[step].spiale4position.z
+      this.meshs[5].position.x = stepSave[step].meshs5position.x
+      this.meshs[5].position.y = stepSave[step].meshs5position.y
+      this.meshs[5].position.z = stepSave[step].meshs5position.z
+      this.spiale[5].position.x = stepSave[step].spiale5position.x
+      this.spiale[5].position.y = stepSave[step].spiale5position.y
+      this.spiale[5].position.z = stepSave[step].spiale5position.z
+      // this.meshs[5].position.set(...stepSave[step].meshs5position)
+      // this.spiale[5].position.set(...stepSave[step].spiale5position)
+      return true
+    },
+    close (step) {
+      if (this.getStep(step)) this.nextStep(2, this.close)
+    },
+    open (step) {
+      if (this.getStep(step)) this.nextStep(-2, this.open)
     },
     dragClose (step) {
       this.step = step
-      const spiale = this.spiale
-      const ratio = (Math.PI / 180)
-      if (step <= 0) {
-        this.$emit('OpenFinish')
-        console.log('动画已播放完毕!')
-        return false
-      }
-      if (step >= this.stepCount) {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
-      }
-      if (step <= 90) {
-        // 盒子左1
-        spiale[0].rotation.y = step * ratio
-      } else if (step <= 180) {
-        // 盒子左1
-        spiale[0].rotation.y = 90 * ratio
-        spiale[1].rotation.x = -(step - 90) * ratio
-      } else if (step <= 270) {
-        // 盒子左1
-        spiale[0].rotation.y = 90 * ratio
-        spiale[1].rotation.x = -90 * ratio
-        // 盒子右部
-        spiale[3].rotation.y = -(step - 180) * ratio
-        // 盒子上部
-        spiale[4].rotation.y = -(step - 180) * ratio
-        // 盒子下部
-        spiale[5].rotation.y = -(step - 180) * ratio
-      } else if (step <= 360) {
-        this.meshs[4].position.set(0, 0.5, 0)
-        this.spiale[4].position.set(0, 0.5, 0.5)
-        this.meshs[5].position.set(0.5, 0, 0)
-        this.spiale[5].position.set(0, 0, 1)
-        // 盒子左1
-        spiale[0].rotation.y = 90 * ratio
-        spiale[1].rotation.x = -90 * ratio
-        // 盒子右部
-        spiale[3].rotation.y = -90 * ratio
-        // 盒子上部
-        spiale[4].rotation.y = -90 * ratio
-        // 盒子下部
-        spiale[5].rotation.y = -90 * ratio
-        spiale[4].rotation.x = 90 * ratio
-        spiale[4].rotation.z = 90 * ratio
-        spiale[4].rotation.y = (step) * ratio
-      } else if (step <= 450) {
-        this.meshs[4].position.set(0, 0.5, 0)
-        this.spiale[4].position.set(0, 0.5, 0.5)
-        this.meshs[5].position.set(0.5, 0, 0)
-        this.spiale[5].position.set(0, 0, 1)
-        // 盒子左1
-        spiale[0].rotation.y = 90 * ratio
-        spiale[1].rotation.x = -90 * ratio
-        // 盒子右部
-        spiale[3].rotation.y = -90 * ratio
-        // 盒子上部
-        spiale[4].rotation.x = 90 * ratio
-        spiale[4].rotation.z = 90 * ratio
-        spiale[4].rotation.y = 1 * ratio
-        // 盒子下部
-        spiale[5].rotation.y = -90 * ratio
-        spiale[5].rotation.y = -(step - 270) * ratio
-      }
-      this.renderScene()
+      if (this.getStep(step)) this.renderScene()
     },
     dragOpen (step) {
       this.step = step
-      const spiale = this.spiale
-      const ratio = (Math.PI / 180)
-      if (step <= 0) {
-        this.$emit('OpenFinish')
-        console.log('动画已播放完毕!')
-        return false
-      }
-      if (step >= this.stepCount) {
-        // 广播关闭完成事件
-        this.$emit('CloseFinish')
-        console.log('动画已播放完毕!')
-      }
-      if (step <= 90) {
-        // 盒子左1
-        spiale[0].rotation.y = step * ratio
-        spiale[1].rotation.x = 0
-        spiale[3].rotation.y = 0
-        spiale[4].rotation.y = 0
-        spiale[5].rotation.y = 0
-        this.meshs[4].position.set(0.5, 1, 0)
-      } else if (step < 180) {
-        spiale[5].rotation.y = -90 * ratio
-        spiale[4].rotation.y = 270 * ratio
-        // 盒子右部
-        spiale[1].rotation.x = 0
-        this.meshs[5].position.set(1.5, 0, 0)
-        this.spiale[5].position.set(0, 0, 0)
-        this.meshs[4].position.set(0.5, -0.5, 0)
-        this.spiale[4].position.set(0, 1.5, 0)
-        // 盒子右部
-        spiale[3].rotation.y = -(step - 90) * ratio
-        spiale[4].rotation.x = 0
-        spiale[4].rotation.z = 0
-        spiale[4].rotation.y = -(step - 90) * ratio
-        spiale[5].rotation.y = -(step - 90) * ratio
-      } else if (step <= 270) {
-        spiale[5].rotation.y = -90 * ratio
-        spiale[4].rotation.y = 270 * ratio
-        // 盒子右部
-        spiale[1].rotation.x = -(step - 180) * ratio
-      } else if (step < 360) {
-        spiale[5].rotation.y = -90 * ratio
-        spiale[4].rotation.y = (step) * ratio
-      } else if (step <= 450) {
-        spiale[5].rotation.y = -(step - 270) * ratio
-      }
-      this.animate()
+      if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {
       this.controls = new OrbitControls(this.camera)
@@ -304,7 +170,7 @@ export default {
       }
       // 调试转轴
       // this.spiale[4].add(new THREE.AxesHelper(50))
-      this.spiale[5].add(new THREE.AxesHelper(50))
+      // this.spiale[5].add(new THREE.AxesHelper(50))
       this.animate()
     }
   }
