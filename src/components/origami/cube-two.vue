@@ -62,7 +62,7 @@ export default {
       if (step < 0) { return }
       if (step <= 90) {
         // 盒子左1
-        spiale[0].rotation.y = step * ratio + 0.01
+        spiale[0].rotation.y = step * ratio + 0.02
         this.nextStep(2, this.close)
       } else if (step <= 180) {
         spiale[1].rotation.x = -(step - 90) * ratio - 0.02
@@ -82,18 +82,19 @@ export default {
         this.spiale[5].position.set(0, 1, 1)
         spiale[4].rotation.x = 90 * ratio
         spiale[4].rotation.z = 90 * ratio
-        // spiale[4].position.y = (272 * ratio)
+        spiale[5].rotateY(-ratio)
         this.nextStep(2, this.close)
-      } else if (step <= 360) {
+      } else if (step <= 361) {
         // console.log(spiale[4].rotation)
         // return
-        spiale[4].rotation.y = (step) * ratio
+        spiale[4].rotation.y = (step - 1) * ratio
         console.log(spiale[5])
-        spiale[5].rotateX(ratio)
+        spiale[5].position.set(0, 0.5, 1)
+        this.meshs[5].position.y = 0.5
+        spiale[5].rotateX(2 * ratio)
         this.nextStep(2, this.close)
       } else if (step <= 450) {
-        return
-        spiale[5].rotation.y = -(step - 270) * ratio
+        spiale[5].rotation.x = (step - 270) * ratio + 0.02
         this.nextStep(2, this.close)
       } else {
         // 广播关闭完成事件
