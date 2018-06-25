@@ -6,6 +6,7 @@
 import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
 const OrbitControls = require('three-orbit-controls')(THREE)
+const stepSave = require('@/assets/step/five-one.json')
 export default {
   name: 'pyramidFourOne',
   data () {
@@ -17,7 +18,7 @@ export default {
       controls: null,
       pause: false,
       step: 0,
-      stepCount: 420
+      stepCount: 114
     }
   },
   mounted () {
@@ -37,6 +38,10 @@ export default {
     Order.$off('pause')
   },
   methods: {
+    animate () {
+      requestAnimationFrame(this.animate)
+      this.renderScene()
+    },
     nextStep (space, callback) {
       // console.log('关闭盒子', auto)
       setTimeout(() => {
@@ -54,26 +59,57 @@ export default {
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    close (step) {
-      const spiale = this.spiale
-      const ratio = Math.PI / 180
-      if (step <= 113) {
-        // 盒子左1
-        // spiale[0].rotation.y = step * ratio
-        spiale[1].rotateX(ratio)
-        spiale[2].rotateX(ratio)
-        spiale[3].rotateX(ratio)
-        spiale[4].rotateX(ratio)
-        spiale[5].rotateX(ratio)
-        this.nextStep(1, this.close)
-      } else if (step === 114) {
-        spiale[1].rotateX(0.01)
-        spiale[2].rotateX(0.01)
-        spiale[3].rotateX(0.01)
-        spiale[4].rotateX(0.01)
-        spiale[5].rotateX(0.01)
-        this.nextStep(1, this.close)
+    getStep (step) {
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
       }
+      // console.log(step)
+      if (step > this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step === this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
+      const spiale = this.spiale
+      if (stepSave[step] !== null) {
+        spiale[1].rotation.x = stepSave[step].spiale1rotation.x
+        spiale[1].rotation.y = stepSave[step].spiale1rotation.y
+        spiale[1].rotation.z = stepSave[step].spiale1rotation.z
+        spiale[2].rotation.x = stepSave[step].spiale2rotation.x
+        spiale[2].rotation.y = stepSave[step].spiale2rotation.y
+        spiale[2].rotation.z = stepSave[step].spiale2rotation.z
+        spiale[3].rotation.x = stepSave[step].spiale3rotation.x
+        spiale[3].rotation.y = stepSave[step].spiale3rotation.y
+        spiale[3].rotation.z = stepSave[step].spiale3rotation.z
+        spiale[4].rotation.x = stepSave[step].spiale4rotation.x
+        spiale[4].rotation.y = stepSave[step].spiale4rotation.y
+        spiale[4].rotation.z = stepSave[step].spiale4rotation.z
+        spiale[5].rotation.x = stepSave[step].spiale5rotation.x
+        spiale[5].rotation.y = stepSave[step].spiale5rotation.y
+        spiale[5].rotation.z = stepSave[step].spiale5rotation.z
+      }
+      return true
+    },
+    close (step) {
+      if (this.getStep(step)) this.nextStep(1, this.close)
+    },
+    open (step) {
+      if (this.getStep(step)) this.nextStep(-1, this.open)
+    },
+    dragClose (step) {
+      this.step = step
+      if (this.getStep(step)) this.renderScene()
+    },
+    dragOpen (step) {
+      this.step = step
+      if (this.getStep(step)) this.renderScene()
     },
     creatMitsubishiColumn (scene, renderer, camera) {
       this.controls = new OrbitControls(this.camera)
@@ -155,15 +191,13 @@ export default {
         this.scene.add(this.meshs[index])
         this.spiale[index].add(this.meshs[index])
       }
-      this.spiale[5].add(new THREE.AxesHelper(50))
+      // this.spiale[5].add(new THREE.AxesHelper(50))
       this.spiale[1].rotation.z = Math.cos(52 * Math.PI / 180) + 0.01
       this.spiale[2].rotation.z = -Math.cos(50 * Math.PI / 180) + 0.01
       this.spiale[3].rotation.z = -108 * Math.PI / 180
       this.spiale[4].rotation.z = -180 * Math.PI / 180
       this.spiale[5].rotation.z = 108 * Math.PI / 180
-      setTimeout(() => {
-        this.renderScene()
-      }, 0)
+      this.animate()
     }
   }
 }
