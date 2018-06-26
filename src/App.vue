@@ -17,7 +17,7 @@
     .app-control
       .narrow.item
       .expand.item
-      .close.item
+      .close(@click="close").item
 </template>
 
 <script>
@@ -53,6 +53,11 @@ export default {
     // 还原按钮
     reduction () {
       Order.$emit('reduction')
+    },
+    close () {
+      window.opener = null
+      window.open('', '_self')
+      window.close()
     }
   }
 }
