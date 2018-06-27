@@ -54,7 +54,8 @@ export default {
       showExportOrigami: false,
       cameraPosition: [0, 0, 8],
       thetay: 0,
-      thetax: 0
+      thetax: 0,
+      lestDistance: 40
     }
   },
   mounted () {
@@ -154,18 +155,13 @@ export default {
       }
     },
     changeViewing (distance) {
+      if (distance === 0) return
       this.distance = distance
-      // console.log(distance / 40)
-      const newPos = this.cameraPosition.map((num) => {
-        // 除以2的原因是减小发达缩小倍数
-        return num / (2.5 - distance / 40)
-      })
-      // console.log(newPos)
-      this.$refs.draw.camera.position.set(...newPos)
-      // 使物体在相机中央
-      this.$refs.draw.camera.lookAt(this.$refs.draw.scene.position)
-      this.$refs.draw.renderScene()
-      // console.log(this.distance)
+      console.log(distance / this.lestDistance)
+      this.$refs.draw.controls.scaling(0.8 + (distance / this.lestDistance) / 5)
+      if (distance !== 0) {
+        this.lestDistance = distance
+      }
     },
     addViewing () {
       // 防止可以无限缩放大

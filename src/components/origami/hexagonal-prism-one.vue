@@ -65,7 +65,7 @@ export default {
         this.spiale[4].rotation.y = -step * ratio
         this.spiale[5].rotation.y = -step * ratio
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step === 62) {
         this.meshs[1].position.set(-0.5, 0, 0)
         this.spiale[1].position.set(-1, 0, Math.sqrt(3) / 2)
@@ -73,24 +73,24 @@ export default {
         this.spiale[5].position.set(1, 0, Math.sqrt(3) / 2)
         this.meshs[6].position.set(1.5, 0, 0)
         this.spiale[6].position.set(1, 0, Math.sqrt(3) / 2)
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 120) {
         this.spiale[1].rotation.y = step * ratio
         this.spiale[5].rotation.y = -step * ratio
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step === 122) {
         this.meshs[6].position.set(0.5, 0, 0)
         this.spiale[6].position.set(0.5, 0, Math.sqrt(3))
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 180) {
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 270) {
         this.spiale[0].rotation.x = (step - 180) * ratio
         this.spiale[7].rotation.x = -(step - 180) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else {
         this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
@@ -110,7 +110,7 @@ export default {
         this.spiale[4].rotation.y = -step * ratio
         this.spiale[5].rotation.y = -step * ratio
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 62) {
         this.meshs[1].position.set(-1.5, 0, 0)
         this.spiale[1].position.set(-0.5, 0, 0)
@@ -118,24 +118,24 @@ export default {
         this.spiale[5].position.set(0.5, 0, 0)
         this.meshs[6].position.set(2.5, 0, 0)
         this.spiale[6].position.set(0.5, 0, 0)
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 120) {
         this.spiale[1].rotation.y = step * ratio
         this.spiale[5].rotation.y = -step * ratio
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 122) {
         this.meshs[6].position.set(1.5, 0, 0)
         this.spiale[6].position.set(1, 0, Math.sqrt(3) / 2)
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 180) {
         this.spiale[6].rotation.y = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 272) {
         this.spiale[0].rotation.x = (step - 180) * ratio
         this.spiale[7].rotation.x = -(step - 180) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else {
         this.$emit('CloseFinish')
         console.log('动画已播放完毕!')

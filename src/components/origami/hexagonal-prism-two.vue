@@ -62,14 +62,14 @@ export default {
       if (step <= 60) {
         this.spiale[1].rotation.x = step * ratio
         this.spiale[3].rotation.x = -step * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 90 + 60) {
         this.spiale[0].rotation.y = (step - 60) * ratio
         this.spiale[4].rotation.y = -(step - 60) * ratio
         this.spiale[5].rotation.y = -(step - 60) * ratio
         this.spiale[6].rotation.y = -(step - 60) * ratio
         this.spiale[7].rotation.y = -(step - 60) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step === 92 + 60) {
         this.meshs[4].position.set(1, 1.5, 0)
         this.spiale[4].position.set(0, 0, Math.sqrt(3))
@@ -77,22 +77,22 @@ export default {
         this.spiale[5].position.set(0, 0, Math.sqrt(3))
         this.meshs[6].position.set(1, -0.5, 0)
         this.spiale[6].position.set(0, 0, Math.sqrt(3))
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 180 + 60) {
         this.spiale[4].rotation.y = -(step - 60) * ratio
         this.spiale[5].rotation.y = -(step - 60) * ratio
         this.spiale[6].rotation.y = -(step - 60) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step === 182 + 60) {
         this.meshs[4].position.set(0, 0.5, 0)
         this.spiale[4].position.set(-1, 1, Math.sqrt(3))
         this.meshs[6].position.set(0, -0.5, 0)
         this.spiale[6].position.set(-1, 0, Math.sqrt(3))
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step <= 240 + 60) {
         this.spiale[4].rotation.x = -(step - 240) * ratio
         this.spiale[6].rotation.x = (step - 240) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')
@@ -110,14 +110,14 @@ export default {
       if (step <= 60) {
         this.spiale[1].rotation.x = step * ratio
         this.spiale[3].rotation.x = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 90 + 60) {
         this.spiale[0].rotation.y = (step - 60) * ratio
         this.spiale[4].rotation.y = -(step - 60) * ratio
         this.spiale[5].rotation.y = -(step - 60) * ratio
         this.spiale[6].rotation.y = -(step - 60) * ratio
         this.spiale[7].rotation.y = -(step - 60) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 92 + 60) {
         this.meshs[4].position.set(Math.sqrt(3) + 1, 1.5, 0)
         this.spiale[4].position.set(0, 0, 0)
@@ -125,22 +125,22 @@ export default {
         this.spiale[5].position.set(0, 0, 0)
         this.meshs[6].position.set(Math.sqrt(3) + 1, -0.5, 0)
         this.spiale[6].position.set(0, 0, 0)
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 180 + 60) {
         this.spiale[4].rotation.y = -(step - 60) * ratio
         this.spiale[5].rotation.y = -(step - 60) * ratio
         this.spiale[6].rotation.y = -(step - 60) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 182 + 60) {
         this.meshs[4].position.set(1, 1.5, 0)
         this.spiale[4].position.set(0, 0, Math.sqrt(3))
         this.meshs[6].position.set(1, -0.5, 0)
         this.spiale[6].position.set(0, 0, Math.sqrt(3))
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 240 + 60) {
         this.spiale[4].rotation.x = -(step - 240) * ratio
         this.spiale[6].rotation.x = (step - 240) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')

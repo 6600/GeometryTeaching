@@ -32,25 +32,40 @@ const Fun = {
 
     // --------------------------- 创建光照 ---------------------------
     // 方向光源
-    let object3d = new THREE.DirectionalLight('white', 0.8)
-    object3d.position.set(0, 0, 26)
-    object3d.name = 'Back light'
-    scene.add(object3d)
+    let object3d1 = new THREE.DirectionalLight('white', 0.6)
+    object3d1.position.set(0, 0, 6)
+    object3d1.name = 'Back light'
+    scene.add(object3d1)
     // 方向光源
-    object3d = new THREE.DirectionalLight('white', 0.6)
-    object3d.position.set(0, 0, -6)
-    object3d.name = 'Key light'
-    scene.add(object3d)
+    let object3d2 = new THREE.DirectionalLight('white', 0.6)
+    object3d2.position.set(0, 0, -6)
+    object3d2.name = 'Key light1'
+    scene.add(object3d2)
     // 方向光源
-    object3d = new THREE.DirectionalLight('white', 0.6)
-    object3d.position.set(-2, 6, 0)
-    object3d.name = 'Key light'
-    scene.add(object3d)
+    let object3d3 = new THREE.DirectionalLight('white', 0.6)
+    object3d3.position.set(-6, 0, 0)
+    object3d3.name = 'Key light2'
+    scene.add(object3d3)
     // 方向光源
-    object3d = new THREE.DirectionalLight('white', 0.6)
-    object3d.position.set(0, -10, 0)
-    object3d.name = 'Key light'
-    scene.add(object3d)
+    let object3d4 = new THREE.DirectionalLight('white', 0.6)
+    object3d4.position.set(0, -10, 0)
+    object3d4.name = 'Key light3'
+    scene.add(object3d4)
+    // 上方光源
+    let object3d5 = new THREE.DirectionalLight('white', 0.6)
+    object3d5.position.set(0, 6, 0)
+    object3d5.name = 'Key light4'
+    scene.add(object3d5)
+    // 下方光源
+    let object3d6 = new THREE.DirectionalLight('white', 0.6)
+    object3d6.position.set(0, -6, 0)
+    object3d6.name = 'Key light5'
+    scene.add(object3d6)
+    // 右方光源
+    let object3d7 = new THREE.DirectionalLight('white', 0.6)
+    object3d7.position.set(6, 0, 0)
+    object3d7.name = 'Key light6'
+    scene.add(object3d7)
     window.onresize = function () {
       const WIDTH = document.documentElement.clientWidth > 920 ? document.documentElement.clientWidth - 244 : 920 - 244
       const HEIGHT = document.documentElement.clientHeight > 576 ? document.documentElement.clientHeight - 218 : 576 - 218
