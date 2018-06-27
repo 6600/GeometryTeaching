@@ -15,7 +15,7 @@ export default {
   .button_50_50 {
     height: 55px;
     line-height: 55px;
-    border-radius: 25px;
+    border-radius: 30px;
     text-align: center;
     color: white;
     font-size: 1.4rem;

@@ -178,11 +178,14 @@ export default {
     line-height: 60px;
     font-size: 1.6rem;
     margin: 0 10px;
+    font-weight: bold;
+    color: #595757;
   }
   .popup-panel {
     width: 100%;
     height: 312px;
     position: relative;
+    background-color: #e9f6fd;
     box-shadow: 0px -2px 13px #8ba3b2 inset;
     img {
       height: 300px;
@@ -197,13 +200,17 @@ export default {
   .check-box {
     height: 120px;
     display: flex;
-    margin: 0 100px;
+    margin: 0 60px;
     line-height: 120px;
     .input-check {
       display: flex;
-      width: 140px;
+      width: 33%;
       font-weight: bold;
       align-items: center;
+      .text {
+        font-size: 1.4rem;
+        color: #595757;
+      }
     }
     .check {
       height: 20px;
@@ -219,7 +226,12 @@ export default {
   }
   .tool-box {
     display: flex;
-    margin: 25px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    width: 520px;
+    margin: auto;
     .button {
       margin: 0 30px;
     }
