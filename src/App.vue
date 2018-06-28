@@ -15,15 +15,23 @@
     CentrumPopup(v-if="showCentrumPopup", @close="showCentrumPopup = false")
     .logo
     .app-control
-      .narrow.item
-      .expand.item
-      .close(@click="close").item
+      .narrow(title="縮到最小").item
+      .expand(title="放到最大").item
+      .close(@click="showCloseBox = true", title="關閉").item
+    .close-confirm-box(v-if="showCloseBox")
+      .close-confirm
+        .text
+        .button-bar
+          Button105.button(text="是", @onClick="close()")
+          Button105.button(text="否", @onClick="showCloseBox = false")
 </template>
 
 <script>
 import { Order } from '@/components/Order.js'
 import Button60 from '@/components/button/button_60_60.vue'
 import Button70 from '@/components/button/button_70_50.vue'
+import Button150 from '@/components/button/button_150_50.vue'
+import Button105 from '@/components/button/button_105_55.vue'
 import ColumnPopup from '@/components/popup/column.vue'
 import CentrumPopup from '@/components/popup/centrum.vue'
 import Line60 from '@/components/line/line_60.vue'
@@ -32,13 +40,16 @@ export default {
   data () {
     return {
       showColumnPopup: false,
-      showCentrumPopup: false
+      showCentrumPopup: false,
+      showCloseBox: false
     }
   },
   components: {
     Button70,
     Button60,
     Line60,
+    Button105,
+    Button150,
     ColumnPopup,
     CentrumPopup
   },
@@ -165,6 +176,42 @@ export default {
 </style>
 
 <style lang='less' scoped>
+  .close-confirm-box {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    .close-confirm {
+      width: 558px;
+      height: 275px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-image: url('.\assets\likai01@1x.png');
+    }
+    .text {
+      width: 310px;
+      height: 46px;
+      position: absolute;
+      left: 120px;
+      top: 70px;
+      background-image: url('.\assets\likai02@1x.png');
+    }
+    .button-bar {
+      display: flex;
+      position: absolute;
+      bottom: 40px;
+      left: 23px;
+      width: 500px;
+      justify-content: space-around;
+    }
+  }
   @media (max-height: 760px) {
     .home-left-bar{
       .button {

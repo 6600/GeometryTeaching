@@ -120,12 +120,13 @@ export default {
       if (value < 0) value = 0
       // 判断滑块是否是竖直的
       if (this.vertical) {
-        styleList.height = value + 1 + '%'
-        styleList.top = -value - 1 + '%'
+        styleList.height = (100 - value) + 1 + '%'
+        styleList.background = `linear-gradient(to right, #67c0eb , #c6defd)`
       } else {
         styleList.width = value + 1 + '%'
         // console.log(this.value, scale)
         styleList.left = -value - 1 + '%'
+        styleList.background = `linear-gradient(#67c0eb, #c6defd)`
       }
       return styleList
     },
@@ -196,20 +197,22 @@ export default {
     // color: white;
     font-size: 0rem;
     .spot {
-      border: 2px solid white;
-      background-color: #E19F14;
-      width: 15px;
-      height: 15px;
+      width: 23px;
+      height: 23px;
       border-radius: 50%;
       position: absolute;
       top: -5px;
       left: -5px;
+      background-image: url('..\assets\fangda05@1x.png');
+    }
+    .spot:hover {
+      background-position: 0px;
     }
     .bar {
-      background-color: #8acff1;
       position: absolute;
       width: 100%;
       height: 100%;
+      border-radius: 10px;
     }
   }
   .vertical .rod {
