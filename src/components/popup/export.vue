@@ -233,7 +233,7 @@ export default {
     width: 520px;
     margin: auto;
     .button {
-      margin: 0 30px;
+      margin: 0 20px;
     }
   }
 </style>

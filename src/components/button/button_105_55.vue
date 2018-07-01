@@ -13,20 +13,19 @@ export default {
 
 <style lang='less' scoped>
   .button_50_50 {
-    height: 55px;
-    line-height: 55px;
-    border-radius: 30px;
-    text-align: center;
+    height: 70px;
+    line-height: 70px;
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     text-align: center;
-    width: 105px;
+    width: 130px;
+    font-weight: 600;
     cursor: pointer;
-    border: 4px solid white;
-    box-shadow: 2px 2px 4px #d8dede;
-    background: linear-gradient(#f9d076, #915610);
+    background-position: -10px -10px;
+    background-image: url('..\..\assets\button\qdbt1x.png')
   }
   .button_50_50:hover {
-    transform: scale(1.1);
+    font-size: 1.4rem;
+    background-position: -10px -81px;
   }
 </style>

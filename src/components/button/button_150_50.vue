@@ -13,21 +13,22 @@ export default {
 
 <style lang='less' scoped>
   .button_150_50 {
-    height: 50px;
-    line-height: 50px;
+    background-size: 195px;
+    line-height: 65px;
     border-radius: 30px;
-    text-align: center;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     text-align: center;
-    width: 150px;
-    font-weight: bold;
+    width: 188px;
+    height: 65px;
+    background-repeat: no-repeat;
+    font-weight: 200;
     cursor: pointer;
-    border: 3px solid #f8f5ef;
-    box-shadow: 2px 2px 4px #d8dede;
-    background: linear-gradient(#f6d15e, #b45700);
+    background-position: -2px -2px;
+    background-image: url('..\..\assets\button\scbt1x.png')
   }
   .button_150_50:hover {
-    transform: scale(1.1);
+    font-size: 1.4rem;
+    background-position: -2px -73px;
   }
 </style>

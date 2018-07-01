@@ -204,7 +204,7 @@ export default {
     .origami-menu {
       position: absolute;
       right: 0;
-      bottom: 20px;
+      bottom: 10px;
       display: flex;
       z-index: 2;
     }
