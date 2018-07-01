@@ -18,6 +18,7 @@
     "three": "0.90.0",
     "three-orbit-controls": "^82.1.0",
     "vue": "^2.5.2",
+    "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

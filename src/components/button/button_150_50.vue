@@ -22,7 +22,7 @@ export default {
     width: 188px;
     height: 65px;
     background-repeat: no-repeat;
-    font-weight: 200;
+    font-weight: bold;
     cursor: pointer;
     background-position: -2px -2px;
     background-image: url('..\..\assets\button\scbt1x.png')
