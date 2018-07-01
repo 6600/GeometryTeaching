@@ -66,7 +66,7 @@ export default {
           const Y = 2 - Math.sqrt(4 - Math.pow(Math.abs(i - 20) * Math.PI / 40, 2))
           // console.log(i, Y)
           // return
-          this.meshs[0].geometry.vertices[i].y -= Y / 90
+          this.meshs[0].geometry.vertices[i].y += (1 - Math.abs(i - 20) / 20 - 0.75) / 90
           this.meshs[0].geometry.vertices[i + 41].y -= Y / 90
           // 中心点慢慢向中心偏移
           // this.meshs[0].geometry.vertices[20].z += 1 / 90
@@ -87,7 +87,7 @@ export default {
         // return
         this.meshs[0].geometry.verticesNeedUpdate = true
         this.nextStep(1, this.close)
-      } else if (step <= 91) {
+      } else if (step <= 92) {
         const vLength = this.meshs[0].geometry.vertices.length / 2
         for (let i = 0; i <= vLength - 1; i++) {
           const Z = Math.abs(i - 20) * 0.05
