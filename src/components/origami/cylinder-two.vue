@@ -77,52 +77,18 @@ export default {
         console.log('动画已播放完毕!')
       }
       const spiale = this.spiale
-      // 上下圆面贴合
-      spiale[0].rotation.x = step * (Math.PI / 450)
-      spiale[2].rotation.x = -step * (Math.PI / 450)
-      spiale[2].position.x = -step * Math.PI / 225
-      if (step <= 90) {
-        // 步骤一
-        // 平面变成直径为4的圆弧
-        // 原点
-        // 因为分为上下两个顶点所以要除2
-        const vLength = this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          if (i <= 40) {
-            const Z = i * 0.05
-            const X = Math.sqrt(4 - Math.pow(Z - 2, 2)) - (i * Math.PI / 40)
-            this.meshs[1].geometry.vertices[i].z = Z / 90 * step
-            this.meshs[1].geometry.vertices[i + 41].z = Z / 90 * step
-            this.meshs[1].geometry.vertices[i].x = -Math.PI / 2 + i * Math.PI / 40 + step * X / 90
-            this.meshs[1].geometry.vertices[i + 41].x = -Math.PI / 2 + i * Math.PI / 40 + step * X / 90
-          }
-        }
-      } else if (step <= 135) {
-        // 步骤二
-        // 平面变成直径为2的圆弧
-        const vLength = this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          if (i <= 40) {
-            const Z = i * 0.05
-            const X = Math.sqrt(1 - Math.pow(Z - 1, 2)) - Math.sqrt(4 - Math.pow(Z - 2, 2))
-            this.meshs[1].geometry.vertices[i].x = Math.sqrt(4 - Math.pow(Z - 2, 2)) - Math.PI / 2 + (step - 90) * X / 45
-            this.meshs[1].geometry.vertices[i + 41].x = Math.sqrt(4 - Math.pow(Z - 2, 2)) - Math.PI / 2 + (step - 90) * X / 45
-          }
-        }
-      } else if (step <= 225) {
-        const ind = step - 135
-        // 步骤二
-        // 平面变成直径为2的圆弧
-        const vLength = 41 // this.meshs[1].geometry.vertices.length / 2
-        // -----------------------------
-        for (let i = 0; i <= vLength; i++) {
-          this.meshs[1].geometry.vertices[i].z = stepSave[ind][i].z
-          this.meshs[1].geometry.vertices[i + 40].z = stepSave[ind][i].z
-          this.meshs[1].geometry.vertices[i].x = stepSave[ind][i].x
-          this.meshs[1].geometry.vertices[i + 40].x = stepSave[ind][i].x
-        }
+      spiale[0].rotation.x = stepSave[step].spiale0rotationx
+      spiale[2].rotation.x = stepSave[step].spiale2rotationx
+      spiale[2].position.x = stepSave[step].meshs1geometryvertices[81].x - 1.57
+      spiale[2].position.z = stepSave[step].meshs1geometryvertices[81].z
+      const vLength = 41 // this.meshs[1].geometry.vertices.length / 2
+      // -----------------------------
+      for (let i = 0; i <= vLength; i++) {
+        // console.log(step, stepSave[step].meshs1geometryvertices[i])
+        this.meshs[1].geometry.vertices[i].z = stepSave[step].meshs1geometryvertices[i].z
+        this.meshs[1].geometry.vertices[i + 40].z = stepSave[step].meshs1geometryvertices[i + 40].z
+        this.meshs[1].geometry.vertices[i].x = stepSave[step].meshs1geometryvertices[i].x
+        this.meshs[1].geometry.vertices[i + 40].x = stepSave[step].meshs1geometryvertices[i + 40].x
       }
       this.meshs[1].geometry.verticesNeedUpdate = true
       return true
