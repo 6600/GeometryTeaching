@@ -3,10 +3,10 @@
     .home-title
     .app-box
       .home-left-bar
-        Button70.button(@onClick="showColumnPopup = true", text="柱體", title="柱體")
-        Button70.button(@onClick="showCentrumPopup = true", text="椎體", title="椎體")
+        .button.zhuti(@click="showColumnPopup = true", title="柱體")
+        .button.zhuiti(@click="showCentrumPopup = true", title="椎體")
         Line60
-        Button70.button.pintu(@onClick="playGame", text="", title="活動")
+        .button.pintu(@onClick="playGame", text="", title="活動")
         Line60
         Button60.reduction(@onClick="reduction")
         Button60.explain(@onClick="help")
@@ -15,8 +15,8 @@
     CentrumPopup(v-if="showCentrumPopup", @close="showCentrumPopup = false")
     .logo
     .app-control
-      .narrow(title="縮到最小").item
-      .expand(title="放到最大").item
+      .narrow(title="縮到最小", @click="ipcSend('narrow')").item
+      .expand(title="放到最大", @click="ipcSend('expand')").item
       .close(@click="showCloseBox = true", title="關閉").item
     .close-confirm-box(v-if="showCloseBox")
       .close-confirm
@@ -69,6 +69,14 @@ export default {
       window.opener = null
       window.open('', '_self')
       window.close()
+    },
+    ipcSend (message) {
+      if (window.require) {
+        console.log(message)
+        const ipc = window.require('electron').ipcRenderer
+        ipc.send('window', message)
+      }
+      console.log(this)
     }
   }
 }
@@ -132,11 +140,29 @@ export default {
     box-shadow: 1px 7px 20px #5A9455;
     z-index: 1;
     .button {
-      margin: 55px 25px;
+      cursor: pointer;
+      margin: 50px 20px;
+      height: 69px;
+      width: 90px;
+      background-repeat: no-repeat;
+    }
+    .zhuti {
+      background-position: -1px 3px;
+      background-image: url('.\assets\zcd01@1x.png');
+    }
+    .zhuiti {
+      background-position: -1px 3px;
+      background-image: url('.\assets\zcd02@1x.png');
     }
     .pintu {
-      background-repeat: no-repeat;
-      background-image: url('.\assets\pintu.png');
+      background-position: -1px 3px;
+      background-image: url('.\assets\zcd03@1x.png');
+    }
+    .button:hover {
+      background-position: -1px -66px;
+    }
+    .button:active {
+      background-position: -1px -134px;
     }
     .reduction {
       margin: 25px;

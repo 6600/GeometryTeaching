@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "electron": "^2.0.3",
     "html2canvas": "^1.0.0-alpha.12",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",

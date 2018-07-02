@@ -123,7 +123,11 @@ export default {
         styleList.height = (100 - value) + 1 + '%'
         styleList.background = `linear-gradient(to right, #67c0eb , #c6defd)`
       } else {
-        styleList.width = value + 1 + '%'
+        if (value !== 0) {
+          styleList.width = value + 1 + '%'
+        } else {
+          styleList.width = 0
+        }
         // console.log(this.value, scale)
         styleList.left = -value - 1 + '%'
         styleList.background = `linear-gradient(#67c0eb, #c6defd)`
