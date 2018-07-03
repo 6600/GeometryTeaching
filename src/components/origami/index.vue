@@ -78,6 +78,7 @@ export default {
     Order.$on(`reduction`, () => {
       // 将更新事件放置到队列尾端保证及时更新
       this.changeViewing(40)
+      this.$refs.draw.controls.reset()
       this.$refs.draw.dragOpen(1)
       this.origamiStyle = 0
       this.sliderNum = 1
