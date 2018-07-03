@@ -70,23 +70,24 @@ export default {
         spiale[4].rotation.x = -step * ratio
         // 盒子下部
         spiale[5].rotation.x = -step * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else if (step === 92) {
         // 重设0面转轴
         this.meshs[5].position.set(1, -0.25, 0)
         this.spiale[5].position.set(0.25, -1, 0.5)
         this.spiale[0].rotation.z = -(step - 90) * ratio
         this.spiale[1].rotation.y = (step - 90) * ratio
-        this.nextStep(2, this.close)
-      } else if (step < 180) {
+        this.nextStep(1, this.close)
+      } else if (step <= 180) {
         this.spiale[0].rotation.z = -(step - 90) * ratio
         this.spiale[1].rotation.y = (step - 90) * ratio
         this.spiale[5].rotation.x = -step * ratio
-        this.nextStep(2, this.close)
-      } else if (step < 272) {
+        this.nextStep(1, this.close)
+      } else if (step <= 270) {
+        // return
         spiale[4].rotation.y = -(step - 180) * ratio
         spiale[5].rotation.z = -(step - 180) * ratio
-        this.nextStep(2, this.close)
+        this.nextStep(1, this.close)
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')
@@ -115,20 +116,20 @@ export default {
         this.spiale[5].position.set(0.25, -1, 0)
         // 盒子下部
         spiale[5].rotation.x = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 92) {
         this.spiale[0].rotation.z = -(step - 90) * ratio
         this.spiale[1].rotation.y = (step - 90) * ratio
-        this.nextStep(-2, this.open)
-      } else if (step < 180) {
+        this.nextStep(-1, this.open)
+      } else if (step <= 180) {
         this.spiale[0].rotation.z = -(step - 90) * ratio
         this.spiale[1].rotation.y = (step - 90) * ratio
         this.spiale[5].rotation.x = -step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 272) {
         spiale[4].rotation.y = -(step - 180) * ratio
         spiale[5].rotation.z = -(step - 180) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else {
         // 广播关闭完成事件
         this.$emit('CloseFinish')
@@ -321,7 +322,7 @@ export default {
         this.spiale[index].add(this.meshs[index])
       }
       // 调试转轴
-      // this.spiale[4].add(new THREE.AxesHelper(50))
+      this.spiale[5].add(new THREE.AxesHelper(50))
       this.animate()
     }
   }
