@@ -263,7 +263,7 @@ export default {
     right: 20px;
     height: calc(100% - 165px);
     width: 65px;
-    background-color: #9dbdff;
+    background-color: rgb(255, 191, 223);
     border-radius: 15px;
     .button {
       width: 62px;

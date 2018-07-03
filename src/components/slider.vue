@@ -71,6 +71,7 @@ export default {
       let styleList = {}
       // 判断滑块是否是竖直的
       if (this.vertical) {
+        styleList.background = '#ffbfdf'
         styleList.height = 'calc(100% - 135px)'
         styleList.width = this.width + 'px'
       } else {
@@ -206,7 +207,7 @@ export default {
       border-radius: 50%;
       position: absolute;
       top: -5px;
-      left: -5px;
+      left: -6px;
       background-image: url('..\assets\fangda05@1x.png');
     }
     .spot:hover {

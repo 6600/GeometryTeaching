@@ -228,7 +228,7 @@ export default {
       this.renderScene()
     },
     creatCube (scene, renderer, camera) {
-      this.controls = new OrbitControls(this.camera)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       // 创建长方体的6个平面
       // 定义长宽都是1平面
       const geometry = new THREE.PlaneGeometry(0.5, 2)
@@ -252,21 +252,21 @@ export default {
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
         if (index === '0' || index === '2') {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '1' || index === '3') {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '4' || index === '5') {
-          this.meshs[index] = new THREE.Mesh(geometry1, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry1, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图

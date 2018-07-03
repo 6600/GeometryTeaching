@@ -17,7 +17,7 @@ export default {
       controls: null,
       meshs: [],
       step: 0,
-      stepCount: 92
+      stepCount: 93
     }
   },
   mounted () {
@@ -50,7 +50,24 @@ export default {
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    close (step) {
+    getStep (step) {
+      if (step <= 0) {
+        this.$emit('OpenFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      // console.log(step)
+      if (step > this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+        return
+      }
+      if (step === this.stepCount) {
+        // 广播关闭完成事件
+        this.$emit('CloseFinish')
+        console.log('动画已播放完毕!')
+      }
       const spiale = this.spiale
       // console.log(this.meshs[0].geometry.vertices)
       // return
@@ -86,7 +103,6 @@ export default {
         // console.log(this.meshs[0].geometry.vertices)
         // return
         this.meshs[0].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
       } else if (step <= 92) {
         const vLength = this.meshs[0].geometry.vertices.length / 2
         for (let i = 0; i <= vLength - 1; i++) {
@@ -114,16 +130,38 @@ export default {
         }
         // console.log(this.meshs[0].geometry.vertices)
         // return
+        // this.meshs[0].geometry.vertices[20].x = 1
         this.meshs[0].geometry.verticesNeedUpdate = true
-        this.nextStep(1, this.close)
+      } else {
+        var geometry = new THREE.ConeBufferGeometry(0.5, 1.2, 100)
+        this.meshs[0].geometry = geometry
+        var material = new THREE.MeshBasicMaterial({color: '#fc734f'})
+        this.spiale[0].position.set(0, 0.14, 0.5)
+        this.meshs[0].material = material
+        console.log(this.meshs[0])
       }
+      return true
+    },
+    close (step) {
+      if (this.getStep(step)) this.nextStep(1, this.close)
+    },
+    open (step) {
+      if (this.getStep(step)) this.nextStep(-1, this.open)
+    },
+    dragClose (step) {
+      this.step = step
+      if (this.getStep(step)) this.renderScene()
+    },
+    dragOpen (step) {
+      this.step = step
+      if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {
-      this.controls = new OrbitControls(this.camera)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const geometry = new THREE.PlaneGeometry(Math.PI, 1, 40, 1)
       let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
       // 定义6个颜色
-      const colors = ['#64e530', '#ccaa1f']
+      const colors = ['#fc734f', '#ffc864']
       // 定义6个坐标
       const positions = [[0, -Math.PI / 4 + 0.75, 0], [0, -0.5, 0]]
       // 定义6个转轴
@@ -142,14 +180,14 @@ export default {
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
         if (index === '1') {
-          this.meshs[index] = new THREE.Mesh(cylinderGeometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(cylinderGeometry, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图

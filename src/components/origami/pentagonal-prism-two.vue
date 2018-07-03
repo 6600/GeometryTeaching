@@ -109,7 +109,7 @@ export default {
       if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {
-      this.controls = new OrbitControls(this.camera)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       // 创建长方体的6个平面
       var pantagonalHigh = Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)
       let shape1 = new THREE.Shape()
@@ -148,21 +148,21 @@ export default {
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
         if (index === '0') {
-          this.meshs[index] = new THREE.Mesh(pentaGeometry1, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(pentaGeometry1, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '1' || index === '3' || index === '2' || index === '4' || index === '5') {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '6') {
-          this.meshs[index] = new THREE.Mesh(pentaGeometry2, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(pentaGeometry2, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图

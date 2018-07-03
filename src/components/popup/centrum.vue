@@ -12,7 +12,7 @@
         .slect.six-one(@click="popupCheck = 'pyramidSixOne'", :class="{active: popupCheck === 'pyramidSixOne'}")
         .slect.six-two(@click="popupCheck = 'pyramidSixTwo'", :class="{active: popupCheck === 'pyramidSixTwo'}")
         .slect.pyramid-conus(@click="popupCheck = 'pyramidConus'", :class="{active: popupCheck === 'pyramidConus'}")
-        .slect.pentagonal-orism-two(@click="popupCheck = 'pentagonalPrismTwo'", :class="{active: popupCheck === 'pentagonalPrismTwo'}")
+        .slect.pentagonal-orism-two(@click="popupCheck = 'pyramidConusTwo'", :class="{active: popupCheck === 'pyramidConusTwo'}")
       .popup-panel-menu
         Button105.confirm-button(@onClick="confirm()", text="确定")
         Button105.cancel-button(@onClick="$emit('close')", text="取消")

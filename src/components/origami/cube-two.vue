@@ -126,7 +126,7 @@ export default {
       if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {
-      this.controls = new OrbitControls(this.camera)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       // 创建正方体的6个平面
       // 定义长宽都是1平面
       const geometry = new THREE.PlaneGeometry(1, 1)
@@ -149,7 +149,7 @@ export default {
         this.spiale[index] = new THREE.Object3D()
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
-        this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
+        this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
           color: color,
           transparent: true,
           // 双面双面贴图

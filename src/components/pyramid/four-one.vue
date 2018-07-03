@@ -160,7 +160,7 @@ export default {
       this.dragClose(step)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
-      this.controls = new OrbitControls(this.camera)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       // 创建中间的正方体
       const PlaneGeometry = new THREE.PlaneGeometry(1, 1)
       let shape1 = new THREE.Shape()
@@ -208,35 +208,35 @@ export default {
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
         if (index === '3') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '4') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '0') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry3, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry3, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else if (index === '2') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry4, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry4, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else {
-          this.meshs[index] = new THREE.Mesh(PlaneGeometry, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(PlaneGeometry, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图

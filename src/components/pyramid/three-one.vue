@@ -125,7 +125,7 @@ export default {
       this.dragClose(step)
     },
     creatMitsubishiColumn (scene, renderer, camera) {
-      this.controls = new OrbitControls(this.camera)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const ratio = Math.PI / 180
       let shape1 = new THREE.Shape()
       shape1.moveTo(0, 0)
@@ -158,14 +158,14 @@ export default {
         this.spiale[index].position.set(axis[0], axis[1], axis[2])
         this.scene.add(this.spiale[index])
         if (index === '2') {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry1, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图
             side: THREE.DoubleSide
           }))
         } else {
-          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshPhongMaterial({
+          this.meshs[index] = new THREE.Mesh(triangleGeometry2, new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
             // 双面双面贴图

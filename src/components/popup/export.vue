@@ -1,19 +1,16 @@
 <template lang="pug">
   .export-popup-box
     .popup
-      .title 輸出圖形:
+      .title
       .popup-panel#imgPanel(:class="{gray}")
         img(v-if="imgBase64", :src="imgBase64")
       .check-box
-        .input-check(:class="{active: checkItem === 0}")
+        .color(:class="{active: checkItem === 0}")
           .check(@click="toItem(0)")
-          .text 彩色圖
-        .input-check(:class="{active: checkItem === 1}")
+        .gray(:class="{active: checkItem === 1}")
           .check(@click="toItem(1)")
-          .text 灰階圖
-        .input-check(:class="{active: checkItem === 2}")
+        .line(:class="{active: checkItem === 2}")
           .check(@click="toItem(2)")
-          .text 單線圖
       .tool-box
         Button.button(text="确定", @onClick="saveImage()")
         Button.button(text="预览", @onClick="showPreview = true")
@@ -133,6 +130,7 @@ export default {
     margin: auto;
     background-color: white;
     border-radius: 15px;
+    background-image: url('..\..\assets\popup\sctx_bg@1x.png');
     .gray {
       filter: gray;
       filter: grayscale(100%);
@@ -175,18 +173,11 @@ export default {
   }
   .title {
     height: 60px;
-    line-height: 60px;
-    font-size: 1.6rem;
-    margin: 0 10px;
-    font-weight: bold;
-    color: #595757;
   }
   .popup-panel {
     width: 100%;
     height: 312px;
     position: relative;
-    background-color: #e9f6fd;
-    box-shadow: 0px -2px 13px #8ba3b2 inset;
     img {
       height: 300px;
       position: absolute;
@@ -202,16 +193,6 @@ export default {
     display: flex;
     margin: 0 60px;
     line-height: 120px;
-    .input-check {
-      display: flex;
-      width: 33%;
-      font-weight: bold;
-      align-items: center;
-      .text {
-        font-size: 1.4rem;
-        color: #595757;
-      }
-    }
     .check {
       height: 20px;
       width: 20px;
@@ -223,11 +204,26 @@ export default {
     .active .check{
       background-color: gold;
     }
+    .color {
+      position: absolute;
+      bottom: 170px;
+      left: 65px;
+    }
+    .gray {
+      position: absolute;
+      bottom: 170px;
+      left: 245px;
+    }
+    .line {
+      position: absolute;
+      bottom: 170px;
+      left: 430px;
+    }
   }
   .tool-box {
     display: flex;
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     left: 0;
     right: 0;
     width: 520px;

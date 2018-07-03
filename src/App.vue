@@ -6,7 +6,7 @@
         .button.zhuti(@click="showColumnPopup = true", title="柱體")
         .button.zhuiti(@click="showCentrumPopup = true", title="椎體")
         Line60
-        .button.pintu(@onClick="playGame", text="", title="活動")
+        .button.pintu(@click="playGame", text="", title="活動")
         Line60
         Button60.reduction(@onClick="reduction")
         Button60.explain(@onClick="help")
@@ -98,6 +98,7 @@ export default {
   }
   .home-title {
     height: 70px;
+    -webkit-app-region: drag;
     background-color: #e3f1e2;
     background-repeat: no-repeat;
     background-image: url('.\assets\title.png');
@@ -122,6 +123,7 @@ export default {
       background-position: -68px 2px;
       background-repeat: no-repeat;
       background-size: 100px;
+      -webkit-app-region: no-drag;
     }
     .narrow {
       background-image: url('.\assets\control\bt001.png');
@@ -141,7 +143,7 @@ export default {
     z-index: 1;
     .button {
       cursor: pointer;
-      margin: 50px 20px;
+      margin: 45px 20px;
       height: 69px;
       width: 90px;
       background-repeat: no-repeat;
