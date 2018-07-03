@@ -288,7 +288,7 @@ export default {
       let hexaGeometry = new THREE.ShapeGeometry(shape1)
       const geometry = new THREE.PlaneGeometry(2, 1)
       // 定义6个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec', '#f6c161', '#64e530']
+      const colors = ['#7ce9d0', '#685fe6', '#c5a41e', '#61dd2f', '#c2aee4', '#eb6b4a', '#eebb5d', '#e77bd7']
       // 定义6个坐标
       const positions = [[-Math.sqrt(3), 0, 0], [0, 0.5, 0], [-1, 0.5, 0], [0, -0.5, 0], [Math.sqrt(3) + 1, 1.5, 0], [Math.sqrt(3) + 1, 0.5, 0], [Math.sqrt(3) + 1, -0.5, 0], [0, 0, 0]]
       // 定义6个转轴
