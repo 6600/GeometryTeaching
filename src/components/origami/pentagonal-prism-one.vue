@@ -179,7 +179,7 @@ export default {
         this.spiale[4].position.set(-0.5 + Math.sin(18 * Math.PI / 180), 0, Math.cos(18 * Math.PI / 180))
         this.meshs[5].position.set(1.5, 0, 0)
         this.spiale[5].position.set(-0.5 + Math.sin(18 * Math.PI / 180), 0, Math.cos(18 * Math.PI / 180))
-        this.spiale[4].rotation.y = -143 * ratio
+        this.spiale[4].rotation.y = -144 * ratio
         this.meshs[5].position.set(0.5, 0, 0)
         this.spiale[5].position.set(-1, 0, Math.cos(18 * Math.PI / 180) + Math.sin(36 * Math.PI / 180))
         this.spiale[5].rotation.y = -(step - 96) * ratio

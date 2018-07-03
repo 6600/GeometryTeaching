@@ -54,8 +54,7 @@ export default {
       showExportOrigami: false,
       cameraPosition: [0, 0, 8],
       thetay: 0,
-      thetax: 0,
-      lestDistance: 40
+      thetax: 0
     }
   },
   mounted () {
@@ -77,7 +76,7 @@ export default {
     })
     Order.$on(`reduction`, () => {
       // 将更新事件放置到队列尾端保证及时更新
-      this.changeViewing(40)
+      this.distance = 40
       this.$refs.draw.controls.reset()
       this.$refs.draw.dragOpen(1)
       this.origamiStyle = 0
@@ -157,12 +156,20 @@ export default {
     },
     changeViewing (distance) {
       if (distance === 0) return
-      this.distance = distance
-      console.log(distance / this.lestDistance)
-      this.$refs.draw.controls.scaling(0.8 + (distance / this.lestDistance) / 5)
-      if (distance !== 0) {
-        this.lestDistance = distance
+      if (distance > this.distance) {
+        for (let i = 0; i < distance - this.distance; i++) {
+          setTimeout(() => {
+            this.$refs.draw.controls.scaling(1 / 0.995)
+          }, 0)
+        }
+      } else {
+        for (let i = 0; i < this.distance - distance; i++) {
+          setTimeout(() => {
+            this.$refs.draw.controls.scaling(0.995)
+          }, 0)
+        }
       }
+      this.distance = distance
     },
     addViewing () {
       // 防止可以无限缩放大
