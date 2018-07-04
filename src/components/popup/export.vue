@@ -178,6 +178,7 @@ export default {
     width: 100%;
     height: 312px;
     position: relative;
+    overflow: hidden;
     img {
       height: 300px;
       position: absolute;

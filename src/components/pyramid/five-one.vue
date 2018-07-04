@@ -131,7 +131,7 @@ export default {
       shape1.lineTo(0, 0)
       let triangleGeometry1 = new THREE.ShapeGeometry(shape1)
       // 定义3个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#f46f4c']
+      const colors = ['#6d64f3', '#cfad1f', '#cdb8f0', '#fbc562', '#f8714e', '#66e931']
       // 定义3个坐标
       const positions = [
         [-0.5, -(Math.sin(72 * Math.PI / 180) + Math.sin(36 * Math.PI / 180)) / 2, 0],

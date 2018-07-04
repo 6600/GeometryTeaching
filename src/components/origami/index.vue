@@ -159,13 +159,13 @@ export default {
       if (distance > this.distance) {
         for (let i = 0; i < distance - this.distance; i++) {
           setTimeout(() => {
-            this.$refs.draw.controls.scaling(1 / 0.995)
+            this.$refs.draw.controls.scaling(1 / 0.99)
           }, 0)
         }
       } else {
         for (let i = 0; i < this.distance - distance; i++) {
           setTimeout(() => {
-            this.$refs.draw.controls.scaling(0.995)
+            this.$refs.draw.controls.scaling(0.99)
           }, 0)
         }
       }

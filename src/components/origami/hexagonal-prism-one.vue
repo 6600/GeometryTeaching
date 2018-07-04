@@ -66,7 +66,7 @@ export default {
         this.spiale[5].rotation.y = -step * ratio
         this.spiale[6].rotation.y = -step * ratio
         this.nextStep(1, this.close)
-      } else if (step === 62) {
+      } else if (step === 61) {
         this.meshs[1].position.set(-0.5, 0, 0)
         this.spiale[1].position.set(-1, 0, Math.sqrt(3) / 2)
         this.meshs[5].position.set(0.5, 0, 0)
