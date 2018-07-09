@@ -122,6 +122,7 @@ export default {
   }
   .popup {
     position: absolute;
+    overflow: hidden;
     width: 600px;
     height: 610px;
     left: 0;
