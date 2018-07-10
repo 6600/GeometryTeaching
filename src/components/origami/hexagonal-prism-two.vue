@@ -78,7 +78,7 @@ export default {
         this.meshs[6].position.set(1, -0.5, 0)
         this.spiale[6].position.set(0, 0, Math.sqrt(3))
         this.nextStep(1, this.close)
-      } else if (step <= 180 + 60) {
+      } else if (step < 180 + 60) {
         this.spiale[4].rotation.y = -(step - 60) * ratio
         this.spiale[5].rotation.y = -(step - 60) * ratio
         this.spiale[6].rotation.y = -(step - 60) * ratio
@@ -112,6 +112,7 @@ export default {
         this.spiale[3].rotation.x = -step * ratio
         this.nextStep(-1, this.open)
       } else if (step <= 90 + 60) {
+        return
         this.spiale[0].rotation.y = (step - 60) * ratio
         this.spiale[4].rotation.y = -(step - 60) * ratio
         this.spiale[5].rotation.y = -(step - 60) * ratio

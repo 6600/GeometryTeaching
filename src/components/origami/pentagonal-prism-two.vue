@@ -61,7 +61,6 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     getStep (step) {
-      console.log(step)
       if (step <= 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
@@ -130,7 +129,7 @@ export default {
       let pentaGeometry2 = new THREE.ShapeGeometry(shape2)
       const geometry = new THREE.PlaneGeometry(2, 1)
       // 定义6个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec', '#64e530']
+      const colors = ['#83f6db', '#ccaa1f', '#6b63ef', '#f6c161', '#f46f4c', '#c9b5ec', '#64e530']
       // 定义6个坐标
       const positions = [[0, -0.5, 0], [-1, 0.5, 0], [-1, -0.5, 0], [1, 1, 0], [1, 0, 0], [1, -1, 0], [2, -0.5, 0]]
       // 定义6个转轴

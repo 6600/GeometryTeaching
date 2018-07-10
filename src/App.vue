@@ -14,9 +14,9 @@
     ColumnPopup(v-if="showColumnPopup", @close="showColumnPopup = false")
     CentrumPopup(v-if="showCentrumPopup", @close="showCentrumPopup = false")
     .logo
-    .app-control
-      .narrow(v-if="isElectron", title="縮到最小", @click="ipcSend('narrow')").item
-      .expand(v-if="isElectron", title="放到最大", @click="ipcSend('expand')").item
+    .app-control(v-if="isElectron")
+      .narrow(title="縮到最小", @click="ipcSend('narrow')").item
+      .expand(title="放到最大", @click="ipcSend('expand')").item
       .close(@click="showCloseBox = true", title="關閉").item
     .close-confirm-box(v-if="showCloseBox")
       .close-confirm

@@ -101,20 +101,25 @@ export default {
         return
       }
       if (step <= 72) {
+        // return
         this.spiale[1].rotation.y = step * ratio
         this.spiale[4].rotation.y = -step * ratio
         this.spiale[5].rotation.y = -step * ratio
         this.spiale[3].rotation.y = -step * ratio
         this.nextStep(-1, this.open)
       } else if (step === 74) {
+        this.spiale[1].rotation.y = step * ratio
+        this.spiale[4].rotation.y = -step * ratio
+        this.spiale[5].rotation.y = -step * ratio
+        this.spiale[3].rotation.y = -step * ratio
         this.meshs[4].position.set(1.5, 0, 0)
         this.spiale[4].position.set(-0.5, 0, 0)
         this.meshs[5].position.set(2.5, 0, 0)
         this.spiale[5].position.set(-0.5, 0, 0)
         this.nextStep(-1, this.open)
       } else if (step <= 72 + 90) {
-        this.spiale[0].rotation.x = (step - 72) * ratio
-        this.spiale[6].rotation.x = -(step - 72) * ratio
+        this.spiale[0].rotation.x = (step - 73) * ratio
+        this.spiale[6].rotation.x = -(step - 73) * ratio
         this.nextStep(-1, this.open)
       } else if (step <= 180 + 58) {
         this.spiale[4].rotation.y = -(step - 94) * ratio

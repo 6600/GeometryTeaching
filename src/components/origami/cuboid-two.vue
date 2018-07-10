@@ -97,14 +97,14 @@ export default {
         spiale[0].rotation.y = 90 * ratio
         this.nextStep(1, this.close)
       } else if (step < 360) {
-        spiale[0].rotation.y = (step - 180) * ratio
+        spiale[0].rotation.y = (step - 179) * ratio
         this.nextStep(1, this.close)
       } else if (step === 362) {
         this.meshs[5].position.set(0.25, 0.5, 0)
         this.spiale[5].position.set(0.25, -1, 0)
         spiale[5].rotation.y = -180 * ratio
         this.nextStep(1, this.close)
-      } else if (step < 450) {
+      } else if (step <= 450) {
         spiale[5].rotation.y = -(step - 270) * ratio
         this.nextStep(1, this.close)
       } else {
@@ -126,7 +126,7 @@ export default {
         // 盒子左1
         spiale[0].rotation.y = step * ratio
         spiale[1].rotation.y = step * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 180) {
         // 盒子右部
         spiale[3].rotation.x = (step - 90) * ratio
@@ -134,7 +134,7 @@ export default {
         spiale[4].rotation.x = (step - 90) * ratio
         // 盒子下部
         spiale[5].rotation.x = (step - 90) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 182) {
         // 平面的位置
         this.meshs[4].position.set(1.25, 0.5, 0)
@@ -144,29 +144,29 @@ export default {
         this.spiale[5].position.set(0, 1, 0)
         spiale[4].rotation.y = -ratio
         spiale[5].rotation.y = -ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 270) {
         // spiale[0].rotation.y = (step - 90) * ratio
         spiale[4].rotation.y = -(step - 180) * ratio
         spiale[5].rotation.y = -(step - 180) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 272) {
         // 重设0面转轴
         this.meshs[0].position.set(-1.25, 0, 0)
         this.spiale[0].position.set(-0.25, 0, 0)
         spiale[0].rotation.y = 90 * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step < 360) {
         spiale[0].rotation.y = (step - 180) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step === 362) {
         this.meshs[5].position.set(2.25, 0.5, 0)
         this.spiale[5].position.set(0.25, 1, 0)
         spiale[5].rotation.y = -90 * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       } else if (step <= 450) {
         spiale[5].rotation.y = -(step - 270) * ratio
-        this.nextStep(-2, this.open)
+        this.nextStep(-1, this.open)
       }
     },
     dragClose (step) {
@@ -361,7 +361,7 @@ export default {
       const geometry2 = new THREE.PlaneGeometry(0.5, 1)
       const geometry3 = new THREE.PlaneGeometry(2, 1)
       // 定义6个颜色
-      const colors = ['#ccb8f0', '#fbc562', '#f8714e', '#fbc562', '#66e931', '#6d64f3']
+      const colors = ['#ccb8f0', '#fbc562', '#f8714e', '#6d64f3', '#66e931', '#619c9e']
       // 定义6个坐标
       const positions = [[-1.25, 0, 0], [-0.5, 0, 0], [0, 0, 0], [0, 0.5, 0], [1.25, 0.5, 0], [2.5, 0.5, 0]]
       // 定义6个转轴
