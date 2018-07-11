@@ -90,7 +90,7 @@ export default {
       this.nextStep(1, this.close)
     },
     open (step) {
-      close(step)
+      this.close(step)
     },
     dragClose (step) {
       if (step <= 0) {
