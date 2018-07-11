@@ -17,7 +17,8 @@ export default {
       meshs: [],
       step: 0,
       controls: null,
-      stepCount: 270
+      stepCount: 270,
+      stepSave: []
     }
   },
   mounted () {
@@ -58,6 +59,7 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     close (step) {
+      const stepSave = this.stepSave
       const ratio = Math.PI / 180
       if (step <= 60) {
         this.spiale[1].rotation.y = step * ratio
@@ -92,9 +94,24 @@ export default {
         this.spiale[7].rotation.x = -(step - 180) * ratio
         this.nextStep(1, this.close)
       } else {
+        console.log(JSON.stringify(stepSave))
         this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
+      stepSave[step] = {}
+      stepSave[step].spiale0rotation = [this.spiale[0].rotation.x, this.spiale[0].rotation.y, this.spiale[0].rotation.z]
+      stepSave[step].spiale1rotation = [this.spiale[1].rotation.x, this.spiale[1].rotation.y, this.spiale[1].rotation.z]
+      stepSave[step].spiale2rotation = [this.spiale[2].rotation.x, this.spiale[2].rotation.y, this.spiale[2].rotation.z]
+      stepSave[step].spiale4rotation = [this.spiale[4].rotation.x, this.spiale[4].rotation.y, this.spiale[4].rotation.z]
+      stepSave[step].spiale5rotation = [this.spiale[5].rotation.x, this.spiale[5].rotation.y, this.spiale[5].rotation.z]
+      stepSave[step].spiale6rotation = [this.spiale[6].rotation.x, this.spiale[6].rotation.y, this.spiale[6].rotation.z]
+      stepSave[step].spiale7rotation = [this.spiale[7].rotation.x, this.spiale[7].rotation.y, this.spiale[7].rotation.z]
+      stepSave[step].meshs1position = [this.meshs[1].position.x, this.meshs[1].position.y, this.meshs[1].position.z]
+      stepSave[step].spiale1position = [this.spiale[1].position.x, this.spiale[1].position.y, this.spiale[1].position.z]
+      stepSave[step].meshs5position = [this.meshs[5].position.x, this.meshs[5].position.y, this.meshs[5].position.z]
+      stepSave[step].spiale5position = [this.spiale[5].position.x, this.spiale[5].position.y, this.spiale[5].position.z]
+      stepSave[step].meshs6position = [this.meshs[6].position.x, this.meshs[6].position.y, this.meshs[6].position.z]
+      stepSave[step].spiale6position = [this.spiale[6].position.x, this.spiale[6].position.y, this.spiale[6].position.z]
     },
     open (step) {
       const ratio = Math.PI / 180
