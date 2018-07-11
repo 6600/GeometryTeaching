@@ -73,5 +73,3 @@ typings/
 .idea/watcherTasks.xml
 .idea/workspace.xml
 .idea/inspectionProfiles/Project_Default.xml
-
-/dist
