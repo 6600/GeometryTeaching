@@ -4,7 +4,8 @@
 
 <script>
 import { Fun, Order } from '@/components/Order.js'
-const THREE = require('three')
+import * as THREE from 'three'
+import GLTFLoader from 'three-gltf-loader'
 const OrbitControls = require('three-orbit-controls')(THREE)
 const stepSave = require('@/assets/step/cylinder.json')
 export default {
@@ -107,55 +108,21 @@ export default {
     },
     creatCube (scene, renderer, camera) {
       this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
-      const geometry = new THREE.PlaneGeometry(Math.PI, 2, 40, 1)
-      let cylinderGeometry = new THREE.CircleGeometry(0.5, 64, 0, 2 * Math.PI)
-      // 定义6个颜色
-      const colors = ['#64e530', '#ccaa1f', '#6b63ef']
-      // 定义6个坐标
-      const positions = [[0, 0.5, 0], [0, 0, 0], [0, -0.5, 0]]
-      // 定义6个转轴
-      const axiss = [[-Math.PI / 2, 1, 0], [0, 0, 0], [-Math.PI / 2, -1, 0]]
-      // ----------------------------
-      // 创造6个平面
-      for (let index in colors) {
-        // 取得颜色
-        const color = colors[index]
-        // 取得坐标
-        const position = positions[index]
-        // 取得转轴
-        const axis = axiss[index]
-        // 创建转轴
-        this.spiale[index] = new THREE.Object3D()
-        this.spiale[index].position.set(axis[0], axis[1], axis[2])
-        this.scene.add(this.spiale[index])
-        if (index === '0' || index === '2') {
-          this.meshs[index] = new THREE.Mesh(cylinderGeometry, new THREE.MeshBasicMaterial({
-            color: color,
-            transparent: true,
-            // 双面双面贴图
-            side: THREE.DoubleSide
-          }))
-        } else if (index === '1') {
-          this.meshs[index] = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-            color: color,
-            transparent: true,
-            // 双面双面贴图
-            side: THREE.DoubleSide
-          }))
+      const loader = new GLTFLoader()
+      loader.load('./static/gltf/17-1.gltf', function (gltf) {
+        let object = gltf.scene
+        let animations = gltf.animations
+        if (animations && animations.length) {
+          let mixer = new THREE.AnimationMixer(object)
+          for (let i = 0; i < animations.length; i++) {
+            let animation = animations[i]
+            let action = mixer.clipAction(animation)
+            console.log(action)
+            action.play()
+          }
         }
-        // 设置平面位置
-        this.meshs[index].position.set(position[0], position[1], position[2])
-        // 设置平面角度
-        this.meshs[index].rotation.set(0, 0, 0)
-        // 设置平面缩放
-        this.meshs[index].scale.set(1, 1, 1)
-        // 取消面剔除
-        this.meshs[index].doubleSided = true
-        this.meshs[index].castShadow = true
-        // 将平面添加到场景中
-        this.scene.add(this.meshs[index])
-        this.spiale[index].add(this.meshs[index])
-      }
+        scene.add(gltf.scene)
+      })
       // 调试转轴
       // this.spiale[0].add(new THREE.AxesHelper(50))
       this.animate()
