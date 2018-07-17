@@ -19,10 +19,13 @@ export default {
       meshs: [],
       step: 0,
       controls: null,
+      mixer: null,
+      clock: null,
       stepCount: 225
     }
   },
   mounted () {
+    this.clock = new THREE.Clock()
     Fun.init3D(this.$el, (Object3D) => {
       this.camera = Object3D.camera
       this.renderer = Object3D.renderer
@@ -39,6 +42,7 @@ export default {
   },
   methods: {
     animate () {
+      if (this.mixer !== null) this.mixer.update(this.clock.getDelta())
       requestAnimationFrame(this.animate)
       this.renderScene()
     },
@@ -109,21 +113,25 @@ export default {
       if (this.getStep(step)) this.renderScene()
     },
     creatCube (scene, renderer, camera) {
+      const _this = this
       this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const loader = new GLTFLoader()
       loader.load('./static/gltf/17-2.gltf', function (gltf) {
         let object = gltf.scene
         let animations = gltf.animations
         if (animations && animations.length) {
-          let mixer = new THREE.AnimationMixer(object)
+          _this.mixer = new THREE.AnimationMixer(object)
           for (let i = 0; i < animations.length; i++) {
             let animation = animations[i]
-            let action = mixer.clipAction(animation)
-            console.log(action)
+            animation.duration = 3
+            let action = _this.mixer.clipAction(animation)
+            // console.log(action.play())
             action.play()
           }
         }
-        scene.add(gltf.scene)
+        scene.add(object)
+      }, undefined, (error) => {
+        console.error(error)
       })
       // 调试转轴
       // this.spiale[0].add(new THREE.AxesHelper(50))
