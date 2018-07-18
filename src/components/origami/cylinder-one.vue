@@ -21,6 +21,7 @@ export default {
       controls: null,
       mixer: null,
       clock: null,
+      animations: null,
       stepCount: 225
     }
   },
@@ -97,7 +98,14 @@ export default {
       return true
     },
     close (step) {
-      if (this.getStep(step)) this.nextStep(1, this.close)
+      for (let i = 0; i < this.animations.length; i++) {
+        let animation = this.animations[i]
+        // console.log(animation)
+        let action = this.mixer.clipAction(animation)
+        console.log(action)
+        action.repetitions = 0
+        action.setDuration(5).play()
+      }
     },
     open (step) {
       if (this.getStep(step)) this.nextStep(-1, this.open)
@@ -116,16 +124,9 @@ export default {
       const loader = new GLTFLoader()
       loader.load('./static/gltf/17-1.gltf', function (gltf) {
         let object = gltf.scene
-        let animations = gltf.animations
-        if (animations && animations.length) {
+        _this.animations = gltf.animations
+        if (_this.animations && _this.animations.length) {
           _this.mixer = new THREE.AnimationMixer(object)
-          for (let i = 0; i < animations.length; i++) {
-            let animation = animations[i]
-            console.log(_this.mixer)
-            let action = _this.mixer.clipAction(animation)
-            console.log(action)
-            action.play()
-          }
         }
         scene.add(gltf.scene)
       })
