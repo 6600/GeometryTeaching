@@ -100,16 +100,24 @@ export default {
       return true
     },
     close (step) {
+      // this.mixer.clampWhenFinished = true
+      console.log(this.mixer)
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
-        // console.log(animation)
+        console.log(animation)
         let action = this.mixer.clipAction(animation)
         action.repetitions = 0
         action.setDuration(5).play()
       }
     },
     open (step) {
-      if (this.getStep(step)) this.nextStep(-1, this.open)
+      this.mixer.timeScale = -1
+      for (let i = 0; i < this.animations.length; i++) {
+        let animation = this.animations[i]
+        let action = this.mixer.clipAction(animation)
+        action.repetitions = 0
+        action.setDuration(5).timeScale(-1).play()
+      }
     },
     dragClose (step) {
       this.step = step
@@ -124,6 +132,7 @@ export default {
       this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const loader = new GLTFLoader()
       loader.load('./static/gltf/17-2.gltf', function (gltf) {
+        console.log(gltf)
         let object = gltf.scene
         let animations = gltf.animations
         if (animations && animations.length) {
