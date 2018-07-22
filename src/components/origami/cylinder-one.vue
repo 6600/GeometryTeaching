@@ -21,6 +21,7 @@ export default {
       controls: null,
       mixer: null,
       clock: null,
+      finish: 0,
       animations: null,
       stepCount: 225
     }
@@ -98,17 +99,29 @@ export default {
       return true
     },
     close (step) {
+      this.mixer.timeScale = 1
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
         // console.log(animation)
         let action = this.mixer.clipAction(animation)
-        console.log(action)
+        // console.log(action)
+        action.clampWhenFinished = true
+        action.paused = false
         action.repetitions = 0
         action.setDuration(5).play()
       }
     },
     open (step) {
-      if (this.getStep(step)) this.nextStep(-1, this.open)
+      this.mixer.timeScale = -1
+      for (let i = 0; i < this.animations.length; i++) {
+        let animation = this.animations[i]
+        let action = this.mixer.clipAction(animation)
+        action.clampWhenFinished = true
+        action.paused = false
+        action.loop = THREE.LoopOnce
+        // console.log(action)
+        action.setDuration(5).play()
+      }
     },
     dragClose (step) {
       this.step = step
@@ -129,6 +142,16 @@ export default {
           _this.mixer = new THREE.AnimationMixer(object)
         }
         scene.add(gltf.scene)
+        _this.mixer.addEventListener('finished', (e) => {
+          _this.finish++
+          if (_this.finish >= 18) {
+            _this.finish = 0
+            // 广播关闭完成事件
+            if (e.direction > 0) _this.$emit('CloseFinish')
+            else _this.$emit('OpenFinish')
+            console.log('动画已播放完毕!')
+          }
+        })
       })
       // 调试转轴
       // this.spiale[0].add(new THREE.AxesHelper(50))

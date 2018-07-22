@@ -106,18 +106,6 @@ export default {
       return true
     },
     close (step) {
-      // this.mixer.clampWhenFinished = true
-      // console.log(this.mixer)
-      this.mixer.addEventListener('finished', (e) => {
-        this.finish++
-        if (this.finish >= 18) {
-          this.finish = 0
-          // 广播关闭完成事件
-          if (e.direction > 0) this.$emit('CloseFinish')
-          else this.$emit('OpenFinish')
-          console.log('动画已播放完毕!')
-        }
-      })
       this.mixer.timeScale = 1
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
@@ -167,11 +155,19 @@ export default {
           scene.add(gltf.scene)
         }
         scene.add(object)
+        _this.mixer.addEventListener('finished', (e) => {
+          _this.finish++
+          if (_this.finish >= 18) {
+            _this.finish = 0
+            // 广播关闭完成事件
+            if (e.direction > 0) _this.$emit('CloseFinish')
+            else _this.$emit('OpenFinish')
+            console.log('动画已播放完毕!')
+          }
+        })
       }, undefined, (error) => {
         console.error(error)
       })
-      // 调试转轴
-      // this.spiale[0].add(new THREE.AxesHelper(50))
       this.animate()
     }
   }

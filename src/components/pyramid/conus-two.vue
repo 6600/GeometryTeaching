@@ -8,7 +8,7 @@ import * as THREE from 'three'
 import GLTFLoader from 'three-gltf-loader'
 const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
-  name: 'conusOne',
+  name: 'conusTwo',
   data () {
     return {
       camera: null,
@@ -185,7 +185,7 @@ export default {
       const _this = this
       this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const loader = new GLTFLoader()
-      loader.load('./static/gltf/27-1.gltf', function (gltf) {
+      loader.load('./static/gltf/27-2.gltf', function (gltf) {
         console.log(gltf)
         let object = gltf.scene
         let animations = gltf.animations
