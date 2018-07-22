@@ -22,7 +22,8 @@ export default {
       mixer: null,
       clock: null,
       animations: null,
-      stepCount: 225
+      stepCount: 225,
+      finish: 0
     }
   },
   mounted () {
@@ -35,7 +36,12 @@ export default {
     })
     // 监听暂停事件
     Order.$on(`pause`, () => {
-      this.pause = true
+      for (let i = 0; i < this.animations.length; i++) {
+        let animation = this.animations[i]
+        let action = this.mixer.clipAction(animation)
+        action.repetitions = 0
+        action.paused = true
+      }
     })
   },
   beforeDestroy () { // 移除监听
@@ -101,11 +107,25 @@ export default {
     },
     close (step) {
       // this.mixer.clampWhenFinished = true
-      console.log(this.mixer)
+      // console.log(this.mixer)
+      this.mixer.addEventListener('finished', (e) => {
+        this.finish++
+        if (this.finish >= 18) {
+          this.finish = 0
+          // 广播关闭完成事件
+          if (e.direction > 0) this.$emit('CloseFinish')
+          else this.$emit('OpenFinish')
+          console.log('动画已播放完毕!')
+        }
+      })
+      this.mixer.timeScale = 1
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
-        console.log(animation)
+        // console.log(animation)
         let action = this.mixer.clipAction(animation)
+        // console.log(action)
+        action.clampWhenFinished = true
+        action.paused = false
         action.repetitions = 0
         action.setDuration(5).play()
       }
@@ -115,8 +135,11 @@ export default {
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
         let action = this.mixer.clipAction(animation)
-        action.repetitions = 0
-        action.setDuration(5).timeScale(-1).play()
+        action.clampWhenFinished = true
+        action.paused = false
+        action.loop = THREE.LoopOnce
+        // console.log(action)
+        action.setDuration(5).play()
       }
     },
     dragClose (step) {
