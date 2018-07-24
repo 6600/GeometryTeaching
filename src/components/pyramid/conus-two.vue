@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { Fun } from '@/components/Order.js'
+import { Fun, Order } from '@/components/Order.js'
 import * as THREE from 'three'
 import GLTFLoader from 'three-gltf-loader'
 const OrbitControls = require('three-orbit-controls')(THREE)
@@ -31,6 +31,15 @@ export default {
       this.renderer = Object3D.renderer
       this.scene = Object3D.scene
       this.creatCube(Object3D.scene, Object3D.renderer, Object3D.camera)
+    })
+    // 监听暂停事件
+    Order.$on(`pause`, () => {
+      for (let i = 0; i < this.animations.length; i++) {
+        let animation = this.animations[i]
+        let action = this.mixer.clipAction(animation)
+        action.repetitions = 0
+        action.paused = true
+      }
     })
   },
   methods: {

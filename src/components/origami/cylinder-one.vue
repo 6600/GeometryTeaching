@@ -36,7 +36,12 @@ export default {
     })
     // 监听暂停事件
     Order.$on(`pause`, () => {
-      this.pause = true
+      for (let i = 0; i < this.animations.length; i++) {
+        let animation = this.animations[i]
+        let action = this.mixer.clipAction(animation)
+        action.repetitions = 0
+        action.paused = true
+      }
     })
   },
   beforeDestroy () { // 移除监听
@@ -44,6 +49,7 @@ export default {
   },
   methods: {
     animate () {
+      // console.log(this.clock.getDelta())
       requestAnimationFrame(this.animate)
       if (this.mixer !== null) this.mixer.update(this.clock.getDelta())
       this.renderScene()
@@ -99,6 +105,7 @@ export default {
       return true
     },
     close (step) {
+      console.log(this.mixer)
       this.mixer.timeScale = 1
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
