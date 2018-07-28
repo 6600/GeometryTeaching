@@ -4,7 +4,7 @@
 
 <script>
 import { Fun, Order } from '@/components/Order.js'
-import * as THREE from 'three'
+import * as THREE from 'three/build/three.js'
 import GLTFLoader from 'three-gltf-loader'
 const OrbitControls = require('three-orbit-controls')(THREE)
 const stepSave = require('@/assets/step/cylinder.json')
@@ -23,7 +23,9 @@ export default {
       clock: null,
       finish: 0,
       animations: null,
-      stepCount: 225
+      stepCount: 100,
+      playing: 0,
+      timestamp: 0
     }
   },
   mounted () {
@@ -54,18 +56,18 @@ export default {
       if (this.mixer !== null) this.mixer.update(this.clock.getDelta())
       this.renderScene()
     },
-    nextStep (space, callback) {
-      // console.log('关闭盒子', auto)
+    play () {
       setTimeout(() => {
-        this.step += space
-        this.$emit('stepChange', this.step)
-        // 判断是否暂停
-        if (this.pause) {
-          this.pause = false
+        if (this.playing === 0) return
+        if (this.playing === 1) {
+          this.step = ((new Date()).getTime() - this.timestamp) / 50
+          this.$emit('stepChange', this.step)
+          this.play()
         } else {
-          callback(this.step)
+          this.step = (this.timestamp - (new Date()).getTime()) / 50 + 100
+          this.$emit('stepChange', this.step)
+          this.play()
         }
-        this.renderScene()
       }, 20)
     },
     renderScene () {
@@ -105,6 +107,9 @@ export default {
       return true
     },
     close (step) {
+      this.timestamp = (new Date()).getTime()
+      this.playing = 1
+      this.play()
       console.log(this.mixer)
       this.mixer.timeScale = 1
       for (let i = 0; i < this.animations.length; i++) {
@@ -114,11 +119,15 @@ export default {
         // console.log(action)
         action.clampWhenFinished = true
         action.paused = false
-        action.repetitions = 0
+        action.loop = THREE.LoopOnce
         action.setDuration(5).play()
       }
+      this.step += 10
     },
     open (step) {
+      this.timestamp = (new Date()).getTime()
+      this.playing = -1
+      this.play()
       this.mixer.timeScale = -1
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
@@ -150,6 +159,7 @@ export default {
         }
         scene.add(gltf.scene)
         _this.mixer.addEventListener('finished', (e) => {
+          _this.playing = 0
           _this.finish++
           if (_this.finish >= 18) {
             _this.finish = 0
