@@ -25,7 +25,9 @@ export default {
       animations: null,
       stepCount: 100,
       playing: 0,
-      timestamp: 0
+      timestamp: 0,
+      isPaused: false,
+      action: null
     }
   },
   mounted () {
@@ -38,6 +40,7 @@ export default {
     })
     // 监听暂停事件
     Order.$on(`pause`, () => {
+      this.playing = 0
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
         let action = this.mixer.clipAction(animation)
@@ -107,10 +110,12 @@ export default {
       return true
     },
     close (step) {
-      this.timestamp = (new Date()).getTime()
+      if (this.timestamp === 0) {
+        this.timestamp = (new Date()).getTime()
+      }
       this.playing = 1
       this.play()
-      console.log(this.mixer)
+      console.log(JSON.parse(JSON.stringify(this.mixer)))
       this.mixer.timeScale = 1
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
@@ -125,7 +130,9 @@ export default {
       this.step += 10
     },
     open (step) {
-      this.timestamp = (new Date()).getTime()
+      if (this.timestamp === 0) {
+        this.timestamp = (new Date()).getTime()
+      }
       this.playing = -1
       this.play()
       this.mixer.timeScale = -1
