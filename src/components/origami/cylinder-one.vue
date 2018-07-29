@@ -25,7 +25,8 @@ export default {
       animations: null,
       stepCount: 50,
       playing: 0,
-      isPaused: false
+      isPaused: false,
+      stepSave: 0
     }
   },
   mounted () {
@@ -103,7 +104,8 @@ export default {
       return true
     },
     close (step) {
-      this.mixer.time = 0
+      this.step -= 2
+      this.mixer.time = this.step / 10
       this.playing = 1
       this.play()
       console.log(this.mixer)
@@ -120,7 +122,8 @@ export default {
       }
     },
     open (step) {
-      this.mixer.time = 5
+      this.step += 2
+      this.mixer.time = this.step / 10
       this.playing = -1
       this.play()
       this.mixer.timeScale = -1
