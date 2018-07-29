@@ -88,11 +88,11 @@ export default {
       return true
     },
     close (step) {
-      if (this.getStep(step)) this.nextStep(2, this.close)
+      if (this.getStep(step + 1)) this.nextStep(1, this.close)
     },
     open (step) {
       if (step > this.stepCount) step = this.stepCount
-      if (this.getStep(step)) this.nextStep(-2, this.open)
+      if (this.getStep(step - 1)) this.nextStep(-1, this.open)
     },
     dragClose (step) {
       if (this.getStep(step)) this.renderScene()

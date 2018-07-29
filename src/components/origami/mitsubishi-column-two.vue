@@ -90,10 +90,10 @@ export default {
       return true
     },
     close (step) {
-      if (this.getStep(step)) this.nextStep(2, this.close)
+      if (this.getStep(step + 2)) this.nextStep(2, this.close)
     },
     open (step) {
-      if (this.getStep(step)) this.nextStep(-2, this.open)
+      if (this.getStep(step - 2)) this.nextStep(-2, this.open)
     },
     dragClose (step) {
       this.step = step

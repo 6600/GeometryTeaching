@@ -59,6 +59,7 @@ export default {
       this.renderer.render(this.scene, this.camera)
     },
     close (step) {
+      step += 2
       const spiale = this.spiale
       const ratio = Math.PI / 180
       if (step <= 90) {
@@ -114,6 +115,7 @@ export default {
       }
     },
     open (step) {
+      step -= 2
       const spiale = this.spiale
       const ratio = Math.PI / 180
       if (step < 0) {

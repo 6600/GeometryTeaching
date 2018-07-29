@@ -60,8 +60,8 @@ export default {
     renderScene () {
       this.renderer.render(this.scene, this.camera)
     },
-    close (step) {
-      if (step <= 0) {
+    getStep (step) {
+      if (step < 0) {
         this.$emit('OpenFinish')
         console.log('动画已播放完毕!')
         return
@@ -78,19 +78,24 @@ export default {
         this.$emit('CloseFinish')
         console.log('动画已播放完毕!')
       }
-      this.spiale[0].rotation.x = stepSave[step].spiale0rotate[0]
-      this.spiale[0].rotation.y = stepSave[step].spiale0rotate[1]
-      this.spiale[0].rotation.z = stepSave[step].spiale0rotate[2]
-      this.spiale[1].rotation.x = stepSave[step].spiale1rotate[0]
-      this.spiale[1].rotation.y = stepSave[step].spiale1rotate[1]
-      this.spiale[1].rotation.z = stepSave[step].spiale1rotate[2]
-      this.spiale[2].rotation.x = stepSave[step].spiale2rotate[0]
-      this.spiale[2].rotation.y = stepSave[step].spiale2rotate[1]
-      this.spiale[2].rotation.z = stepSave[step].spiale2rotate[2]
-      this.nextStep(1, this.close)
+      if (stepSave[step]) {
+        this.spiale[0].rotation.x = stepSave[step].spiale0rotate[0]
+        this.spiale[0].rotation.y = stepSave[step].spiale0rotate[1]
+        this.spiale[0].rotation.z = stepSave[step].spiale0rotate[2]
+        this.spiale[1].rotation.x = stepSave[step].spiale1rotate[0]
+        this.spiale[1].rotation.y = stepSave[step].spiale1rotate[1]
+        this.spiale[1].rotation.z = stepSave[step].spiale1rotate[2]
+        this.spiale[2].rotation.x = stepSave[step].spiale2rotate[0]
+        this.spiale[2].rotation.y = stepSave[step].spiale2rotate[1]
+        this.spiale[2].rotation.z = stepSave[step].spiale2rotate[2]
+      }
+      return true
+    },
+    close (step) {
+      if (this.getStep(step + 1)) this.nextStep(1, this.close)
     },
     open (step) {
-      this.close(step)
+      if (this.getStep(step - 1)) this.nextStep(-1, this.open)
     },
     dragClose (step) {
       if (step <= 0) {

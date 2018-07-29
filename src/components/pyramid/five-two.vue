@@ -113,10 +113,10 @@ export default {
       return true
     },
     close (step) {
-      if (this.getStep(step)) this.nextStep(1, this.close)
+      if (this.getStep(step + 1)) this.nextStep(1, this.close)
     },
     open (step) {
-      if (this.getStep(step)) this.nextStep(-1, this.open)
+      if (this.getStep(step - 1)) this.nextStep(-1, this.open)
     },
     dragClose (step) {
       this.step = step

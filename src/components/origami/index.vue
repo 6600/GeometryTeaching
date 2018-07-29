@@ -42,7 +42,7 @@ export default {
   },
   data () {
     return {
-      sliderNum: 1,
+      sliderNum: 0,
       // 0为盒子已经打开 1为盒子已经合上 2为盒子正在合上 3为盒子正在打开
       origamiStyle: 0,
       // 视角距离
@@ -67,9 +67,9 @@ export default {
         this.distance = 40
         this.stepCount = this.$refs.draw.stepCount
         // 清除缓存
-        this.$refs.draw.step = 1
+        this.$refs.draw.step = 0
         this.origamiStyle = 0
-        this.sliderNum = 1
+        this.sliderNum = 0
         this.thetay = 0
         this.thetax = 0
       }, 0)
@@ -123,7 +123,7 @@ export default {
           this.origamiStyle = 2
           // console.log(this.sliderNum)
           // this.$refs.draw.step = this.sliderNum
-          this.$refs.draw.step = this.sliderNum += 2
+          this.$refs.draw.step = this.sliderNum
           this.$refs.draw.close(this.sliderNum)
           break
         }
@@ -142,7 +142,7 @@ export default {
         // 判断当前是否为打开状态
         case 1: {
           this.origamiStyle = 3
-          this.$refs.draw.step = this.sliderNum -= 2
+          this.$refs.draw.step = this.sliderNum
           this.$refs.draw.open(this.sliderNum)
           break
         }
