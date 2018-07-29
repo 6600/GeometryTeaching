@@ -29,6 +29,9 @@ for (var i = 0; i < 5; i++) {
   }
 }
 var data = { blocks: arr, popupType: 0, playButtonDisable: true }
+
+// 模型
+const modelID = []
 export default {
   data: function () {
     return data
@@ -78,9 +81,11 @@ export default {
       if (num !== 6) {
         this.popupType = 2
       } else {
-        for (var i1 = 0; i1 < 64; i1++) {
+        let i1 = 0
+        let j1 = 0
+        for (i1 = 0; i1 < 64; i1++) {
           var flag = true
-          for (var j1 = 0; j1 < 5; j1++) {
+          for (j1 = 0; j1 < 5; j1++) {
             if (firstx + data[i1][j1 * 2 + 1] < 0 || (firsty + data[i1][j1 * 2]) < 0) {
               flag = false
               break
@@ -90,6 +95,7 @@ export default {
             }
           }
           if (flag) {
+            console.log(i1, j1)
             this.playButtonDisable = false
             this.popupType = 1
             return
