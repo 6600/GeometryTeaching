@@ -153,7 +153,7 @@ export default {
         var material = new THREE.MeshBasicMaterial({color: '#fc734f'})
         this.spiale[0].position.set(0, 0.14, 0.5)
         this.meshs[0].material = material
-        console.log(this.meshs[0])
+        // console.log(this.meshs[0])
       }
       return true
     },
@@ -195,7 +195,7 @@ export default {
       this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const loader = new GLTFLoader()
       loader.load('./static/gltf/27-1.gltf', function (gltf) {
-        console.log(gltf)
+        // console.log(gltf)
         let object = gltf.scene
         let animations = gltf.animations
         if (animations && animations.length) {

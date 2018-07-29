@@ -23,11 +23,9 @@ export default {
       clock: null,
       finish: 0,
       animations: null,
-      stepCount: 100,
+      stepCount: 50,
       playing: 0,
-      timestamp: 0,
-      isPaused: false,
-      action: null
+      isPaused: false
     }
   },
   mounted () {
@@ -62,15 +60,10 @@ export default {
     play () {
       setTimeout(() => {
         if (this.playing === 0) return
-        if (this.playing === 1) {
-          this.step = ((new Date()).getTime() - this.timestamp) / 50
-          this.$emit('stepChange', this.step)
-          this.play()
-        } else {
-          this.step = (this.timestamp - (new Date()).getTime()) / 50 + 100
-          this.$emit('stepChange', this.step)
-          this.play()
-        }
+        console.log(this.mixer.time * 10)
+        this.step = this.mixer.time * 10
+        this.$emit('stepChange', this.step)
+        this.play()
       }, 20)
     },
     renderScene () {
@@ -110,12 +103,10 @@ export default {
       return true
     },
     close (step) {
-      if (this.timestamp === 0) {
-        this.timestamp = (new Date()).getTime()
-      }
+      this.mixer.time = 0
       this.playing = 1
       this.play()
-      console.log(JSON.parse(JSON.stringify(this.mixer)))
+      console.log(this.mixer)
       this.mixer.timeScale = 1
       for (let i = 0; i < this.animations.length; i++) {
         let animation = this.animations[i]
@@ -127,12 +118,9 @@ export default {
         action.loop = THREE.LoopOnce
         action.setDuration(5).play()
       }
-      this.step += 10
     },
     open (step) {
-      if (this.timestamp === 0) {
-        this.timestamp = (new Date()).getTime()
-      }
+      this.mixer.time = 5
       this.playing = -1
       this.play()
       this.mixer.timeScale = -1
@@ -166,9 +154,10 @@ export default {
         }
         scene.add(gltf.scene)
         _this.mixer.addEventListener('finished', (e) => {
-          _this.playing = 0
           _this.finish++
           if (_this.finish >= 18) {
+            console.log(_this.mixer)
+            _this.playing = 0
             _this.finish = 0
             // 广播关闭完成事件
             if (e.direction > 0) _this.$emit('CloseFinish')
