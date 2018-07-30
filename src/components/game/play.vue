@@ -4,7 +4,7 @@
 
 <script>
 import { Fun, Order } from '@/components/Order.js'
-import * as THREE from 'three'
+import * as THREE from 'three/build/three.js'
 import GLTFLoader from 'three-gltf-loader'
 const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
@@ -50,26 +50,10 @@ export default {
   },
   methods: {
     animate () {
-      if (this.mixer !== null) this.mixer.update(this.clock.getDelta())
+      // console.log(this.clock.getDelta())
       requestAnimationFrame(this.animate)
+      if (this.mixer !== null) this.mixer.update(this.clock.getDelta())
       this.renderScene()
-    },
-    nextStep (space, callback) {
-      // console.log('关闭盒子', auto)
-      setTimeout(() => {
-        this.step += space
-        this.$emit('stepChange', this.step)
-        // 判断是否暂停
-        if (this.pause) {
-          this.pause = false
-        } else {
-          callback(this.step)
-        }
-        this.renderScene()
-      }, 20)
-    },
-    renderScene () {
-      this.renderer.render(this.scene, this.camera)
     },
     play () {
       setTimeout(() => {
@@ -79,6 +63,9 @@ export default {
         this.$emit('stepChange', this.step)
         this.play()
       }, 20)
+    },
+    renderScene () {
+      this.renderer.render(this.scene, this.camera)
     },
     close (step) {
       this.mixer.time = this.step / 10
@@ -115,8 +102,9 @@ export default {
     creatCube (scene, renderer, camera) {
       this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const loader = new GLTFLoader()
-      loader.load('./static/gltf/17-2.gltf', (gltf) => {
+      loader.load(`./static/gltf/${this.$route.params.id}.gltf`, (gltf) => {
         this.animations = gltf.animations
+        console.log(gltf)
         if (this.animations && this.animations.length) {
           this.mixer = new THREE.AnimationMixer(gltf.scene)
         }
@@ -124,7 +112,7 @@ export default {
         let finish = 0
         this.mixer.addEventListener('finished', (e) => {
           finish++
-          if (finish >= 18) {
+          if (finish >= 5) {
             this.isPlaying = false
             finish = 0
             // 广播关闭完成事件

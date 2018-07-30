@@ -22,7 +22,8 @@ export default {
       animations: null,
       stepCount: 50,
       isPlaying: false,
-      stepSave: 0
+      stepSave: 0,
+      controls: null
     }
   },
   mounted () {
@@ -99,8 +100,7 @@ export default {
     dragOpen (step) {
     },
     creatCube (scene, renderer, camera) {
-      const control = new OrbitControls(this.camera, this.$el.childNodes[0])
-      console.log(control)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
       const loader = new GLTFLoader()
       loader.load('./static/gltf/17-1.gltf', (gltf) => {
         this.animations = gltf.animations

@@ -2,9 +2,11 @@
   .origami-box
     .title {{$route.name.split('-')[0]}}
     router-view.origami-show(ref="draw", @stepChange="changeStep", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
-    .origami-menu
+    .origami-menu(v-if="$route.name !== 'play'")
       Button150.button(text="輸出圖形", @onClick="showExport = true")
       Button150.button(text="輸出折紙圖樣", @onClick="showExportOrigami = true")
+    .origami-menu(v-else)
+      Button150.button(text="返回", @onClick="$router.go(-1)")
     .top.flip-button(@click="flipTo(1, 0)")
     .bottom.flip-button(@click="flipTo(3, 0)")
     .left.flip-button(@click="flipTo(4, 0)")
@@ -58,6 +60,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this)
     this.stepCount = this.$refs.draw.stepCount
     // 监听图形变化事件，如果图形发生改变则刷新stepCount
     Order.$on(`changeGraph`, () => {
@@ -155,6 +158,7 @@ export default {
       }
     },
     changeViewing (distance) {
+      console.log(this.$refs.draw)
       if (distance === 0) return
       if (distance > this.distance) {
         for (let i = 0; i < distance - this.distance; i++) {

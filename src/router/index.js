@@ -35,6 +35,7 @@ import pyramidConus from '@/components/pyramid/conus-one'
 import pyramidConusTwo from '@/components/pyramid/conus-two'
 // 活动页面
 import activityGame from '@/components/game/activity'
+import play from '@/components/game/play'
 
 Vue.use(Router)
 
@@ -85,7 +86,9 @@ export default new Router({
         { path: '/origami/pyramidSixTwo', name: '六角棱锥-two', component: pyramidSixTwo },
         // 圆锥
         { path: '/origami/pyramidConus', name: '圆锥-one', component: pyramidConus },
-        { path: '/origami/pyramidConusTwo', name: '圆锥-Two', component: pyramidConusTwo }
+        { path: '/origami/pyramidConusTwo', name: '圆锥-Two', component: pyramidConusTwo },
+        // play
+        { path: '/origami/play/:id', name: 'play', component: play }
       ]
     },
     {

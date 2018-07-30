@@ -9,7 +9,7 @@
       .game-menu
         Line110(@onClick="reset",text="重設")
         Line110(@onClick="check", text="確定")
-        Line110(text="觀看動畫", @onClick="$router.push('/origami/cubeOne')", :disable="playButtonDisable")
+        Line110(text="觀看動畫", @onClick="$router.push('/origami/play/101')", :disable="playButtonDisable")
         Line110(text="輸出圖樣")
     .activity-popup-box(v-if="popupType !== 0")
       .popup-box
