@@ -9,7 +9,7 @@
       .game-menu
         Line110(@onClick="reset",text="重設")
         Line110(@onClick="check", text="確定")
-        Line110(text="觀看動畫", @onClick="$router.push('/origami/play/101')", :disable="playButtonDisable")
+        Line110(text="觀看動畫", @onClick="$router.push(`/origami/play/${modelID[activeNum]}`)", :disable="playButtonDisable")
         Line110(text="輸出圖樣")
     .activity-popup-box(v-if="popupType !== 0")
       .popup-box
@@ -28,13 +28,100 @@ for (var i = 0; i < 5; i++) {
     arr[i][j] = false
   }
 }
-var data = { blocks: arr, popupType: 0, playButtonDisable: true }
-
-// 模型
-const modelID = []
 export default {
   data: function () {
-    return data
+    return {
+      blocks: arr,
+      popupType: 0,
+      playButtonDisable: true,
+      activeNum: null,
+      modelID: [
+        // 1
+        '101',
+        '101',
+        '101',
+        '101',
+        // 2
+        '101',
+        '101',
+        '101',
+        '101',
+        // 2xx
+        '101',
+        '101',
+        '101',
+        '101',
+        // 3
+        '101',
+        '101',
+        '101',
+        '101',
+        // 3xx
+        '101',
+        '101',
+        '101',
+        '101',
+        // 4
+        '101',
+        '101',
+        // 4xx
+        '101',
+        '101',
+        // 5
+        '101',
+        '101',
+        '101',
+        '101',
+        // 6
+        '101',
+        '101',
+        // 6xx
+        '101',
+        '101',
+        // 7
+        '101',
+        '101',
+        '101',
+        '101',
+        // 7xx
+        '101',
+        '101',
+        '101',
+        '101',
+        // 8
+        '101',
+        '101',
+        '101',
+        '101',
+        // 8xx
+        '101',
+        '101',
+        '101',
+        '101',
+        // 9
+        '101',
+        '101',
+        '101',
+        '101',
+        // 9xx
+        '101',
+        '101',
+        '101',
+        '101',
+        // 10
+        '101',
+        '101',
+        // 10xx
+        '101',
+        '101',
+        // 11
+        '101',
+        '101',
+        // 11re
+        '101',
+        '101',
+      ]
+    }
   },
   methods: {
     blockClick (i, j) {
@@ -96,6 +183,7 @@ export default {
           }
           if (flag) {
             console.log(i1, j1)
+            this.activeNum = i1
             this.playButtonDisable = false
             this.popupType = 1
             return
