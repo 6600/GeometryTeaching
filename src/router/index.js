@@ -88,7 +88,7 @@ export default new Router({
         { path: '/origami/pyramidConus', name: '圆锥-one', component: pyramidConus },
         { path: '/origami/pyramidConusTwo', name: '圆锥-Two', component: pyramidConusTwo },
         // play
-        { path: '/origami/play/:id', name: 'play', component: play }
+        { path: '/origami/play/:id', name: ' ', component: play }
       ]
     },
     {

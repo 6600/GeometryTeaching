@@ -2,7 +2,7 @@
   .origami-box
     .title {{$route.name.split('-')[0]}}
     router-view.origami-show(ref="draw", @stepChange="changeStep", @CloseFinish="origamiStyle = 1", @OpenFinish="origamiStyle = 0")
-    .origami-menu(v-if="$route.name !== 'play'")
+    .origami-menu(v-if="$route.name !== ' '")
       Button150.button(text="輸出圖形", @onClick="showExport = true")
       Button150.button(text="輸出折紙圖樣", @onClick="showExportOrigami = true")
     .origami-menu(v-else)
