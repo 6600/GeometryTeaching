@@ -6,6 +6,7 @@
       Button150.button(text="輸出圖形", @onClick="showExport = true")
       Button150.button(text="輸出折紙圖樣", @onClick="showExportOrigami = true")
     .origami-menu(v-else)
+      .blinker
       Button150.button(text="返回", @onClick="$router.go(-1)")
     .top.flip-button(@click="flipTo(1, 0)")
     .bottom.flip-button(@click="flipTo(3, 0)")
@@ -219,6 +220,14 @@ export default {
       bottom: 10px;
       display: flex;
       z-index: 2;
+      .blinker {
+        position: fixed;
+        left: 0;
+        top: 70px;
+        height: 100%;
+        width: 130px;
+        background-color: rgba(0, 0, 0, 0.50);
+      }
     }
     .button {
       margin: 0 10px;

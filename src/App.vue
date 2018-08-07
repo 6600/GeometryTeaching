@@ -97,6 +97,7 @@ export default {
   }
   .home-title {
     height: 70px;
+    z-index: 999;
     -webkit-app-region: drag;
     background-color: #e3f1e2;
     background-repeat: no-repeat;
