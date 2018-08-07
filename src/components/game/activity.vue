@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { Order } from '@/components/Order.js'
 import Line110 from '@/components/button/button_110_35.vue'
 import Button105 from '@/components/button/button_105_55.vue'
 var arr = new Array(5)
@@ -29,7 +30,7 @@ for (var i = 0; i < 5; i++) {
   }
 }
 export default {
-  data: function () {
+  data () {
     return {
       blocks: arr,
       popupType: 0,
@@ -122,6 +123,23 @@ export default {
         '107'
       ]
     }
+  },
+  mounted () {
+    Order.$on(`reduction`, () => {
+      // 将更新事件放置到队列尾端保证及时更新
+      let arr = new Array(5)
+      for (var i = 0; i < 5; i++) {
+        arr[i] = new Array(i)
+        for (var j = 0; j < 5; j++) {
+          arr[i][j] = false
+        }
+      }
+      this.blocks = arr
+      this.playButtonDisable = true
+    })
+  },
+  beforeDestroy () { // 移除监听
+    Order.$emit('reduction')
   },
   methods: {
     blockClick (i, j) {
