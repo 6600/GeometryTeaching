@@ -93,7 +93,7 @@ export default {
   }
   #app {
     min-width: 920px;
-    min-height: 576px;
+    min-height: 700px;
   }
   .home-title {
     height: 70px;
@@ -251,27 +251,6 @@ export default {
     .home-left-bar{
       .button {
         margin: 35px 25px;
-      }
-    }
-  }
-  @media (max-height: 670px) {
-    .home-left-bar{
-      .button {
-        margin: 25px 25px;
-      }
-    }
-  }
-  @media (max-height: 620px) {
-    .home-left-bar{
-      .button {
-        margin: 15px 25px;
-      }
-    }
-  }
-  @media (max-height: 560px) {
-    .home-left-bar{
-      .button {
-        margin: 5px 25px;
       }
     }
   }

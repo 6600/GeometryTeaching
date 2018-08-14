@@ -1,5 +1,5 @@
 <template lang="pug">
-  .export-popup-box
+  .export-popup-box(v-show="imgBase64")
     .popup
       .title
       .popup-panel#imgPanel(:class="{gray}")
@@ -37,8 +37,19 @@ export default {
     }
   },
   created () {
-    const canvas = document.getElementsByTagName('canvas')[0]
-    this.imgBase64 = this.imgBase64Copy = canvas.toDataURL()
+    const routeName = this.$route.name
+    if (routeName === 'activityGame') {
+      html2canvas(document.getElementById('blockBox'), {
+        foreignObjectRendering: true
+      }).then(canvas => {
+        console.log(canvas)
+        let imgData = canvas.toDataURL()
+        this.imgBase64 = this.imgBase64Copy = imgData
+      })
+    } else {
+      const canvas = document.getElementsByTagName('canvas')[0]
+      this.imgBase64 = this.imgBase64Copy = canvas.toDataURL()
+    }
   },
   components: {
     Button

@@ -2,7 +2,7 @@
   .game-activity
     .activity-box
       span.title 點擊適當的方格來塗色，設計正方體的折紙圖樣。
-      .block-box
+      .block-box#blockBox
         .blockrow(v-for="i in 5")
           .block(v-for="j in 5", @click="blockClick(i-1, j-1)", :class="{ active: blocks[i-1][j-1] }")
         .clear
@@ -10,16 +10,18 @@
         Line110(@onClick="reset",text="重設")
         Line110(@onClick="check", text="確定")
         Line110(text="觀看動畫", @onClick="$router.push(`/origami/play/${modelID[activeNum]}`)", :disable="playButtonDisable")
-        Line110(text="輸出圖樣")
+        Line110(text="輸出圖樣", @onClick="showExportOrigami = true")
     .activity-popup-box(v-if="popupType !== 0")
       .popup-box
         .text-box.text-box-one-line(v-if="popupType === 1") 這折紙圖樣可折成正方體。
         .text-box.text-box-two-line(v-if="popupType === 2") 這折紙圖洋不可以折成正方體，再來壹次。
         Button105.button(text="确定", @onClick="popupType = 0")
+    Origami(v-if="showExportOrigami", @close="showExportOrigami = false")
 </template>
 
 <script>
 import { Order } from '@/components/Order.js'
+import Origami from '@/components/popup/export.vue'
 import Line110 from '@/components/button/button_110_35.vue'
 import Button105 from '@/components/button/button_105_55.vue'
 var arr = new Array(5)
@@ -34,6 +36,7 @@ export default {
     return {
       blocks: arr,
       popupType: 0,
+      showExportOrigami: false,
       playButtonDisable: true,
       activeNum: null,
       modelID: [
@@ -298,6 +301,7 @@ export default {
     }
   },
   components: {
+    Origami,
     Line110,
     Button105
   }
