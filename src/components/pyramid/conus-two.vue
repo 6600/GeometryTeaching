@@ -1,5 +1,6 @@
 <template lang="pug">
   .conus-one
+    .block-bar
 </template>
 
 <script>

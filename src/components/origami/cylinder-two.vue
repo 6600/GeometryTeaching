@@ -1,5 +1,6 @@
 <template lang="pug">
   .cylinder-one
+    .block-bar
 </template>
 
 <script>

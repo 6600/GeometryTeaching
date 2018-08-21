@@ -191,6 +191,13 @@ export default {
   .clear {
     clear: both;
   }
+  .block-bar {
+    position: fixed;
+    width: calc(100% - 120px);
+    height: 40px;
+    bottom: 82px;
+    z-index: 10;
+  }
   @font-face {
     font-family: "DFYuan-Md-HK-BF";
     src: url("./assets/font/DFYuan-Md-HK-BF.eot"); /* IE9 */
