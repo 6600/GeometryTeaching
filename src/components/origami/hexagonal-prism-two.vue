@@ -5,7 +5,7 @@
 <script>
 import { Fun, Order } from '@/components/Order.js'
 const THREE = require('three')
-const OrbitControls = require('three-orbit-controls')(THREE)
+const OrbitControls = require('@puge/three-orbit-controls')(THREE)
 const stepSave = require('@/assets/step/hexagonal-prism-two.json')
 export default {
   name: 'HelloWorld',
