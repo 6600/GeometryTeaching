@@ -123,17 +123,12 @@ export default {
           this.mixer = new THREE.AnimationMixer(gltf.scene)
         }
         scene.add(gltf.scene)
-        let finish = 0
         this.mixer.addEventListener('finished', (e) => {
-          finish++
-          if (finish >= 17) {
-            this.isPlaying = false
-            finish = 0
-            // 广播关闭完成事件
-            if (e.direction > 0) this.$emit('CloseFinish')
-            else this.$emit('OpenFinish')
-            console.log('动画已播放完毕!')
-          }
+          this.isPlaying = false
+          // 广播关闭完成事件
+          if (e.direction > 0) this.$emit('CloseFinish')
+          else this.$emit('OpenFinish')
+          console.log('动画已播放完毕!')
         })
       })
       // 调试转轴
