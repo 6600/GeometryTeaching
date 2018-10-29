@@ -121,14 +121,18 @@ export default {
         if (this.animations && this.animations.length) {
           this.mixer = new THREE.AnimationMixer(gltf.scene)
         }
-        gltf.scene.scale.set(0.1, 0.1, 0.1)
         scene.add(gltf.scene)
+        let finish = 0
         this.mixer.addEventListener('finished', (e) => {
-          this.isPlaying = false
-          // 广播关闭完成事件
-          if (e.direction > 0) this.$emit('CloseFinish')
-          else this.$emit('OpenFinish')
-          console.log('动画已播放完毕!')
+          finish++
+          if (finish >= 18) {
+            this.isPlaying = false
+            finish = 0
+            // 广播关闭完成事件
+            if (e.direction > 0) this.$emit('CloseFinish')
+            else this.$emit('OpenFinish')
+            console.log('动画已播放完毕!')
+          }
         })
       })
       // 调试转轴
