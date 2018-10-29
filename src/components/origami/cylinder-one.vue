@@ -7,7 +7,7 @@
 import { Fun, Order } from '@/components/Order.js'
 import * as THREE from 'three/build/three.js'
 import GLTFLoader from 'three-gltf-loader'
-const OrbitControls = require('three-orbit-controls')(THREE)
+const OrbitControls = require('@puge/three-orbit-controls')(THREE)
 export default {
   name: 'HelloWorld',
   data () {

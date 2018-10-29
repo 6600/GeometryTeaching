@@ -5,7 +5,7 @@
 <script>
 import { Order, Fun } from '@/components/Order.js'
 const THREE = require('three')
-const OrbitControls = require('three-orbit-controls')(THREE)
+const OrbitControls = require('@puge/three-orbit-controls')(THREE)
 const stepSave = require('@/assets/step/five-one.json')
 export default {
   name: 'pyramidFourOne',
