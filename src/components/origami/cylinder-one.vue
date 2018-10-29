@@ -7,7 +7,7 @@
 import { Fun, Order } from '@/components/Order.js'
 import * as THREE from 'three/build/three.js'
 import GLTFLoader from 'three-gltf-loader'
-const OrbitControls = require('@puge/three-orbit-controls')(THREE)
+const OrbitControls = require('three-orbit-controls')(THREE)
 export default {
   name: 'HelloWorld',
   data () {
@@ -108,8 +108,6 @@ export default {
         if (this.animations && this.animations.length) {
           this.mixer = new THREE.AnimationMixer(gltf.scene)
         }
-        // console.log(gltf)
-        gltf.scene.scale.set(0.1, 0.1, 0.1)
         scene.add(gltf.scene)
         let finish = 0
         this.mixer.addEventListener('finished', (e) => {

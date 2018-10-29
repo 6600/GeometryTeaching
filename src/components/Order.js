@@ -1,7 +1,7 @@
 'use strict'
 import Vue from 'vue'
 const THREE = require('three')
-// const OrbitControls = require('@puge/three-orbit-controls')(THREE)
+// const OrbitControls = require('three-orbit-controls')(THREE)
 const Order = new Vue()
 const Fun = {
   init3D (DOM, callBack) {
