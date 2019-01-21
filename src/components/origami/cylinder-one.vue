@@ -101,7 +101,8 @@ export default {
     dragOpen (step) {
     },
     creatCube (scene, renderer, camera) {
-      this.controls = new OrbitControls(this.camera, this.$el.childNodes[0])
+      console.log(this.$el.childNodes)
+      this.controls = new OrbitControls(this.camera, this.$el.childNodes[1])
       const loader = new GLTFLoader()
       loader.load('./static/gltf/17-1.gltf', (gltf) => {
         this.animations = gltf.animations

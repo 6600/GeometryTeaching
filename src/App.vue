@@ -92,8 +92,8 @@ export default {
     font-family: 'DFYuan-Md-HK-BF';
   }
   #app {
-    min-width: 920px;
-    min-height: 700px;
+    min-width: 768px;
+    min-height: 576px;
   }
   .home-title {
     height: 70px;
@@ -208,6 +208,17 @@ export default {
     font-style: normal;
     font-weight: normal;
   }
+  @media (max-width: 900px) {
+    .origami-box .origami-menu .button {
+      margin: 0 -5px !important;
+    }
+  }
+  @media (max-width: 800px) {
+    .origami-box .origami-menu .button {
+      margin: 0 -20px !important;
+      transform: scale(0.8)
+    }
+  }
 </style>
 
 <style lang='less' scoped>
@@ -258,6 +269,13 @@ export default {
     .home-left-bar{
       .button {
         margin: 35px 25px;
+      }
+    }
+  }
+  @media (max-height: 600px) {
+    .home-left-bar{
+      .button {
+        margin: 5px 5px;
       }
     }
   }

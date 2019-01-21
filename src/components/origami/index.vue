@@ -192,6 +192,17 @@ export default {
     },
     changeStep (step) {
       this.sliderNum = step
+    },
+    controlStep (step) {
+      // console.log(step, this.lastStep)
+      this.sliderNum = step
+      // 判断是不是组装盒子 正为组装盒子，负为拆开盒子
+      if (step > this.lastStep) {
+        this.$refs.draw.dragClose(step)
+      } else {
+        this.$refs.draw.dragOpen(step)
+      }
+      this.lastStep = step
     }
   }
 }
