@@ -92,8 +92,8 @@ export default {
     font-family: 'DFYuan-Md-HK-BF';
   }
   #app {
-    min-width: 768px;
-    min-height: 576px;
+    min-width: 1024px;
+    min-height: 768px;
   }
   .home-title {
     height: 70px;
